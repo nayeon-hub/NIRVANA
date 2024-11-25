@@ -31,5 +31,9 @@ import tsconfigPaths from 'vite-tsconfig-paths';
 // });
 
 export default defineConfig({
+  root: './',
+  server: {
+    port: 5174
+  },
   plugins: [react(), tsconfigPaths()]
 });
