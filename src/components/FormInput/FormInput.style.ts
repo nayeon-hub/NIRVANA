@@ -5,6 +5,19 @@ export const InputContainer = styled.div`
   max-width: 300px;
   margin: 10px 0;
 `;
+
+export const InputBox = styled.div`
+  box-sizing: border-box;
+  width: 100%;
+  max-width: 300px;
+  height: 45px;
+  padding: 0 10px;
+  font-size: 14px;
+  border: 1px solid ${({ theme }) => theme.color.white500};
+  border-radius: 10px;
+  display: flex;
+`;
+
 export const Label = styled.label`
   display: flex;
   flex-wrap: wrap;
@@ -15,13 +28,12 @@ export const Label = styled.label`
 `;
 
 export const Input = styled.input`
-  box-sizing: border-box;
-  width: 100%;
-  height: 45px;
-  padding-left: 10px;
-  font-size: 14px;
-  border: 1px solid ${({ theme }) => theme.color.white500};
-  border-radius: 10px;
+  width: ${({ width }) => `${width}`};
+  border: none;
+  &:active,
+  &:focus {
+    outline: none;
+  }
 `;
 
 export const StyledTitle = styled.span`
@@ -32,7 +44,7 @@ export const StyledTitle = styled.span`
 
 export const ErrorMessage = styled.span`
   line-height: 1.2;
-  min-width: 200px;
+  /* min-width: 200px; */
   min-height: 20px;
   ${({ theme }) => theme.style.flexAlignCenter};
   color: ${({ theme }) => theme.color.redVivid};

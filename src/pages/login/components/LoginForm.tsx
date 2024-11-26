@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useForm, FormProvider } from 'react-hook-form';
 import { useLocation, useNavigate } from 'react-router-dom';
-import postLogInUser from '@apis/login';
+import { postLogInUser } from '@apis/supabase/supabaseClient';
 import { Button } from '@components/Button';
 import { FormInput } from '@components/FormInput';
 import useSessionStorage from '@hooks/useSessionStorage';
@@ -41,12 +41,16 @@ const LoginForm = () => {
   const onSubmit = () => {
     postLogInUser({ email, password })
       .then((res) => {
-        const { user, token } = res.data;
+        console.log(res.data.user);
+        const {
+          user,
+          session: { access_token }
+        } = res.data;
         setUserSessionData({
-          _id: user._id,
-          token,
-          image: user.image,
-          fullName: user.fullName
+          _id: user.id,
+          token: access_token,
+          image: user.user_metadata.image,
+          fullName: user.user_metadata.fullName
         });
       })
       .catch(() => {

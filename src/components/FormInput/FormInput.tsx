@@ -1,18 +1,16 @@
 import { useFormContext } from 'react-hook-form';
 import {
-  ErrorMessage,
   Input,
   InputContainer,
   Label,
-  SuccessMessage,
-  StyledTitle
+  StyledTitle,
+  InputBox
 } from './FormInput.style';
 
 interface FormInputProps {
   name: string;
   type: string;
   success: boolean;
-  handleChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
   placeholder: string;
   title: string;
   errorMessage: string;
@@ -20,20 +18,16 @@ interface FormInputProps {
   successColor: string;
   errorColor: string;
   show: boolean;
+  width: string;
+  registerOptions: object;
 }
 
 const FormInput = ({
   name,
   type = 'text',
   title,
-  success,
   placeholder,
-  errorMessage,
-  successMessage,
-  successColor,
-  errorColor,
-  show = false,
-  handleChange
+  width = '100%'
 }: Partial<FormInputProps>) => {
   const { register } = useFormContext();
 
@@ -41,21 +35,17 @@ const FormInput = ({
     <InputContainer>
       <Label>
         <StyledTitle>{title}</StyledTitle>
-        {show && success && (
-          <SuccessMessage color={successColor}>{successMessage}</SuccessMessage>
-        )}
-        {show && !success && (
-          <ErrorMessage color={errorColor}>{errorMessage}</ErrorMessage>
-        )}
       </Label>
-      <Input
-        type={type}
-        name={name}
-        placeholder={placeholder}
-        autoComplete={type === 'password' ? 'off' : 'on'}
-        onChange={(event) => handleChange(event)}
-        {...register(name)}
-      />
+      <InputBox>
+        <Input
+          type={type}
+          name={name}
+          placeholder={placeholder}
+          autoComplete={type === 'password' ? 'off' : 'on'}
+          width={width}
+          {...register(name)}
+        />
+      </InputBox>
     </InputContainer>
   );
 };

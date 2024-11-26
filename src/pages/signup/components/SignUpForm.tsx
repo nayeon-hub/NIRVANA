@@ -1,52 +1,94 @@
 import { useState } from 'react';
-import { FormProvider, useForm } from 'react-hook-form';
-import { Button } from '@components/Button';
-import { FormInput } from '@components/FormInput';
-import { isEmailOk, isNicknameOk, isPasswordOk } from '../validations';
-import { USER_INPUT, BUTTON } from '../constants';
-import { SignUpFormContainer, ButtonContainer } from './SignUpForm.style';
-import { SignUpValidations } from '../validations';
-import postSignUpUser from '@apis/signup';
 import { useNavigate } from 'react-router-dom';
+import { useMutation } from '@tanstack/react-query';
+import { FormProvider, useForm } from 'react-hook-form';
+import { postSignUpUser } from '@apis/supabase/supabaseClient';
+
+import EmailForm from '@pages/signup/components/EmailForm';
+import {
+  NicknameInput,
+  PasswordInput,
+  PasswordConfirmInput
+} from '@components/FormInput';
 import { Alert } from '@components/Alert';
-import { MODAL } from '../constants';
+import { Button } from '@components/Button';
+
+import { SignUpFormContainer } from './SignUpForm.style';
+import { ButtonContainer } from './SignUpForm.style';
+import { USER_INPUT, BUTTON, MODAL } from '../constants';
+
+interface SignUpFormData {
+  email: string;
+  nickname: string;
+  password: string;
+  passwordConfirm: string;
+  emailCheck: boolean;
+  duplicatedEmail: boolean;
+}
 
 const SignUpForm = () => {
-  interface SignUpFormData {
-    email: string;
-    nickname: string;
-    password: string;
-    passwordConfirm: string;
-  }
   const [emailErrorCatched, setEmailErrorCatched] = useState<boolean>(false);
   const [signupSucceed, setSignupSucceed] = useState<boolean>(false);
-  const methods = useForm<SignUpFormData>();
-  const { watch } = methods;
-  const [email, nickname, password, passwordConfirm] = watch([
+  const methods = useForm<SignUpFormData>({
+    defaultValues: {
+      emailCheck: false,
+      duplicatedEmail: true
+    }
+  });
+  const {
+    watch,
+    setError,
+    trigger,
+    formState: { isValid }
+  } = methods;
+  const [email, nickname, password, emailCheck, duplicatedEmail] = watch([
     'email',
     'nickname',
     'password',
-    'passwordConfirm'
+    'emailCheck',
+    'duplicatedEmail'
   ]);
 
   const navigate = useNavigate();
+
+  const { mutate } = useMutation({
+    mutationFn: postSignUpUser,
+    cacheTime: 0,
+    onSuccess: () => {
+      setSignupSucceed(true);
+    },
+    onError: (error) => {
+      console.log(error);
+      setEmailErrorCatched(true);
+    }
+  });
+
   const onSubmit = () => {
-    if (SignUpValidations({ email, nickname, password, passwordConfirm })) {
-      postSignUpUser({
+    if (!emailCheck) {
+      setError('emailCheck', {
+        type: 'isChecked',
+        message: '이메일 중복을 확인해주세요'
+      });
+      trigger('emailCheck');
+
+      return;
+    } else if (duplicatedEmail) {
+      setError('duplicatedEmail', {
+        type: 'isDuplicated',
+        message: '중복된 이메일입니다.'
+      });
+      trigger('duplicatedEmail');
+
+      return;
+    }
+
+    if (isValid) {
+      mutate({
         email,
         password,
         fullName: nickname
-      })
-        .then(() => {
-          setSignupSucceed(true);
-        })
-        .catch((error) => {
-          console.log(error);
-          setEmailErrorCatched(true);
-        });
+      });
     }
-    setEmailErrorCatched(false);
-    return;
   };
 
   return (
@@ -68,43 +110,23 @@ const SignUpForm = () => {
       )}
       <FormProvider {...methods}>
         <SignUpFormContainer onSubmit={methods.handleSubmit(onSubmit)}>
-          <FormInput
-            name={USER_INPUT.EMAIL.NAME}
-            placeholder={USER_INPUT.EMAIL.PLACE_HOLDER}
-            title={USER_INPUT.EMAIL.TITLE}
-            errorMessage={USER_INPUT.EMAIL.ERROR_MESSAGE}
-            successMessage={USER_INPUT.EMAIL.SUCCESS_MESSAGE}
-            show={email && email.length > 0}
-            success={isEmailOk(email)}
-          />
-          <FormInput
+          <EmailForm />
+          <NicknameInput
             name={USER_INPUT.NICKNAME.NAME}
             placeholder={USER_INPUT.NICKNAME.PLACE_HOLDER}
             title={USER_INPUT.NICKNAME.TITLE}
-            errorMessage={USER_INPUT.NICKNAME.ERROR_MESSAGE}
-            successMessage={USER_INPUT.NICKNAME.SUCCESS_MESSAGE}
-            show={nickname && nickname.length > 0}
-            success={nickname && isNicknameOk(nickname)}
           />
-          <FormInput
+          <PasswordInput
             name={USER_INPUT.PASSWORD.NAME}
             type={USER_INPUT.PASSWORD.TYPE}
             placeholder={USER_INPUT.PASSWORD.PLACE_HOLDER}
             title={USER_INPUT.PASSWORD.TITLE}
-            errorMessage={USER_INPUT.PASSWORD.ERROR_MESSAGE}
-            successMessage={USER_INPUT.PASSWORD.SUCCESS_MESSAGE}
-            show={password && password.length > 0}
-            success={password && isPasswordOk(password)}
           />
-          <FormInput
+          <PasswordConfirmInput
             name={USER_INPUT.PASSWORD_CONFIRM.NAME}
             type={USER_INPUT.PASSWORD_CONFIRM.TYPE}
             placeholder={USER_INPUT.PASSWORD_CONFIRM.PLACE_HOLDER}
             title={USER_INPUT.PASSWORD_CONFIRM.TITLE}
-            errorMessage={USER_INPUT.PASSWORD_CONFIRM.ERROR_MESSAGE}
-            successMessage={USER_INPUT.PASSWORD_CONFIRM.SUCCESS_MESSAGE}
-            show={passwordConfirm && passwordConfirm.length > 0}
-            success={passwordConfirm && password === passwordConfirm}
           />
           <ButtonContainer>
             <Button
