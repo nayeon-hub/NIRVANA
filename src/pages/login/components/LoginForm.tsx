@@ -1,20 +1,29 @@
 import { useEffect, useState } from 'react';
+import { useMutation } from '@tanstack/react-query';
 import { useForm, FormProvider } from 'react-hook-form';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { postLogInUser } from '@apis/supabase/supabaseClient';
-import { Button } from '@components/Button';
-import { FormInput } from '@components/FormInput';
 import useSessionStorage from '@hooks/useSessionStorage';
-import { User } from '@/types';
-import { USER_INPUT, LABEL } from '../constants';
+
+import { Button } from '@components/Button';
+import { EmailLoginInput, PasswordLoginInput } from '@components/FormInput';
 import { GoToSignUp } from '../components';
 import { LoginFormContainer, ButtonContainer } from './LoginForm.style';
+import { ErrorMessage } from '@components/FormInput/FormInput.style';
+
+import { User } from '@/types';
+import { USER_INPUT, LABEL } from '../constants';
+
+interface LoginFormData {
+  email: string;
+  password: string;
+}
 
 const LoginForm = () => {
-  const methods = useForm();
-  const { watch } = methods;
+  const methods = useForm<LoginFormData>();
+  const { watch, handleSubmit } = methods;
+  const [canLogin, setCanLogin] = useState(true);
   const [email, password] = watch(['email', 'password']);
-  const [errorCatched, setErrorCatched] = useState<boolean>(false);
   const navigate = useNavigate();
   const { search } = useLocation();
   const redirectTo = search.replace('?redirect=', '');
@@ -38,42 +47,50 @@ const LoginForm = () => {
     }
   }, [userSessionData.token, navigate, redirectTo, search]);
 
-  const onSubmit = () => {
-    postLogInUser({ email, password })
-      .then((res) => {
-        console.log(res.data.user);
-        const {
-          user,
-          session: { access_token }
-        } = res.data;
-        setUserSessionData({
-          _id: user.id,
-          token: access_token,
-          image: user.user_metadata.image,
-          fullName: user.user_metadata.fullName
-        });
-      })
-      .catch(() => {
-        setErrorCatched(true);
+  const { mutate } = useMutation({
+    mutationFn: postLogInUser,
+    onSuccess: (response) => {
+      const {
+        user,
+        session: { access_token }
+      } = response.data;
+      setUserSessionData({
+        _id: user.id,
+        token: access_token,
+        image: user.user_metadata.image,
+        fullName: user.user_metadata.fullName
       });
+    },
+    onError: (error) => {
+      setCanLogin(false);
+      console.log(error);
+    }
+  });
+
+  const onSubmit = () => {
+    mutate({ email, password });
   };
 
   return (
     <FormProvider {...methods}>
-      <LoginFormContainer onSubmit={methods.handleSubmit(onSubmit)}>
-        <FormInput
+      <LoginFormContainer onSubmit={handleSubmit(onSubmit)}>
+        <EmailLoginInput
           name={USER_INPUT.EMAIL.NAME}
           placeholder={USER_INPUT.EMAIL.PLACE_HOLDER}
           title={USER_INPUT.EMAIL.TITLE}
-          show={errorCatched}
-          errorMessage={USER_INPUT.ERROR_MESSAGE}
+          errorMessage={USER_INPUT.EMAIL.ERROR_MESSAGE}
         />
-        <FormInput
+        <PasswordLoginInput
           name={USER_INPUT.PASSWORD.NAME}
           placeholder={USER_INPUT.PASSWORD.PLACE_HOLDER}
           title={USER_INPUT.PASSWORD.TITLE}
           type={USER_INPUT.PASSWORD.TYPE}
         />
+        {canLogin ? (
+          <></>
+        ) : (
+          <ErrorMessage>{USER_INPUT.ERROR_MESSAGE}</ErrorMessage>
+        )}
         <ButtonContainer>
           <Button
             label={LABEL.LOG_IN}
@@ -81,7 +98,8 @@ const LoginForm = () => {
             height={45}
             bold={false}
             dark={true}
-            handleClick={() => methods.handleSubmit(onSubmit)}
+            type='submit'
+            handleClick={() => handleSubmit(onSubmit)}
           />
         </ButtonContainer>
         <GoToSignUp />

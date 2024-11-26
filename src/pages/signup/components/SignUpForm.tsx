@@ -39,6 +39,7 @@ const SignUpForm = () => {
     watch,
     setError,
     trigger,
+    handleSubmit,
     formState: { isValid }
   } = methods;
   const [email, nickname, password, emailCheck, duplicatedEmail] = watch([
@@ -109,7 +110,7 @@ const SignUpForm = () => {
         />
       )}
       <FormProvider {...methods}>
-        <SignUpFormContainer onSubmit={methods.handleSubmit(onSubmit)}>
+        <SignUpFormContainer onSubmit={handleSubmit(onSubmit)}>
           <EmailForm />
           <NicknameInput
             name={USER_INPUT.NICKNAME.NAME}

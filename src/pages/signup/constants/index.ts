@@ -1,4 +1,4 @@
-import { UserInputType } from '../types/userInput';
+import { UserInputType } from '../types';
 
 const USER_INPUT: UserInputType = {
   EMAIL: {

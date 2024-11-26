@@ -1,8 +1,11 @@
-const USER_INPUT = {
+import { UserLoginInputTypes } from '../types';
+
+const USER_INPUT: UserLoginInputTypes = {
   EMAIL: {
     NAME: 'email',
     PLACE_HOLDER: 'email',
-    TITLE: '이메일'
+    TITLE: '이메일',
+    ERROR_MESSAGE: '이메일 형식을 확인해주세요.'
   },
   PASSWORD: {
     NAME: 'password',
