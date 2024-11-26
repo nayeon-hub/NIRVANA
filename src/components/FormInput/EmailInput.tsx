@@ -19,7 +19,7 @@ interface SignUpFormData {
   duplicatedEmail: boolean;
 }
 
-interface FormInputProps {
+interface EmailInputProps {
   name: 'email';
   type: string;
   success: boolean;
@@ -41,7 +41,7 @@ const EmailInput = ({
   placeholder,
   errorMessage,
   width = '100%'
-}: Partial<FormInputProps>) => {
+}: Partial<EmailInputProps>) => {
   const {
     register,
     trigger,

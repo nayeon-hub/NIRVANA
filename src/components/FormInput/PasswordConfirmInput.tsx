@@ -9,8 +9,16 @@ import {
 } from '@components/FormInput/FormInput.style';
 import { USER_INPUT } from '../../pages/signup/constants';
 
+interface SignUpFormData {
+  email: string;
+  nickname: string;
+  password: string;
+  passwordConfirm: string;
+  emailCheck: boolean;
+  duplicatedEmail: boolean;
+}
 interface PasswordConfirmInputProps {
-  name: string;
+  name: 'passwordConfirm';
   type: string;
   success: boolean;
   placeholder: string;
@@ -30,7 +38,7 @@ const PasswordConfirmInput = ({
     trigger,
     watch,
     formState: { errors }
-  } = useFormContext();
+  } = useFormContext<SignUpFormData>();
 
   const [password] = watch(['password']);
   let message = null;

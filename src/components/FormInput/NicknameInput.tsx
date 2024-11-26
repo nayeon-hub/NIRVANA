@@ -9,8 +9,17 @@ import {
 } from '@components/FormInput/FormInput.style';
 import { USER_INPUT } from '../../pages/signup/constants';
 
+interface SignUpFormData {
+  email: string;
+  nickname: string;
+  password: string;
+  passwordConfirm: string;
+  emailCheck: boolean;
+  duplicatedEmail: boolean;
+}
+
 interface NicknameInputProps {
-  name: string;
+  name: 'nickname';
   type: string;
   success: boolean;
   placeholder: string;
@@ -29,7 +38,7 @@ const NicknameInput = ({
     register,
     trigger,
     formState: { errors }
-  } = useFormContext();
+  } = useFormContext<SignUpFormData>();
 
   let message = null;
 
