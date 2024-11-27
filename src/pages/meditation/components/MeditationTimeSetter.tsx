@@ -97,26 +97,26 @@ const MeditationTimeSetter = ({
     if (!isValidTimeControl(buttonType)) {
       return;
     }
-    if (buttonType === BUTTON_TYPE_ADD) {
-      longClickIdRef.current = setInterval(() => {
-        setTime((prevTime) => {
-          if (prevTime < 1440 * 60) {
-            return prevTime + MEDITATION_TIME_UNIT;
-          } else {
-            return prevTime;
-          }
-        });
-      }, 100);
-    } else {
-      longClickIdRef.current = setInterval(() => {
-        setTime((prevTime) => {
-          if (prevTime > 0) {
-            prevTime -= MEDITATION_TIME_UNIT;
-          }
-          return prevTime;
-        });
-      }, 100);
-    }
+    // if (buttonType === BUTTON_TYPE_ADD) {
+    //   longClickIdRef.current = setInterval(() => {
+    //     setTime((prevTime) => {
+    //       if (prevTime < 1440 * 60) {
+    //         return prevTime + MEDITATION_TIME_UNIT;
+    //       } else {
+    //         return prevTime;
+    //       }
+    //     });
+    //   }, 100);
+    // } else {
+    //   longClickIdRef.current = setInterval(() => {
+    //     setTime((prevTime) => {
+    //       if (prevTime > 0) {
+    //         prevTime -= MEDITATION_TIME_UNIT;
+    //       }
+    //       return prevTime;
+    //     });
+    //   }, 100);
+    // }
   };
 
   const handleTimeInput = (event: React.ChangeEvent<HTMLInputElement>) => {
