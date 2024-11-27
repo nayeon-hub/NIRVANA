@@ -25,35 +25,35 @@ const MeditationTimer = ({
   const [timerId, setTimerId] = useRecoilState(intervalId);
   const [hovered, setHovered] = useState(false);
 
-  const startTimer = () => {
-    if (time === 0) {
-      return;
-    }
-    statusSetter({ ...meditationStatus, paused: false });
+  // const startTimer = () => {
+  //   if (time === 0) {
+  //     return;
+  //   }
+  //   statusSetter({ ...meditationStatus, paused: false });
 
-    setTimerId(
-      setInterval(() => {
-        setTime((prevTime) => {
-          if (prevTime > 0) {
-            return prevTime - 1;
-          }
-          clearInterval(timerId);
-          statusSetter({ ...meditationStatus, paused: true, ended: true });
-          setTimerId(0);
-          return prevTime;
-        });
-      }, 1000)
-    );
+  //   setTimerId(
+  //     setInterval(() => {
+  //       setTime((prevTime) => {
+  //         if (prevTime > 0) {
+  //           return prevTime - 1;
+  //         }
+  //         clearInterval(timerId);
+  //         statusSetter({ ...meditationStatus, paused: true, ended: true });
+  //         setTimerId(0);
+  //         return prevTime;
+  //       });
+  //     }, 1000)
+  //   );
 
-    statusSetter({ ...meditationStatus, started: true, paused: false });
-  };
+  //   statusSetter({ ...meditationStatus, started: true, paused: false });
+  // };
 
   const toggleTimer = () => {
     if (!meditationStatus.paused) {
       clearInterval(timerId);
       statusSetter({ ...meditationStatus, paused: true });
     } else {
-      startTimer();
+      // startTimer();
     }
   };
   useEffect(() => {
@@ -69,6 +69,7 @@ const MeditationTimer = ({
   }, [meditationStatus.paused]);
 
   return (
+    // <></>
     <TimerContainer>
       <TimerElementBorder timerPaused={timerId && meditationStatus.paused} />
       <TimerElement
