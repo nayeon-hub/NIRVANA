@@ -55,7 +55,10 @@ export const postLogInUser = async (userData: {
   }
 };
 
-export const postCreateNewPost = async (userId: string, formData: FormData) => {
+export const postCreateNewPost = async (
+  userId: string,
+  formData: { title: string; meditationTime: number; channel: string }
+) => {
   const response = await supabaseClient.from('posts').insert({
     ...formData,
     channel: parseInt(formData.channel)
@@ -70,8 +73,8 @@ export const getPosts = async (channelId: string, offset: number) => {
     .select(
       '_id, title, channel, image, meditationTime, updated_at, created_at, author, comments(_id, created_at, updated_at, post, comment, author), likes(_id, post, user, created_at, updated_at), profiles(_id, full_name, image, email)'
     )
-    .eq('channel', parseInt(channelId));
-  // .range(0, offset);
+    .eq('channel', parseInt(channelId))
+    .range(0, offset);
 
   return response;
 };
@@ -150,7 +153,13 @@ export const deletePost = async (postId: string) => {
   }
 };
 
-export const postComment = async ({ postId, comment, token }) => {
+export const postComment = async ({
+  postId,
+  comment
+}: {
+  postId: string;
+  comment: string;
+}) => {
   try {
     const response = await supabaseClient.from('comments').insert({
       post: parseInt(postId),
