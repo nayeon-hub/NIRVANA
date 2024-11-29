@@ -30,7 +30,7 @@ const ThemeSlide = ({
   const showSlide = (slideIdx: number) => {
     swiperRef.current.style.setProperty(
       'transform',
-      `translateX(-${slideIdx * 390}px)`
+      `translateX(-${slideIdx * 100}%)`
     );
     setCurrentIdx(slideIdx);
   };
