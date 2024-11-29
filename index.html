@@ -26,6 +26,18 @@
   </head>
   <body>
     <div id="root"></div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/fastclick/1.0.3/fastclick.min.js"></script>
+    <script type="text/javascript">
+      if ('addEventListener' in document) {
+        document.addEventListener(
+          'DOMContentLoaded',
+          function () {
+            FastClick.attach(document.body);
+          },
+          false
+        );
+      }
+    </script>
     <script
       type="module"
       src="/src/main.tsx"></script>
