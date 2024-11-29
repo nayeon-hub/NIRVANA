@@ -30,7 +30,9 @@ export const color = {
   transparent: 'transparent',
   linearGradientPurple:
     'linear-gradient(160deg, #2a2427 0%, #47346d 50%, #7e4ea4 75%, #b796d0 100%)',
-  linearGradientPurpleVivid: `linear-gradient(90deg, #47346d 0%, #5e12ff 100%)`,
+  linearGradientBlue: `linear-gradient(160deg, #201A46 0%, #2F4388 28%, #385EA8 59%, #2DEBDF 100%)`,
+  linearGradientYellow: `linear-gradient(160deg, #E46E00 0%, #FFB016 39%, #EBDC52 100%)`,
+  linearGradientGreen: `linear-gradient(160deg, #113309 0%, #2D881F 31%, #8AB50F 64%, #FFF48C 100%)`,
   linearGradientGreyVivid: `linear-gradient(90deg, #3e3e3e 0%, #b3b3b3 100%)`,
   transparentGreyBackground: 'rgba(126, 126, 126, 0.5)'
 };
