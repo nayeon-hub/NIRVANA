@@ -16,8 +16,8 @@ const SearchFilter = ({ handleClick, filterState }: SearchFilterProps) => {
       {filterData.map(({ theme, text }) => (
         <Button
           key={theme + text}
-          width={90}
-          height={40}
+          width='90px'
+          height='40px'
           dark={filterState === theme}
           fontSize={14}
           borderRadius={30}

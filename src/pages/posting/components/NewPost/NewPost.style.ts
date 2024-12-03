@@ -25,7 +25,7 @@ export const StyledTextArea = styled.textarea`
   font-size: 16px;
   padding: 30px 15px;
 
-  &:focus: {
+  &:focus {
     border: none;
     outline: none;
   }

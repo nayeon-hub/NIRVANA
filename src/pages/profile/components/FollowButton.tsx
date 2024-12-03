@@ -13,8 +13,8 @@ interface FollowButtonProps {
   followedThisUser: boolean;
   followerTab?: boolean;
   refetch?: () => void;
-  width?: number;
-  height?: number;
+  width?: string;
+  height?: string;
   fontSize?: number;
 }
 
@@ -23,8 +23,8 @@ const FollowButton = ({
   followingUserId,
   followedThisUser,
   followerTab,
-  width = 68,
-  height = 30,
+  width = '68px',
+  height = '30px',
   fontSize = 12,
 
   refetch

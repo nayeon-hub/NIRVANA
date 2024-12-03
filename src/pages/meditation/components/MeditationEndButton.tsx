@@ -29,8 +29,8 @@ const MeditationEndButton = ({
     <>
       <EndButtonContainer>
         <Button
-          width={129}
-          height={49}
+          width='129px'
+          height='49px'
           dark={true}
           bold={false}
           label={'명상 끝내기'}
@@ -47,8 +47,8 @@ const MeditationEndButton = ({
           nextPageLink={'/meditation'}
           CancelButton={
             <Button
-              width={120}
-              height={50}
+              width='120px'
+              height='50px'
               bold={true}
               dark={false}
               label={'취소'}
@@ -57,8 +57,8 @@ const MeditationEndButton = ({
           }
           ConfirmButton={
             <Button
-              width={120}
-              height={50}
+              width='120px'
+              height='50px'
               bold={true}
               dark={true}
               label={'끝내기'}

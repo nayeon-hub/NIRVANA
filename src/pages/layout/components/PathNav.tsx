@@ -15,8 +15,8 @@ const PathNav = ({ pathStatus }: pathNavProps) => {
     <PathNavContainer>
       {pathStatus === 'back' ? (
         <Button
-          width={20}
-          height={20}
+          width='20px'
+          height='20px'
           handleClick={() => {
             navigation(-1);
           }}>

@@ -121,7 +121,12 @@ const PostContent = ({
       <PostContentSection>
         <PostContentHeader>
           <PostHeader
-            post={{ _id: postId, author, createdAt, meditationTime }}
+            post={{
+              _id: postId,
+              profiles: author,
+              created_at: createdAt,
+              meditationTime
+            }}
             noneProfile={false}
             showCommentStatus={false}
           />
@@ -147,16 +152,16 @@ const PostContent = ({
         </PostContentBody>
         <PostEditConfirmButtonContainer contentEditMode={contentEditMode}>
           <Button
-            width={50}
-            height={25}
+            width='50px'
+            height='25px'
             dark={true}
             fontSize={12}
             label='취소'
             handleClick={handleEditCancelClick}
           />
           <Button
-            width={50}
-            height={25}
+            width='50px'
+            height='25px'
             dark={true}
             fontSize={12}
             label='저장'
@@ -170,8 +175,8 @@ const PostContent = ({
             contentFontSize={14}
             CancelButton={
               <Button
-                width={120}
-                height={50}
+                width='120px'
+                height='50px'
                 bold={true}
                 dark={false}
                 label={'취소'}
@@ -180,8 +185,8 @@ const PostContent = ({
             }
             ConfirmButton={
               <Button
-                width={120}
-                height={50}
+                width='120px'
+                height='50px'
                 bold={true}
                 dark={true}
                 label={'삭제'}

@@ -78,8 +78,8 @@ const PasswordUpdateForm = () => {
           <ButtonContainer>
             <Button
               label={LABEL.CHANGE_PASSWORD}
-              width={300}
-              height={45}
+              width='300px'
+              height='45px'
               bold={false}
               dark={true}
               handleClick={() => methods.handleSubmit(onSubmit)}

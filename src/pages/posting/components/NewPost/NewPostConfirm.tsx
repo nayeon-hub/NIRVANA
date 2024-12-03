@@ -15,8 +15,8 @@ const NewPostConfirm = ({
   const CancleButton = () => {
     return (
       <Button
-        width={120}
-        height={50}
+        width='120px'
+        height='50px'
         bold={true}
         dark={false}
         label={'취소'}
@@ -29,8 +29,8 @@ const NewPostConfirm = ({
     return (
       <Button
         disabled={isLoading}
-        width={120}
-        height={50}
+        width='120px'
+        height='50px'
         bold={true}
         dark={true}
         label={'발행'}

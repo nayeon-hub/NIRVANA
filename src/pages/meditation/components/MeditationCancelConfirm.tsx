@@ -18,8 +18,8 @@ const MeditationCancelConfirm = ({
       nextPageLink={'/meditation'}
       CancelButton={
         <Button
-          width={120}
-          height={50}
+          width='120px'
+          height='50px'
           bold={true}
           dark={false}
           label={'취소'}
@@ -28,8 +28,8 @@ const MeditationCancelConfirm = ({
       }
       ConfirmButton={
         <Button
-          width={120}
-          height={50}
+          width='120px'
+          height='50px'
           bold={true}
           dark={true}
           label={'끝내기'}

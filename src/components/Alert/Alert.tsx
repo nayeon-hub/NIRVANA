@@ -54,8 +54,8 @@ const Alert = ({
               {nextPageLink ? (
                 <Link pageLink={nextPageLink}>
                   <Button
-                    width={300}
-                    height={50}
+                    width='300px'
+                    height='50px'
                     dark={true}
                     bold={true}
                     label={buttonLabel}
@@ -63,8 +63,8 @@ const Alert = ({
                 </Link>
               ) : (
                 <Button
-                  width={300}
-                  height={50}
+                  width='300px'
+                  height='50px'
                   dark={true}
                   bold={true}
                   label={buttonLabel}

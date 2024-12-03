@@ -102,8 +102,8 @@ const NewPost = ({
         <ButtonContainer>
           <Button
             disabled={isLoading}
-            width={300}
-            height={50}
+            width='300px'
+            height='50px'
             dark={true}
             label={WRITE}
             bold={true}

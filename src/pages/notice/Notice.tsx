@@ -45,8 +45,8 @@ const Notice = () => {
         {list.length > 0 && (
           <ReadButtonContainer>
             <Button
-              width={80}
-              height={30}
+              width='80px'
+              height='30px'
               borderRadius={10}
               fontSize={14}
               label='모두 읽음'

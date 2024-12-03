@@ -20,8 +20,8 @@ const NotFound = () => {
           <NavButtonContainer>
             <Link pageLink={'/'}>
               <Button
-                width={300}
-                height={50}
+                width='300px'
+                height='50px'
                 dark={true}
                 bold={true}
                 label={'메인화면으로 이동하기'}

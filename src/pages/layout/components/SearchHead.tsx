@@ -52,8 +52,8 @@ const SearchHead = ({
     <SearchHeadContainer>
       <PrevButtonContainer>
         <Button
-          width={30}
-          height={30}
+          width='30px'
+          height='30px'
           backgroundColor={'transparent'}
           handleClick={handleShowSearchBox}>
           <Icon

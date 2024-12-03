@@ -30,8 +30,8 @@ const ProfileHeader = ({
       <ProfileHeaderButtonContainer>
         {myProfile ? (
           <Button
-            width={30}
-            height={30}
+            width='30px'
+            height='30px'
             bold={true}
             fontSize={12}
             borderRadius={30}

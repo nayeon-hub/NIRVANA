@@ -79,8 +79,8 @@ const ProfileEdit = ({ refetch }: ProfileEditProps) => {
             show={show}
           />
           <Button
-            width={64}
-            height={25}
+            width='64px'
+            height='25px'
             dark={true}
             label='저장'
             fontSize={12}

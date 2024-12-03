@@ -52,8 +52,8 @@ const AlertButton = ({ handleClickAlert }: AlertButtonProps) => {
       position='top'
       badgeSize={5}>
       <Button
-        width={25}
-        height={25}
+        width='25px'
+        height='25px'
         handleClick={handleClickAlert}
         borderRadius={0}
         border='transparent'

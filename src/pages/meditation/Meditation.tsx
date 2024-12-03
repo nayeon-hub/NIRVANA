@@ -36,8 +36,8 @@ const Meditation = () => {
         timeArr={timeArr}
       />
       <Button
-        width={'100%'}
-        height={'45px'}
+        width='100%'
+        height='45px'
         borderRadius={30}
         fontSize={15}
         handleClick={() => {

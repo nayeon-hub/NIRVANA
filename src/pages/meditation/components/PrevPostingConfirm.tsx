@@ -23,8 +23,8 @@ const PrevPostingConfirm = ({
   const ConfirmButton = () => {
     return (
       <Button
-        width={120}
-        height={50}
+        width='120px'
+        height='50px'
         label='이동'
         dark={true}
         bold={true}
@@ -36,8 +36,8 @@ const PrevPostingConfirm = ({
   const CancelButton = () => {
     return (
       <Button
-        width={120}
-        height={50}
+        width='120px'
+        height='50px'
         label='취소'
         dark={false}
         bold={true}

@@ -13,8 +13,8 @@ const SkipPostingConfirm = ({
   const CancleButton = () => {
     return (
       <Button
-        width={120}
-        height={50}
+        width='120px'
+        height='50px'
         bold={true}
         dark={false}
         label={'취소'}
@@ -26,8 +26,8 @@ const SkipPostingConfirm = ({
   const ConfirmButton = () => {
     return (
       <Button
-        width={120}
-        height={50}
+        width='120px'
+        height='50px'
         bold={true}
         dark={true}
         label={'건너뛰기'}

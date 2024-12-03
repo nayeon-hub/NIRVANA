@@ -60,8 +60,8 @@ const Footer = () => {
         {iconInfos.map(({ name, size, link }) => (
           <Button
             key={name}
-            width={35}
-            height={35}
+            width='35px'
+            height='35px'
             handleClick={() => {
               handleClickButton(link);
             }}

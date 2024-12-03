@@ -12,7 +12,7 @@ import {
 import { purifyContent } from '@pages/posting/utils';
 import { Toast } from '@components/Toast';
 import { Avatar } from '@components/Avatar';
-import { postComment } from '@apis/comment';
+import { postComment } from '@apis/supabase/supabaseClient';
 import { postNotifications } from '@apis/notice';
 
 interface PostCommentInputProps {
@@ -40,12 +40,12 @@ const PostCommentInput = ({
 
   const { mutate } = useMutation(postComment, {
     onSuccess: (res) => {
-      postNotifications(token, {
-        notificationType: 'COMMENT',
-        notificationTypeId: res._id,
-        userId: userId,
-        postId: res.post
-      });
+      // postNotifications(token, {
+      //   notificationType: 'COMMENT',
+      //   notificationTypeId: res._id,
+      //   userId: userId,
+      //   postId: res.post
+      // });
       refetch();
     }
   });
@@ -95,8 +95,8 @@ const PostCommentInput = ({
         </CommentInputContainer>
         <CommentButtonContainer buttonDisabled={commentValue ? false : true}>
           <Button
-            width={50}
-            height={25}
+            width='50px'
+            height='25px'
             label='답글'
             fontSize={14}
             dark={true}

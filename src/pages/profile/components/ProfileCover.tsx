@@ -51,8 +51,8 @@ const ProfileCover = ({ src, refetch }: ProfileBackgroundProps) => {
       {editMode && (
         <>
           <Button
-            width={85}
-            height={33}
+            width='85px'
+            height='33px'
             label='커버사진 변경'
             borderRadius={10}
             fontSize={11}
