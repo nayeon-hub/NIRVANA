@@ -2,8 +2,8 @@ import styled from '@emotion/styled';
 import { color } from '@styles/colors';
 
 export const StyledButton = styled.button<{
-  width: number;
-  height: number;
+  width: string;
+  height: string;
   dark?: boolean;
   bold?: boolean;
   borderRadius?: number;
@@ -15,8 +15,8 @@ export const StyledButton = styled.button<{
   disabled?: boolean;
 }>`
   cursor: pointer;
-  width: ${({ width }) => width}px;
-  height: ${({ height }) => height}px;
+  width: ${({ width }) => width};
+  height: ${({ height }) => height};
   border: ${({ theme, dark, border }) =>
     dark === true
       ? 'none'

@@ -94,8 +94,8 @@ const LoginForm = () => {
         <ButtonContainer>
           <Button
             label={LABEL.LOG_IN}
-            width={300}
-            height={45}
+            width='300px'
+            height='45px'
             bold={false}
             dark={true}
             type='submit'

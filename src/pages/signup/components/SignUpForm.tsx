@@ -133,8 +133,8 @@ const SignUpForm = () => {
             <Button
               type='button'
               label={BUTTON.LABEL.CANCEL}
-              width={125}
-              height={42}
+              width='125px'
+              height='42px'
               bold={false}
               dark={false}
               handleClick={() => navigate('/')}
@@ -142,8 +142,8 @@ const SignUpForm = () => {
             <Button
               type='submit'
               label={BUTTON.LABEL.SIGNUP}
-              width={125}
-              height={42}
+              width='125px'
+              height='42px'
               bold={false}
               dark={true}
               handleClick={() => methods.handleSubmit(onSubmit)}

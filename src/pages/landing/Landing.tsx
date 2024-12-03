@@ -38,8 +38,8 @@ const LandingPage = () => {
             size={16}
             color='white'>
             <Button
-              width={300}
-              height={50}
+              width='300px'
+              height='50px'
               label='로그인'
               handleClick={() => {}}
               dark={false}
@@ -51,8 +51,8 @@ const LandingPage = () => {
             size={16}
             color='white'>
             <Button
-              width={300}
-              height={50}
+              width='300px'
+              height='50px'
               label='회원가입'
               handleClick={() => {}}
               dark={true}

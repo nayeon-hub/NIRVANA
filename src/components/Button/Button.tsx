@@ -1,9 +1,10 @@
+import { forwardRef } from 'react';
 import { StyledButton } from './Buttons.style';
 import { color } from '@styles/colors';
 
 interface ButtonProps {
-  width: number;
-  height: number;
+  width: string;
+  height: string;
   dark?: boolean;
   label?: string;
   handleClick?: () => void;
@@ -19,22 +20,25 @@ interface ButtonProps {
   type?: 'button' | 'submit' | 'reset';
 }
 
-const Button = ({
-  width,
-  height,
-  label,
-  handleClick,
-  dark,
-  bold,
-  textColor,
-  fontSize,
-  borderRadius,
-  children,
-  disabled = false,
-  border = 'transparent',
-  backgroundColor,
-  type
-}: ButtonProps) => {
+const Button = forwardRef<HTMLButtonElement, ButtonProps>(function Button(
+  {
+    width,
+    height,
+    label,
+    handleClick,
+    dark,
+    bold,
+    textColor,
+    fontSize,
+    borderRadius,
+    children,
+    disabled = false,
+    border = 'transparent',
+    backgroundColor,
+    type
+  },
+  ref
+) {
   return (
     <StyledButton
       width={width}
@@ -48,11 +52,12 @@ const Button = ({
       borderRadius={borderRadius}
       disabled={disabled}
       backgroundColor={backgroundColor}
-      type={type}>
+      type={type}
+      ref={ref}>
       {label}
       {children}
     </StyledButton>
   );
-};
+});
 
 export default Button;
