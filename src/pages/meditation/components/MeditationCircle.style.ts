@@ -10,13 +10,13 @@ export const CircleBox = styled.div`
   position: relative;
   width: 300px;
   height: 300px;
-  margin-bottom: 20px;
+  margin-bottom: 35px;
 `;
 
 export const CircleLine = styled.div`
   position: absolute;
-  width: 220px;
-  height: 220px;
+  width: 200px;
+  height: 200px;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
@@ -29,7 +29,7 @@ const CircleSFade = keyframes`
       transform: translate(-50%, -50%) scale(1);
   }
   50% {
-      transform: translate(-50%, -50%) scale(1.2);  
+      transform: translate(-50%, -50%) scale(1.15);  
 
   }
   100% {
@@ -41,7 +41,7 @@ const CircleMFade = keyframes`
       transform: translate(-50%, -50%) scale(1);
   }
   50% {
-      transform: translate(-50%, -50%) scale(1.4);  
+      transform: translate(-50%, -50%) scale(1.3);  
 
   }
   100% {
@@ -53,7 +53,7 @@ const CircleLFade = keyframes`
       transform: translate(-50%, -50%) scale(1);
   }
   50% {
-      transform: translate(-50%, -50%) scale(1.6);  
+      transform: translate(-50%, -50%) scale(1.45);  
 
   }
   100% {

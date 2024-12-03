@@ -47,7 +47,7 @@ const ThemeSlide = ({
             }}>
             <Icon
               name={'chevron_left'}
-              size={34}
+              size={30}
               color={'white'}
             />
           </SlideLeftButton>

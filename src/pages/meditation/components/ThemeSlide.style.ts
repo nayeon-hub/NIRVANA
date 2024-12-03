@@ -13,7 +13,9 @@ export const MeditationPage = styled.div<MeditationPageProps>`
   position: relative;
 `;
 
-export const SlideMain = styled.div``;
+export const SlideMain = styled.div`
+  margin-bottom: 34px;
+`;
 
 export const SlideButtonContainer = styled.div``;
 
@@ -23,21 +25,22 @@ export const SlideButton = styled.button`
   border: none;
   position: absolute;
   z-index: 1;
+  opacity: 0.7;
 `;
 
 export const SlideLeftButton = styled(SlideButton)`
   left: 10px;
-  top: 35%;
+  top: 30%;
 `;
 
 export const SlideRightButton = styled(SlideButton)`
   right: 10px;
-  top: 35%;
+  top: 30%;
 `;
 
 export const SlideItemContainer = styled.div`
   width: 100%;
-  height: 200px;
+  height: 110px;
   position: relative;
   overflow: hidden;
   user-select: none;
@@ -65,12 +68,14 @@ export const SlidePagination = styled.div`
   display: flex;
 `;
 export const SlideCircle = styled.div<{ active: boolean }>`
-  width: 10px;
-  height: 10px;
+  width: 8px;
+  height: 8px;
   border-radius: 50%;
   margin: 0 5px;
   cursor: pointer;
-  background-color: ${({ active }) => (active ? '#333' : '#aaa')};
+  background-color: ${({ theme, active }) =>
+    active ? theme.color.white : '#aaa'};
+  opacity: 0.6;
 `;
 
 export const ThemeH2 = styled.h2`
