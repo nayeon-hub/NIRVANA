@@ -53,13 +53,13 @@ export const meditationChannelsInfo: {
   },
   {
     label: '회복',
-    id: '65017abcdfe8db5726b603c3',
+    id: '3',
     content: '몸을 강화하고 에너지 회복하기',
     color: 'linearGradientGreen'
   },
   {
     label: '집중',
-    id: '65017aa2dfe8db5726b603ba',
+    id: '4',
     content: '집중력을 높이고 수행 능력 향상하기',
     color: 'linearGradientYellow'
   }

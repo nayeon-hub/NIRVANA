@@ -15,9 +15,35 @@ export const MeditationPage = styled.div<MeditationPageProps>`
   padding: 60px 20px 0;
 `;
 
+export const MeditationMainHeader = styled.div`
+  position: relative;
+  width: 100%;
+  color: ${({ theme }) => theme.color.white};
+  margin-bottom: 53px;
+  ${({ theme }) => theme.style.flexCenter};
+
+  & > div {
+    position: absolute;
+    left: 0;
+  }
+`;
+
+export const MeditationActionHeader = styled.div`
+  position: relative;
+  width: 100%;
+  color: ${({ theme }) => theme.color.white};
+  font-size: 30px;
+  ${({ theme }) => theme.style.flexCenter};
+  margin-bottom: 14px;
+
+  & div {
+    position: absolute;
+    left: 0;
+  }
+`;
+
 export const PageH3 = styled.h3`
-  font-size: 15px;
+  font-size: 19px;
   color: ${({ theme }) => theme.color.white};
   letter-spacing: 1px;
-  margin-bottom: 53px;
 `;

@@ -10,26 +10,38 @@ import {
 
 const MeditationCircle = ({
   time = 10,
-  color
+  color,
+  mode = 'notAction',
+  pause = false
 }: {
-  time: number;
+  time?: number;
   color: keyof Theme['color'];
+  mode?: string;
+  pause?: boolean;
 }) => {
   return (
-    <CircleBox>
-      <CircleLine></CircleLine>
+    <CircleBox mode={mode}>
+      <CircleLine mode={mode}></CircleLine>
       <CircleL
         color={color}
-        time={time}></CircleL>
+        time={time}
+        mode={mode}
+        pause={pause}></CircleL>
       <CircleM
         color={color}
-        time={time}></CircleM>
+        time={time}
+        mode={mode}
+        pause={pause}></CircleM>
       <CircleS
         color={color}
-        time={time}></CircleS>
+        time={time}
+        mode={mode}
+        pause={pause}></CircleS>
       <CircleSS
         color={color}
-        time={time}></CircleSS>
+        time={time}
+        mode={mode}
+        pause={pause}></CircleSS>
     </CircleBox>
   );
 };

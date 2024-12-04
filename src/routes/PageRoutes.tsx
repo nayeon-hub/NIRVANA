@@ -20,6 +20,7 @@ import {
   PostDetailSkeleton,
   ProfileSkeleton
 } from '@components/Skeleton';
+import MeditationAction from '@pages/meditation/MeditationAction';
 
 const PageRoutes = () => {
   return (
@@ -51,6 +52,10 @@ const PageRoutes = () => {
           <Route
             path='/meditation'
             element={<Meditation />}
+          />
+          <Route
+            path='/meditation/action'
+            element={<MeditationAction />}
           />
         </Route>
       </Route>

@@ -1,4 +1,4 @@
-import { useRef, Dispatch } from 'react';
+import { useRef, Dispatch, useEffect } from 'react';
 import { Icon } from '@components/Icon';
 import {
   SlideMain,
@@ -16,33 +16,41 @@ import {
 
 interface ThemeSlideProps {
   mediTheme: { label: string; id: string; content: string }[];
-  currentIdx: number;
-  setCurrentIdx: Dispatch<React.SetStateAction<number>>;
+  themCurrentIdx: number;
+  setThemeCurrentIdx: Dispatch<React.SetStateAction<number>>;
 }
 
 const ThemeSlide = ({
   mediTheme,
-  currentIdx,
-  setCurrentIdx
+  themCurrentIdx,
+  setThemeCurrentIdx
 }: ThemeSlideProps) => {
   const swiperRef = useRef(null);
 
+  useEffect(() => {
+    swiperRef.current.style.setProperty(
+      'transform',
+      `translateX(-${themCurrentIdx * 100}%)`
+    );
+  }, [themCurrentIdx]);
+
   const showSlide = (slideIdx: number) => {
+    swiperRef.current.style.setProperty('transition', `transform 1s`);
     swiperRef.current.style.setProperty(
       'transform',
       `translateX(-${slideIdx * 100}%)`
     );
-    setCurrentIdx(slideIdx);
+    setThemeCurrentIdx(slideIdx);
   };
 
   return (
     <SlideMain>
       <SlideButtonContainer>
-        {currentIdx > 0 && (
+        {themCurrentIdx > 0 && (
           <SlideLeftButton
             onClick={() => {
-              if (currentIdx > 0) {
-                showSlide(currentIdx - 1);
+              if (themCurrentIdx > 0) {
+                showSlide(themCurrentIdx - 1);
               }
             }}>
             <Icon
@@ -52,11 +60,11 @@ const ThemeSlide = ({
             />
           </SlideLeftButton>
         )}
-        {currentIdx < 3 && (
+        {themCurrentIdx < 3 && (
           <SlideRightButton
             onClick={() => {
-              if (currentIdx < 3) {
-                showSlide(currentIdx + 1);
+              if (themCurrentIdx < 3) {
+                showSlide(themCurrentIdx + 1);
               }
             }}>
             <Icon
@@ -80,7 +88,7 @@ const ThemeSlide = ({
           {[1, 2, 3, 4].map((el, idx) => (
             <SlideCircle
               key={el}
-              active={currentIdx === idx}></SlideCircle>
+              active={themCurrentIdx === idx}></SlideCircle>
           ))}
         </SlidePagination>
       </SlideItemContainer>

@@ -1,101 +1,110 @@
-import React, { useEffect, useState } from 'react';
-import { useRecoilState } from 'recoil';
+import { useState, useEffect, useRef, Dispatch } from 'react';
+import { useNavigate, useLocation } from 'react-router-dom';
 import { Icon } from '@components/Icon';
-import formatTime from '@utils/formatTime';
 import {
-  IconContainer,
-  TimerContainer,
-  TimerElement,
-  TimerElementBorder
+  MeditationTimerContainer,
+  MeditationPlayBox,
+  MeditationTimeBox
 } from './MeditationTimer.style';
-import { ICON_NAME_PAUSE, ICON_NAME_PLAY } from '@pages/meditation/constants';
-import { intervalId, meditationTime } from '@pages/meditation/states';
-import { MeditationStatusType } from '@pages/meditation/types';
-
-interface MeditationTimerProps {
-  meditationStatus: MeditationStatusType;
-  statusSetter: React.Dispatch<React.SetStateAction<MeditationStatusType>>;
-}
 
 const MeditationTimer = ({
-  meditationStatus,
-  statusSetter
-}: MeditationTimerProps) => {
-  const [time, setTime] = useRecoilState(meditationTime);
-  const [timerId, setTimerId] = useRecoilState(intervalId);
-  const [hovered, setHovered] = useState(false);
+  settingTime,
+  pause,
+  setPause
+}: {
+  settingTime: number;
+  pause: boolean;
+  setPause: Dispatch<React.SetStateAction<boolean>>;
+}) => {
+  const location = useLocation();
+  const navigate = useNavigate();
+  const [total, setTotal] = useState(settingTime * 60);
+  const timerId = useRef(null);
 
-  // const startTimer = () => {
-  //   if (time === 0) {
-  //     return;
-  //   }
-  //   statusSetter({ ...meditationStatus, paused: false });
-
-  //   setTimerId(
-  //     setInterval(() => {
-  //       setTime((prevTime) => {
-  //         if (prevTime > 0) {
-  //           return prevTime - 1;
-  //         }
-  //         clearInterval(timerId);
-  //         statusSetter({ ...meditationStatus, paused: true, ended: true });
-  //         setTimerId(0);
-  //         return prevTime;
-  //       });
-  //     }, 1000)
-  //   );
-
-  //   statusSetter({ ...meditationStatus, started: true, paused: false });
-  // };
-
-  const toggleTimer = () => {
-    if (!meditationStatus.paused) {
-      clearInterval(timerId);
-      statusSetter({ ...meditationStatus, paused: true });
-    } else {
-      // startTimer();
-    }
-  };
   useEffect(() => {
-    const headerEl = document.querySelector('header');
-    const footerEl = document.querySelector('footer');
-    if (meditationStatus.paused) {
-      headerEl.style.display = 'flex';
-      footerEl.style.display = 'flex';
+    if (pause) {
+      clearInterval(timerId.current);
     } else {
-      headerEl.style.display = 'none';
-      footerEl.style.display = 'none';
+      timerId.current = setInterval(() => {
+        setTotal((prev) => prev - 1);
+      }, 1000);
     }
-  }, [meditationStatus.paused]);
+
+    return () => clearInterval(timerId.current);
+  }, [pause]);
+
+  useEffect(() => {
+    if (total === 0) {
+      clearInterval(timerId.current);
+      setPause(true);
+      localStorage.removeItem('meditationInfo');
+
+      const {
+        label: channelLabel,
+        id: channelId,
+        setTime: totalTime
+      } = location.state;
+
+      navigate('/posting', {
+        state: {
+          channelLabel,
+          channelId,
+          totalTime,
+          validation: true
+        }
+      });
+    }
+  }, [total, setPause, navigate, location]);
+
+  const min = Math.floor(total / 60);
+  const sec = Math.floor(total % 60);
 
   return (
-    // <></>
-    <TimerContainer>
-      <TimerElementBorder timerPaused={timerId && meditationStatus.paused} />
-      <TimerElement
-        timerPaused={timerId && meditationStatus.paused}
-        onClick={() => toggleTimer()}
-        onMouseOver={() => setHovered(true)}
-        onMouseLeave={() => setHovered(false)}
-        onTouchStart={() => setHovered(true)}
-        onTouchEnd={(event) => {
-          setHovered(false);
-          event.preventDefault();
-          toggleTimer();
-        }}>
-        <IconContainer>
-          {hovered ? (
+    <MeditationTimerContainer>
+      <MeditationPlayBox>
+        {pause ? (
+          <div
+            onClick={() => {
+              setPause(false);
+            }}>
             <Icon
-              name={meditationStatus.paused ? ICON_NAME_PLAY : ICON_NAME_PAUSE}
-              size={70}
+              name={'play_circle'}
+              size={60}
               color={'white'}
             />
-          ) : (
-            formatTime(time)
-          )}
-        </IconContainer>
-      </TimerElement>
-    </TimerContainer>
+          </div>
+        ) : (
+          <div
+            onClick={() => {
+              setPause(true);
+            }}>
+            <Icon
+              name={'pause_circle'}
+              size={60}
+              color={'white'}
+            />
+          </div>
+        )}
+        <MeditationTimeBox
+          onClick={() => {
+            setPause(true);
+
+            if (confirm('종료할까요?')) {
+              localStorage.removeItem('meditationInfo');
+              navigate('/posts');
+            }
+          }}>
+          <Icon
+            name={'stop_circle'}
+            size={40}
+            color={'white'}
+          />
+        </MeditationTimeBox>
+      </MeditationPlayBox>
+      <MeditationTimeBox>
+        {min}:{sec < 10 ? `0${sec}` : sec}
+      </MeditationTimeBox>
+    </MeditationTimerContainer>
   );
 };
 

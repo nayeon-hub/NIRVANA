@@ -48,7 +48,6 @@ export const SlideItemContainer = styled.div`
 
 export const SlideItemWrapper = styled.div`
   display: flex;
-  transition: transform 1s;
 `;
 
 export const SlideItem = styled.div`

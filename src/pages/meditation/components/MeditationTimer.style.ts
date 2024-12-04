@@ -1,67 +1,30 @@
 import styled from '@emotion/styled';
-import { css, keyframes } from '@emotion/react';
 
-const rotate = keyframes`
-  from {
-    transform: rotate(0deg);
+export const MeditationTimerContainer = styled.div``;
+
+export const MeditationPlayBox = styled.div`
+  ${({ theme }) => theme.style.flexAlignCenter};
+  margin-bottom: 40px;
+
+  & > div + div {
+    margin-left: 44px;
   }
-  to {
-    transform: rotate(360deg);
+
+  & > div:nth-of-type(1)::before {
+    display: block;
+    width: 40px;
+    height: 40px;
+    margin-right: 44px;
+    content: '';
+  }
+
+  & > div:nth-of-type(1) {
+    ${({ theme }) => theme.style.flexAlignCenter};
   }
 `;
-
-export const TimerContainer = styled.div`
-  ${({ theme }) => theme.style.flexCenter};
-  flex-direction: column;
-  height: 180px;
+export const MeditationTimeBox = styled.div`
   width: 100%;
-  background: transparent;
-  margin-top: 100px;
-`;
-
-export const TimerElementBorder = styled.div<{ timerPaused: boolean }>`
-  position: absolute;
-  width: 170px;
-  height: 170px;
-  border-radius: 50%;
-  background: ${({ theme, timerPaused }) =>
-    timerPaused
-      ? theme.color.linearGradientGreyVivid
-      : theme.color.linearGradientPurpleVivid};
-  ${({ timerPaused }) =>
-    !timerPaused &&
-    css`
-      animation: ${rotate} 2s linear infinite;
-    `}
-  z-index: 1;
-`;
-
-export const TimerElement = styled.button<{ timerPaused: boolean }>`
-  position: absolute;
-  border: none;
-  outline: none;
-  cursor: pointer;
-  width: 150px;
-  height: 150px;
-  border-radius: 50%;
-  background-color: #211730;
-  color: ${({ theme, timerPaused }) =>
-    timerPaused ? theme.color.greyLight : theme.color.white};
+  ${({ theme }) => theme.style.flexCenter};
   font-size: 24px;
-  font-weight: bold;
-
-  &:hover,
-  &:active {
-    filter: brightness(50%);
-    transition: 0.3s;
-  }
-
-  z-index: 1;
-`;
-
-export const IconContainer = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  margin: 0 10px;
+  color: ${({ theme }) => theme.color.white};
 `;

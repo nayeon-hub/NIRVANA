@@ -7,20 +7,23 @@ import 'swiper/css';
 interface MeditationTimeSettingProps {
   setCurrMin: Dispatch<React.SetStateAction<number>>;
   timeArr: number[];
+  initialSlide: number;
 }
 
 const MeditationTimeSetting = ({
   setCurrMin,
-  timeArr
+  timeArr,
+  initialSlide
 }: MeditationTimeSettingProps) => {
   return (
     <SettingContainer>
       <Swiper
+        initialSlide={initialSlide - 1}
         slidesPerView={3}
         centeredSlides={true}
         grabCursor={true}
         onSlideChange={(e) => {
-          setCurrMin(e.realIndex);
+          setCurrMin(e.activeIndex + 1);
         }}
         className='mySwiper'>
         {timeArr.map((el, idx) => (
