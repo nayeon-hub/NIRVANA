@@ -18,7 +18,7 @@ interface PostCommentProps {
   text: string;
   token: string;
   myComment: boolean;
-  id: string;
+  id: number;
   refetch: () => void;
 }
 
@@ -37,6 +37,7 @@ const PostComment = ({
   const handleCommentDeleteClick = async () => {
     mutate({ id, token });
   };
+  console.log(author);
 
   return (
     <>

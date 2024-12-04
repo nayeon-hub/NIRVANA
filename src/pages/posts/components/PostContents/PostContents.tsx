@@ -1,9 +1,9 @@
-import { useEffect, useState, useRef, useCallback } from 'react';
+import { useEffect, useState, useRef } from 'react';
 import { useQuery } from '@tanstack/react-query';
 
 import type { EditedPost } from '@/types';
 
-import { getPosts } from '@apis/posts';
+import { getPosts } from '@apis/supabase/supabaseClient';
 import { Toast } from '@components/Toast';
 import { ThemeInfoType } from '@components/ThemePicker/ThemePicker';
 import { editPostData } from '@pages/posts/utils/editPostData';
@@ -38,14 +38,6 @@ const PostItems = ({ channel }: PostItemsProps) => {
     suspense: true
   });
 
-  const PostContent = useCallback(() => {
-    return postsData.length > 0 ? (
-      <PostPreviewList postsData={postsData} />
-    ) : (
-      <NoPosts />
-    );
-  }, [postsData]);
-
   useEffect(() => {
     setOffset(0);
   }, [channel.id]);
@@ -63,9 +55,15 @@ const PostItems = ({ channel }: PostItemsProps) => {
     }
   }, [data, offset]);
 
+  console.log(data);
+
   return (
     <PostsContainer ref={postsRef}>
-      <PostContent />
+      {data.length > 0 ? (
+        <PostPreviewList postsData={postsData} />
+      ) : (
+        <NoPosts />
+      )}
       {isError && (
         <Toast
           type={'ERROR'}

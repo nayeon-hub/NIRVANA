@@ -71,7 +71,7 @@ export const getPosts = async (channelId: string, offset: number) => {
   const response = await supabaseClient
     .from('posts')
     .select(
-      '_id, title, channel, image, meditationTime, updated_at, created_at, author, comments(_id, created_at, updated_at, post, comment, author), likes(_id, post, user, created_at, updated_at), profiles(_id, full_name, image, email)'
+      '_id, title, channel, image, meditationTime, updatedAt, createdAt, author, comments(_id, createdAt, updatedAt, post, comment, user), likes(_id, post, user, createdAt, updatedAt), profiles(_id, fullName, image, email, coverImage)'
     )
     .eq('channel', parseInt(channelId))
     .range(0, offset);
@@ -84,7 +84,7 @@ export const getSearchPosts = async (query: string) => {
     const response = await supabaseClient
       .from('posts')
       .select(
-        '_id, title, channel, image, meditationTime, updated_at, created_at, author, comments(_id, created_at, updated_at, post, comment, author), likes(_id, post, user, created_at, updated_at)'
+        '_id, title, channel, image, meditationTime, updatedAt, createdAt, author, comments(_id, createdAt, updatedAt, post, comment, user), likes(_id, post, user, createdAt, updatedAt)'
       )
       .like('title', `%${query}%`);
 
@@ -99,7 +99,7 @@ export const getSearchUsers = async (query: string) => {
     const response = await supabaseClient
       .from('profiles')
       .select('*')
-      .like('full_name', `%${query}%`);
+      .like('fullName', `%${query}%`);
 
     return response;
   } catch (err) {
@@ -126,7 +126,7 @@ export const getPost = async (postId: string) => {
     const response = await supabaseClient
       .from('posts')
       .select(
-        '_id, title, channel, image, meditationTime, updated_at, created_at, author, comments(_id, created_at, updated_at, post, comment, author, profiles(_id, full_name, email)), likes(_id, post, user, created_at, updated_at), profiles(_id, full_name, image, email), channels(_id, name)'
+        '_id, title, channel, image, meditationTime, updatedAt, createdAt, author, comments(_id, createdAt, updatedAt, post, comment, profiles(_id, fullName, email, coverImage, image)), likes(_id, post, user, createdAt, updatedAt), profiles(_id, fullName, image, email, coverImage), channels(_id, name)'
       )
       .eq('_id', postId)
       .single();
@@ -142,7 +142,7 @@ export const deletePost = async (postId: string) => {
     const response = await supabaseClient
       .from('posts')
       .select(
-        '_id, title, channel, image, meditationTime, updated_at, created_at, author, comments(_id, created_at, updated_at, post, comment, author), likes(_id, post, user, created_at, updated_at), profiles(_id, full_name, image, email), channels(_id, name)'
+        '_id, title, channel, image, meditationTime, updatedAt, createdAt, author, comments(_id, createdAt, updatedAt, post, comment, author), likes(_id, post, user, createdAt, updatedAt), profiles(_id, fullName, image, email), channels(_id, name)'
       )
       .eq('_id', postId)
       .single();

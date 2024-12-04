@@ -54,8 +54,8 @@ const MeditationThemePicker = ({
         {Array.from(themeInfo).map(([key, value]) => (
           <Button
             key={key}
-            width={80}
-            height={28}
+            width='80px'
+            height='28px'
             bold={false}
             dark={picked.label === value.label}
             label={value.label}

@@ -13,7 +13,7 @@ import { Link } from '@components/Link';
 import { UserId } from '@components/UserText';
 
 interface PostHeaderProps {
-  post: Pick<EditedPost, '_id' | 'author' | 'createdAt' | 'meditationTime'>;
+  post: Pick<EditedPost, '_id' | 'createdAt' | 'meditationTime' | 'profiles'>;
   totalLikes?: number;
   totalComments?: number;
   noneProfile: boolean;
@@ -27,7 +27,13 @@ const PostHeader = ({
   noneProfile,
   showCommentStatus
 }: PostHeaderProps) => {
-  const { author, createdAt, meditationTime, _id } = post;
+  console.log(post);
+  const {
+    profiles: { _id: authorId, fullName, image, email },
+    createdAt,
+    meditationTime,
+    _id
+  } = post;
   const iconDescription = [
     { name: 'favorite', size: 12, total: totalLikes },
     { name: 'chat', size: 12, total: totalComments }
@@ -38,11 +44,11 @@ const PostHeader = ({
       {!noneProfile && (
         <AvatarContainer>
           <Link
-            pageLink={`/profile/${author._id}`}
+            pageLink={`/profile/${authorId}`}
             color='black'>
             <Avatar
-              alt={author.fullName}
-              src={author.image}
+              alt={fullName}
+              src={image}
               size={45}
             />
           </Link>
@@ -55,9 +61,9 @@ const PostHeader = ({
           color='black'>
           {!noneProfile && (
             <UserContainer>
-              <NameContainer>{author.fullName}</NameContainer>
+              <NameContainer>{fullName}</NameContainer>
               <IdContainer>
-                <UserId email={author.email} />
+                <UserId email={email} />
               </IdContainer>
             </UserContainer>
           )}

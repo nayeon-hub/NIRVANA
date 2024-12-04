@@ -40,9 +40,9 @@ const PostComments = ({
           key={comment._id}
           id={comment._id}
           token={token}
-          author={comment.author}
+          author={comment.profiles}
           text={comment.comment}
-          myComment={comment.author._id === currentUserId}
+          myComment={comment.profiles._id === currentUserId}
           refetch={refetch}
         />
       ))}

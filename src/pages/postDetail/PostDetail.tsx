@@ -6,7 +6,7 @@ import type { User } from '@/types/User';
 import { GetMyLike } from './utils';
 import { PostDetailPage } from './PostDetail.style';
 import { PostCommentInput, PostComments, PostContent } from './components';
-import { getPost } from '@apis/posts';
+import { getPost } from '@apis/supabase/supabaseClient';
 import formatDate from '@utils/formatDate';
 import useSessionStorage from '@hooks/useSessionStorage';
 import { PostPreviewSkeleton } from '@components/Skeleton';
@@ -14,7 +14,11 @@ import { PostPreviewSkeleton } from '@components/Skeleton';
 const PostDetail = () => {
   const { postId } = useParams<{ postId: string }>();
 
-  const { isLoading, data, refetch } = useQuery({
+  const {
+    isLoading,
+    data: { data },
+    refetch
+  } = useQuery({
     queryKey: ['postDetail', postId],
     queryFn: async () => getPost(postId),
     enabled: !!postId,
@@ -37,17 +41,17 @@ const PostDetail = () => {
       ) : (
         <PostContent
           token={'Bearer ' + token}
-          postId={postId}
-          channelId={data?.channel._id}
-          author={data?.author}
+          postId={parseInt(postId)}
+          channelId={data?.channel}
+          profiles={data?.profiles}
           currentUserId={_id}
-          content={data ? JSON.parse(data.title).title : ''}
-          meditationTime={data ? JSON.parse(data.title).meditationTime : ''}
+          content={data?.title}
+          meditationTime={data?.meditationTime}
           createdAt={formatDate(data?.createdAt)}
         />
       )}
       <PostCommentInput
-        userId={data?.author._id}
+        userId={data?.profiles._id}
         postId={postId}
         token={'Bearer ' + token}
         avatarSrc={image}
@@ -57,7 +61,7 @@ const PostDetail = () => {
         }}
       />
       <PostComments
-        userId={data?.author._id}
+        userId={data?.profiles._id}
         postId={postId}
         currentUserId={_id}
         token={'Bearer ' + token}

@@ -1,15 +1,7 @@
-import type { EditedPost, Post, RawTitleData } from '@/types';
+import type { EditedPost, Post } from '@/types';
 
 const editTimeForm = (time: string) => {
   return time.split('T')[0].split('-').join('.');
-};
-
-const splitTitleData = (rawTitle: string) => {
-  const { title: content, meditationTime } = JSON.parse(
-    rawTitle
-  ) as RawTitleData;
-
-  return { content, meditationTime };
 };
 
 const editPostData = (posts: Post[]): EditedPost[] => {
@@ -19,13 +11,12 @@ const editPostData = (posts: Post[]): EditedPost[] => {
   return posts.map((post: Post) => {
     post.createdAt = editTimeForm(post.createdAt);
     post.updatedAt = editTimeForm(post.updatedAt);
-    const { content, meditationTime } = splitTitleData(post.title);
 
-    if (content.length === 0) {
-      return { ...post, content: '내용이 없습니다.', meditationTime };
+    if (post.title.length === 0) {
+      return { ...post, content: '내용이 없습니다.' };
     }
 
-    return { ...post, content, meditationTime };
+    return { ...post, content: post.title };
   });
 };
 

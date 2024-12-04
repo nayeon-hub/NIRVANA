@@ -27,11 +27,11 @@ const PostPreview = ({
   noneProfile = false
 }: PostPreviewProps) => {
   const { content, _id } = post;
-  const previewContent = shortenString(content, 100);
-  const setResultShown = useSetRecoilState(openSearch);
-  const handlePreviewClick = () => {
-    setResultShown(false);
-  };
+  // const previewContent = shortenString(content, 100);
+  // const setResultShown = useSetRecoilState(openSearch);
+  // const handlePreviewClick = () => {
+  //   setResultShown(false);
+  // };
 
   return (
     <PreviewContainer>
@@ -48,7 +48,7 @@ const PostPreview = ({
         <Link
           pageLink={`/posts/${_id}`}
           color='black'>
-          <PostContent>{previewContent}</PostContent>
+          <PostContent>{content}</PostContent>
         </Link>
       </PostContentContainer>
     </PreviewContainer>

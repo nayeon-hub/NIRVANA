@@ -2,7 +2,7 @@ import { useQuery } from '@tanstack/react-query';
 import { useSetRecoilState } from 'recoil';
 import { useNavigate } from 'react-router-dom';
 
-import { searchUser } from '@apis/search';
+import { getSearchUsers } from '@apis/supabase/supabaseClient';
 import { FollowUserInfo } from '@pages/profile/components';
 import SearchNoResult from './SearchNoResult';
 import { SearchItem } from './SearchBody.style';
@@ -25,7 +25,7 @@ const SearchResultUser = ({
   const { data: userData, isSuccess } = useQuery({
     queryKey: ['search', searchKeyword, searchFilter],
     queryFn: async () => {
-      const data = await searchUser(searchKeyword);
+      const { data } = await getSearchUsers(searchKeyword);
       return data;
     },
     suspense: true,

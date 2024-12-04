@@ -2,9 +2,9 @@ import { useEffect, useState } from 'react';
 import { useMutation } from '@tanstack/react-query';
 import { useLocation, useNavigate } from 'react-router-dom';
 
-import postCreateNewPost from '@apis/posting';
+import { postCreateNewPost } from '@apis/supabase/supabaseClient';
 import { Toast } from '@components/Toast';
-import { purifyContent, appendFormData } from './utils';
+import { purifyContent } from './utils';
 import { NewPost } from './components/NewPost';
 import { SkipPosting } from './components/SkipPosting';
 import {
@@ -28,19 +28,21 @@ interface ReceiveState {
 const Posting = () => {
   const navigate = useNavigate();
   const location = useLocation();
-  const { token } = JSON.parse(sessionStorage.getItem('userData'));
+  const { _id } = JSON.parse(sessionStorage.getItem('userData'));
   const [meditationInfo, setMeditationInfo] = useState<ReceiveState>({
     totalTime: 0,
     channelId: '',
     channelLabel: '',
     validation: false
   });
+
   const { totalTime, channelLabel, channelId } = meditationInfo;
-  const customToken = `bearer ${token}`;
+
   const { mutate, isLoading, isError } = useMutation({
     mutationFn: async ({ posting = '' }: MutationParams) => {
       const formData = createPostingForm(posting);
-      await postCreateNewPost(customToken, formData);
+
+      await postCreateNewPost(_id, formData);
     },
     onSuccess: () => {
       sessionStorage.removeItem('posting');
@@ -58,25 +60,31 @@ const Posting = () => {
   const createPostingForm = (posting: string) => {
     const customPosting = {
       title: purifyContent(posting),
-      meditationTime: `${totalTime / 60}`
+      meditationTime: totalTime
     };
-    const formKey = ['title', 'channelId', 'image'];
-    const formData = appendFormData(
-      formKey,
-      JSON.stringify(customPosting),
-      channelId,
-      null
-    );
+    // const formKey = ['title', 'channelId', 'image'];
+    // const formData = appendFormData(
+    //   formKey,
+    //   // JSON.stringify(customPosting),
+    //   ...customPosting,
+    //   channelId,
+    //   null
+    // );
 
-    return formData;
+    return {
+      channel: channelId,
+      ...customPosting
+      // image: null
+    };
   };
 
   useEffect(() => {
     if (location.state === null) {
       navigate('/404');
     }
+    console.log(location);
     setMeditationInfo(location.state);
-  }, [location.state, navigate]);
+  }, [location, navigate]);
 
   return (
     <StyledPosting>

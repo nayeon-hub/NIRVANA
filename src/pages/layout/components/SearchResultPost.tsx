@@ -4,15 +4,14 @@ import { useSetRecoilState } from 'recoil';
 import type { EditedPost, Post, User } from '@/types';
 import { openSearch } from '../states/openSearch';
 
-import { searchAll } from '@apis/search';
-import { getUser } from '@apis/user';
+import { getSearchPosts } from '@apis/supabase/supabaseClient';
+import { getUser } from '@apis/supabase/supabaseClient';
 
 import { PostPreview } from '@components/PostPreview';
 import { Toast } from '@components/Toast';
 import SearchNoResult from './SearchNoResult';
 import { editPostData } from '@pages/posts/utils/editPostData';
 import { PostPreviewItem } from './SearchResultPost.style';
-import filterPostData from '../utils/filterPostData';
 import { FILTER } from '../constants';
 
 interface SearchResultPostProps {
@@ -26,30 +25,28 @@ const SearchResultPost = ({
 }: SearchResultPostProps) => {
   const setResultShown = useSetRecoilState(openSearch);
 
-  const { data: postData, isSuccess: isSuccessPostData } = useQuery({
+  const { data: postData = [], isSuccess: isSuccessPostData } = useQuery({
     queryKey: ['search', searchKeyword, searchFilter],
     queryFn: async () => {
-      const data = await searchAll(searchKeyword);
+      const { data } = await getSearchPosts(searchKeyword);
       return data;
     },
     suspense: true,
     enabled: searchKeyword !== '' && searchFilter === FILTER['POST']
   });
 
-  const filteredData = filterPostData(postData || []);
-
   const postWithUserData = useQueries({
-    queries: filteredData.map((element) => {
+    queries: postData.map((element) => {
       return {
         queryKey: ['searchPostUser', element.author],
         queryFn: () => getUser(element.author),
-        select: (data: User): Post => {
+        select: (response: { data: User }): Post => {
           return {
             ...element,
-            author: data
+            profiles: response.data
           };
         },
-        enabled: isSuccessPostData && filteredData.length > 0
+        enabled: isSuccessPostData && postData.length > 0
       };
     })
   });

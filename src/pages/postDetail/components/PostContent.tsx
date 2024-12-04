@@ -21,10 +21,10 @@ import { Confirm } from '@components/Confirm';
 import { appendFormData, purifyContent } from '@pages/posting/utils';
 
 interface PostContentProps {
-  author: User;
+  profiles: User;
   currentUserId: string;
-  channelId: string;
-  postId: string;
+  channelId: number;
+  postId: number;
   token: string;
   createdAt: string;
   content: string;
@@ -32,7 +32,7 @@ interface PostContentProps {
 }
 
 const PostContent = ({
-  author,
+  profiles,
   currentUserId,
   postId,
   channelId,
@@ -93,9 +93,9 @@ const PostContent = ({
       const newFormData = appendFormData(
         ['title', 'channelId', 'image', 'postId'],
         JSON.stringify(newCustomTitle),
-        channelId,
+        channelId.toString(),
         null,
-        postId
+        postId.toString()
       );
       mutatePutPost({ postData: newFormData, token });
     }
@@ -123,14 +123,14 @@ const PostContent = ({
           <PostHeader
             post={{
               _id: postId,
-              profiles: author,
-              created_at: createdAt,
+              profiles,
+              createdAt,
               meditationTime
             }}
             noneProfile={false}
             showCommentStatus={false}
           />
-          {currentUserId === author?._id && (
+          {currentUserId === profiles?._id && (
             <>
               <PostContentMenuIconContainer
                 opened={menuOpened}
