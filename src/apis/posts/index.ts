@@ -3,7 +3,7 @@ import { API_BASE_URL } from '@/constants/Api';
 import { Channel, Post } from '@/types';
 
 interface PostApiProps {
-  postId: string;
+  postId: number;
   token: string;
   postData: FormData;
 }

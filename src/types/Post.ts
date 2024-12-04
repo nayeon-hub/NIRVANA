@@ -6,18 +6,19 @@ import { Like } from './Like';
 export interface Post {
   likes: Like[];
   comments: Comment[];
-  _id: string;
+  _id: number;
   image?: string;
   imagePublicId?: string;
   title: string;
-  channel: Channel;
-  author: User;
+  channel: number | Channel;
+  author: User | string;
   createdAt: string;
   updatedAt: string;
+  profiles: User;
+  meditationTime?: number;
 }
 
 export interface EditedPost extends Post {
-  meditationTime: number;
   content: string | undefined;
 }
 

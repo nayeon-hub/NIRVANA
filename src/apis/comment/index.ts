@@ -9,7 +9,7 @@ interface PostCommentProps {
 }
 
 interface DeleteCommentProps {
-  id: string;
+  id: number;
   token: string;
 }
 
