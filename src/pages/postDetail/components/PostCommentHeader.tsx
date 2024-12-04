@@ -7,7 +7,7 @@ import {
   PostLikeContainer
 } from './PostCommentHeader.style';
 import { Like } from '@/types/Like';
-import { postNotifications } from '@apis/notice';
+// import { postNotifications } from '@apis/notice';
 
 interface PostCommentHeaderProps {
   postId: string;
@@ -33,14 +33,15 @@ const PostCommentHeader = ({
       return myLike ? deleteLike(myLike._id, token) : postLike(postId, token);
     },
     {
-      onSuccess: (res) => {
-        !myLike &&
-          postNotifications(token, {
-            notificationType: 'LIKE',
-            notificationTypeId: res._id,
-            userId: userId,
-            postId: res.post
-          });
+      onSuccess: () => {
+        console.log(userId);
+        // !myLike &&
+        //   postNotifications(token, {
+        //     notificationType: 'LIKE',
+        //     notificationTypeId: res._id,
+        //     userId: userId,
+        //     postId: res.post
+        //   });
         refetch();
       }
     }

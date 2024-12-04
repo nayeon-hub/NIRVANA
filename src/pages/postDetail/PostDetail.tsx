@@ -53,7 +53,6 @@ const PostDetail = () => {
       <PostCommentInput
         userId={data?.profiles._id}
         postId={postId}
-        token={'Bearer ' + token}
         avatarSrc={image}
         userName={fullName}
         refetch={() => {

@@ -13,11 +13,10 @@ import { purifyContent } from '@pages/posting/utils';
 import { Toast } from '@components/Toast';
 import { Avatar } from '@components/Avatar';
 import { postComment } from '@apis/supabase/supabaseClient';
-import { postNotifications } from '@apis/notice';
+// import { postNotifications } from '@apis/notice';
 
 interface PostCommentInputProps {
   postId: string;
-  token: string;
   avatarSrc: string;
   userName: string;
   userId?: string;
@@ -27,7 +26,6 @@ interface PostCommentInputProps {
 const PostCommentInput = ({
   avatarSrc,
   userName,
-  token,
   postId,
   userId,
   refetch
@@ -39,7 +37,8 @@ const PostCommentInput = ({
   const commentRef = useRef(null);
 
   const { mutate } = useMutation(postComment, {
-    onSuccess: (res) => {
+    onSuccess: () => {
+      console.log(userId);
       // postNotifications(token, {
       //   notificationType: 'COMMENT',
       //   notificationTypeId: res._id,
@@ -54,8 +53,7 @@ const PostCommentInput = ({
     event.preventDefault();
     mutate({
       postId,
-      comment: purifyContent(commentValue),
-      token
+      comment: purifyContent(commentValue)
     });
     commentRef.current.value = '';
   };
