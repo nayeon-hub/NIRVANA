@@ -11,12 +11,11 @@ import {
   PostCommentUserContainer
 } from './PostComment.style';
 import { UserId, UserName } from '@components/UserText';
-import { deleteComment } from '@apis/comment';
+import { deleteComment } from '@apis/supabase/supabaseClient';
 
 interface PostCommentProps {
   author: User;
   text: string;
-  token: string;
   myComment: boolean;
   id: number;
   refetch: () => void;
@@ -25,7 +24,6 @@ interface PostCommentProps {
 const PostComment = ({
   author,
   text,
-  token,
   myComment,
   id,
   refetch
@@ -35,9 +33,8 @@ const PostComment = ({
   if (isSuccess) refetch();
 
   const handleCommentDeleteClick = async () => {
-    mutate({ id, token });
+    mutate({ id });
   };
-  console.log(author);
 
   return (
     <>

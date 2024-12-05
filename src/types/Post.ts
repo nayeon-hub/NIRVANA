@@ -4,8 +4,8 @@ import { Comment } from './Comment';
 import { Like } from './Like';
 
 export interface Post {
-  likes: Like[];
-  comments: Comment[];
+  likes?: Like[];
+  comments?: Comment[];
   _id: number;
   image?: string;
   imagePublicId?: string;

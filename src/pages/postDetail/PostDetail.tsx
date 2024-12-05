@@ -40,9 +40,7 @@ const PostDetail = () => {
         <PostPreviewSkeleton />
       ) : (
         <PostContent
-          token={'Bearer ' + token}
           postId={parseInt(postId)}
-          channelId={data?.channel}
           profiles={data?.profiles}
           currentUserId={_id}
           content={data?.title}

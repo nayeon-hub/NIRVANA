@@ -137,20 +137,26 @@ export const getPost = async (postId: string) => {
   }
 };
 
-export const deletePost = async (postId: string) => {
-  try {
-    const response = await supabaseClient
-      .from('posts')
-      .select(
-        '_id, title, channel, image, meditationTime, updatedAt, createdAt, author, comments(_id, createdAt, updatedAt, post, comment, author), likes(_id, post, user, createdAt, updatedAt), profiles(_id, fullName, image, email), channels(_id, name)'
-      )
-      .eq('_id', postId)
-      .single();
+export const putPost = async ({
+  postData,
+  postId
+}: {
+  postData: string;
+  postId: number;
+}) => {
+  const response = await supabaseClient
+    .from('posts')
+    .update({ title: postData })
+    .eq('_id', postId);
+  return response;
+};
 
-    return response;
-  } catch (err) {
-    console.log(err);
-  }
+export const deletePost = async ({ postId }: { postId: number }) => {
+  const response = await supabaseClient
+    .from('posts')
+    .delete()
+    .eq('_id', postId);
+  return response;
 };
 
 export const postComment = async ({
@@ -170,4 +176,9 @@ export const postComment = async ({
   } catch (err) {
     console.log(err);
   }
+};
+
+export const deleteComment = async ({ id }: { id: number }) => {
+  const response = await supabaseClient.from('comments').delete().eq('_id', id);
+  return response;
 };

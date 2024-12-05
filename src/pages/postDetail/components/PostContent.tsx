@@ -15,17 +15,15 @@ import {
   PostEditConfirmButtonContainer
 } from './PostContent.style';
 import { Toast } from '@components/Toast';
-import { deletePost, putPost } from '@apis/posts';
+import { putPost, deletePost } from '@apis/supabase/supabaseClient';
 import { Button } from '@components/Button';
 import { Confirm } from '@components/Confirm';
-import { appendFormData, purifyContent } from '@pages/posting/utils';
+import { purifyContent } from '@pages/posting/utils';
 
 interface PostContentProps {
   profiles: User;
   currentUserId: string;
-  channelId: number;
   postId: number;
-  token: string;
   createdAt: string;
   content: string;
   meditationTime: number;
@@ -35,8 +33,6 @@ const PostContent = ({
   profiles,
   currentUserId,
   postId,
-  channelId,
-  token,
   createdAt,
   content,
   meditationTime
@@ -90,14 +86,8 @@ const PostContent = ({
         title: purifyContent(contentEditRef.current?.textContent || ''),
         meditationTime
       };
-      const newFormData = appendFormData(
-        ['title', 'channelId', 'image', 'postId'],
-        JSON.stringify(newCustomTitle),
-        channelId.toString(),
-        null,
-        postId.toString()
-      );
-      mutatePutPost({ postData: newFormData, token });
+
+      mutatePutPost({ postData: newCustomTitle.title, postId });
     }
   };
 
@@ -107,7 +97,7 @@ const PostContent = ({
 
   const handleDeleteConfirmClick = () => {
     setDeleteConfirmOpened(false);
-    mutateDeletePost({ postId, token });
+    mutateDeletePost({ postId });
   };
 
   return (

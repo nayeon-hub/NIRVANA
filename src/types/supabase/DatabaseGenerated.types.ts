@@ -158,10 +158,8 @@ export type Database = {
           _id: number;
           author: string | null;
           channel: number | null;
-          comments: number | null;
           createdAt: string;
           image: string | null;
-          likes: number | null;
           meditationTime: number | null;
           title: string | null;
           updatedAt: string;
@@ -170,10 +168,8 @@ export type Database = {
           _id?: number;
           author?: string | null;
           channel?: number | null;
-          comments?: number | null;
           createdAt?: string;
           image?: string | null;
-          likes?: number | null;
           meditationTime?: number | null;
           title?: string | null;
           updatedAt?: string;
@@ -182,10 +178,8 @@ export type Database = {
           _id?: number;
           author?: string | null;
           channel?: number | null;
-          comments?: number | null;
           createdAt?: string;
           image?: string | null;
-          likes?: number | null;
           meditationTime?: number | null;
           title?: string | null;
           updatedAt?: string;

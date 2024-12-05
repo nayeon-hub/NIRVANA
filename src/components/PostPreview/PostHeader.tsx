@@ -27,7 +27,6 @@ const PostHeader = ({
   noneProfile,
   showCommentStatus
 }: PostHeaderProps) => {
-  console.log(post);
   const {
     profiles: { _id: authorId, fullName, image, email },
     createdAt,
