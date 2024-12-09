@@ -39,7 +39,6 @@ const PostComments = ({
         <PostComment
           key={comment._id}
           id={comment._id}
-          token={token}
           author={comment.profiles}
           text={comment.comment}
           myComment={comment.profiles._id === currentUserId}

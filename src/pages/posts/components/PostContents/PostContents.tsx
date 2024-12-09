@@ -1,69 +1,60 @@
-import { useEffect, useState, useRef } from 'react';
-import { useQuery } from '@tanstack/react-query';
-
-import type { EditedPost } from '@/types';
-
+import { useInfiniteQuery } from '@tanstack/react-query';
 import { getPosts } from '@apis/supabase/supabaseClient';
-import { Toast } from '@components/Toast';
-import { ThemeInfoType } from '@components/ThemePicker/ThemePicker';
-import { editPostData } from '@pages/posts/utils/editPostData';
-import { PostPreviewList } from './index';
-import { NoPosts } from '../NoPosts';
-import useObserver from '@pages/posts/hooks/useObserver';
+import useIntersect from '../../hooks/useIntersect';
+import { editPostData } from '../../utils/editPostData';
 
-import { PostsContainer } from './PostContents.style';
+import PostPreviewList from './PostPreviewList';
+import { NoPosts } from '../NoPosts';
+
+import { ThemeInfoType } from '@components/ThemePicker/ThemePicker';
+import { Toast } from '@components/Toast';
+import { SkeletonPosts } from '@components/Skeleton';
+import { PostsContainer, PostObserverEndPoint } from './PostContents.style';
 
 interface PostItemsProps {
   channel: ThemeInfoType;
 }
 
 const PostItems = ({ channel }: PostItemsProps) => {
-  const [postsData, setPostsData] = useState<EditedPost[]>([]);
-  const [offset, setOffset] = useState(0);
-  const [observe] = useObserver(() => {
-    setOffset((curr) => {
-      return curr + 10;
-    });
-  });
-  const postsRef = useRef(null);
+  const { data, hasNextPage, fetchNextPage, isFetching, isError, isLoading } =
+    useInfiniteQuery(
+      ['getChannelPosts', channel.id],
+      ({ pageParam: offset = 0 }) => getPosts(channel.id, offset),
+      {
+        getNextPageParam: (lastPage, pages) => {
+          if (lastPage.data.length === 0) return false;
+          return pages.length * 10;
+        }
+      }
+    );
 
-  const { data, isError } = useQuery({
-    queryKey: ['getChannelPosts', channel.id, offset],
-    queryFn: async () => {
-      const { data } = await getPosts(channel.id, offset);
-      const editedData = editPostData(data);
-
-      return editedData;
+  const ref = useIntersect(
+    async (entry, observer) => {
+      observer.unobserve(entry.target);
+      if (hasNextPage && !isFetching) {
+        fetchNextPage();
+      }
     },
-    suspense: true
-  });
-
-  useEffect(() => {
-    setOffset(0);
-  }, [channel.id]);
-
-  useEffect(() => {
-    if (postsRef.current && data.length >= 10) {
-      const { lastChild } = postsRef.current;
-      lastChild && observe(lastChild);
-    }
-  }, [postsData]);
-
-  useEffect(() => {
-    if (data) {
-      setPostsData(offset === 0 ? data : [...postsData, ...data]);
-    }
-  }, [data, offset]);
-
-  console.log(data);
+    { threshold: 0.5 }
+  );
 
   return (
-    <PostsContainer ref={postsRef}>
-      {data.length > 0 ? (
-        <PostPreviewList postsData={postsData} />
-      ) : (
-        <NoPosts />
-      )}
+    <PostsContainer>
+      {data &&
+        (data.pages[0].data.length > 0 ? (
+          <>
+            {data.pages.map((pageData, idx) => (
+              <PostPreviewList
+                key={idx}
+                postsData={editPostData(pageData.data)}
+              />
+            ))}
+            <PostObserverEndPoint ref={ref} />
+          </>
+        ) : (
+          <NoPosts />
+        ))}
+      {isLoading && <SkeletonPosts />}
       {isError && (
         <Toast
           type={'ERROR'}

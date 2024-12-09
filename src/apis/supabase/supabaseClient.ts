@@ -74,7 +74,7 @@ export const getPosts = async (channelId: string, offset: number) => {
       '_id, title, channel, image, meditationTime, updatedAt, createdAt, author, comments(_id, createdAt, updatedAt, post, comment, user), likes(_id, post, user, createdAt, updatedAt), profiles(_id, fullName, image, email, coverImage)'
     )
     .eq('channel', parseInt(channelId))
-    .range(0, offset);
+    .range(offset, offset + 9);
 
   return response;
 };
