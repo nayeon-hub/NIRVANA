@@ -126,7 +126,7 @@ export const getPost = async (postId: string) => {
     const response = await supabaseClient
       .from('posts')
       .select(
-        '_id, title, channel, image, meditationTime, updatedAt, createdAt, author, comments(_id, createdAt, updatedAt, post, comment, profiles(_id, fullName, email, coverImage, image)), likes(_id, post, user, createdAt, updatedAt), profiles(_id, fullName, image, email, coverImage), channels(_id, name)'
+        '_id, title, image, meditationTime, updatedAt, createdAt, author, comments(_id, createdAt, updatedAt, post, comment, profiles(_id, fullName, email, coverImage, image)), likes(_id, post, user, createdAt, updatedAt), profiles(_id, fullName, image, email, coverImage), channels(_id, name)'
       )
       .eq('_id', postId)
       .single();
@@ -180,5 +180,17 @@ export const postComment = async ({
 
 export const deleteComment = async ({ id }: { id: number }) => {
   const response = await supabaseClient.from('comments').delete().eq('_id', id);
+  return response;
+};
+
+export const postLike = async (postId: string) => {
+  const response = await supabaseClient.from('likes').insert({
+    post: parseInt(postId)
+  });
+  return response;
+};
+
+export const deleteLike = async (id: number) => {
+  const response = await supabaseClient.from('likes').delete().eq('_id', id);
   return response;
 };

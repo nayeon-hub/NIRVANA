@@ -1,6 +1,6 @@
 import { Icon } from '@components/Icon';
 import { useMutation } from '@tanstack/react-query';
-import { postLike, deleteLike } from '@apis/Like';
+import { postLike, deleteLike } from '@apis/supabase/supabaseClient';
 import {
   PostCommentHeaderContainer,
   PostCommentHeaderText,
@@ -21,7 +21,6 @@ interface PostCommentHeaderProps {
 
 const PostCommentHeader = ({
   postId,
-  token,
   refetch,
   myLike,
   likeCounts,
@@ -30,7 +29,7 @@ const PostCommentHeader = ({
 }: PostCommentHeaderProps) => {
   const { mutate, isLoading } = useMutation(
     () => {
-      return myLike ? deleteLike(myLike._id, token) : postLike(postId, token);
+      return myLike ? deleteLike(myLike._id) : postLike(postId);
     },
     {
       onSuccess: () => {
