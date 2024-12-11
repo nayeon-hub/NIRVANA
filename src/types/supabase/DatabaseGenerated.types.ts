@@ -62,15 +62,7 @@ export type Database = {
           posts?: number | null;
           updatedAt?: string;
         };
-        Relationships: [
-          {
-            foreignKeyName: 'channels_posts_fkey';
-            columns: ['posts'];
-            isOneToOne: false;
-            referencedRelation: 'posts';
-            referencedColumns: ['_id'];
-          }
-        ];
+        Relationships: [];
       };
       comments: {
         Row: {
@@ -78,7 +70,7 @@ export type Database = {
           comment: string | null;
           createdAt: string;
           post: number | null;
-          updatedAt: string;
+          updatedAt: string | null;
           user: string | null;
         };
         Insert: {
@@ -86,7 +78,7 @@ export type Database = {
           comment?: string | null;
           createdAt?: string;
           post?: number | null;
-          updatedAt?: string;
+          updatedAt?: string | null;
           user?: string | null;
         };
         Update: {
@@ -94,7 +86,7 @@ export type Database = {
           comment?: string | null;
           createdAt?: string;
           post?: number | null;
-          updatedAt?: string;
+          updatedAt?: string | null;
           user?: string | null;
         };
         Relationships: [
@@ -114,27 +106,59 @@ export type Database = {
           }
         ];
       };
-      likes: {
+      followers: {
         Row: {
           _id: number;
           createdAt: string;
-          post: number | null;
+          follower: string;
           updatedAt: string;
-          user: string | null;
+          user: string;
         };
         Insert: {
           _id?: number;
           createdAt?: string;
-          post?: number | null;
+          follower?: string;
           updatedAt?: string;
-          user?: string | null;
+          user: string;
         };
         Update: {
           _id?: number;
           createdAt?: string;
-          post?: number | null;
+          follower?: string;
           updatedAt?: string;
-          user?: string | null;
+          user?: string;
+        };
+        Relationships: [
+          {
+            foreignKeyName: 'follows_user_fkey';
+            columns: ['user'];
+            isOneToOne: false;
+            referencedRelation: 'profiles';
+            referencedColumns: ['_id'];
+          }
+        ];
+      };
+      likes: {
+        Row: {
+          _id: number;
+          createdAt: string;
+          post: number;
+          updatedAt: string;
+          user: string;
+        };
+        Insert: {
+          _id?: number;
+          createdAt?: string;
+          post: number;
+          updatedAt?: string;
+          user?: string;
+        };
+        Update: {
+          _id?: number;
+          createdAt?: string;
+          post?: number;
+          updatedAt?: string;
+          user?: string;
         };
         Relationships: [
           {
@@ -156,32 +180,32 @@ export type Database = {
       posts: {
         Row: {
           _id: number;
-          author: string | null;
-          channel: number | null;
+          author: string;
+          channel: number;
           createdAt: string;
           image: string | null;
-          meditationTime: number | null;
-          title: string | null;
+          meditationTime: number;
+          title: string;
           updatedAt: string;
         };
         Insert: {
           _id?: number;
-          author?: string | null;
-          channel?: number | null;
+          author: string;
+          channel: number;
           createdAt?: string;
           image?: string | null;
-          meditationTime?: number | null;
-          title?: string | null;
+          meditationTime: number;
+          title?: string;
           updatedAt?: string;
         };
         Update: {
           _id?: number;
-          author?: string | null;
-          channel?: number | null;
+          author?: string;
+          channel?: number;
           createdAt?: string;
           image?: string | null;
-          meditationTime?: number | null;
-          title?: string | null;
+          meditationTime?: number;
+          title?: string;
           updatedAt?: string;
         };
         Relationships: [
@@ -205,29 +229,32 @@ export type Database = {
         Row: {
           _id: string;
           coverImage: string | null;
-          createdAt: string | null;
-          email: string | null;
-          fullName: string | null;
+          createdAt: string;
+          email: string;
+          following: string[] | null;
+          fullName: string;
           image: string | null;
-          updatedAt: string | null;
+          updatedAt: string;
         };
         Insert: {
-          _id: string;
+          _id?: string;
           coverImage?: string | null;
-          createdAt?: string | null;
-          email?: string | null;
-          fullName?: string | null;
+          createdAt: string;
+          email: string;
+          following?: string[] | null;
+          fullName: string;
           image?: string | null;
-          updatedAt?: string | null;
+          updatedAt: string;
         };
         Update: {
           _id?: string;
           coverImage?: string | null;
-          createdAt?: string | null;
-          email?: string | null;
-          fullName?: string | null;
+          createdAt?: string;
+          email?: string;
+          following?: string[] | null;
+          fullName?: string;
           image?: string | null;
-          updatedAt?: string | null;
+          updatedAt?: string;
         };
         Relationships: [];
       };
