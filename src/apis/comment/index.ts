@@ -13,7 +13,7 @@ interface DeleteCommentProps {
   token: string;
 }
 
-const postComment = async ({ postId, comment, token }: Props) => {
+const postComment = async ({ postId, comment, token }: PostCommentProps) => {
   const response = await axios.post<Comment>(
     `${API_BASE_URL}/comments/create`,
     { postId, comment },
