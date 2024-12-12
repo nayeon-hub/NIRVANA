@@ -2,6 +2,7 @@ import { createClient } from '@supabase/supabase-js';
 import { Database } from '@/types/supabase/DatabaseGenerated.types';
 import { User } from '@/types/User';
 import { Post, SearchEditedPost, getPostSimpledComment } from '@/types/Post';
+import { v4 as uuid } from 'uuid';
 
 const supabaseKey = import.meta.env.VITE_SUPABASE_KEY;
 const supabaseUrl = import.meta.env.VITE_SUPABASE_URL;
@@ -50,6 +51,24 @@ export const postLogInUser = async (userData: {
       email: userData.email,
       password: userData.password
     });
+
+    return response;
+  } catch (err) {
+    console.log(err);
+  }
+};
+
+export const putUpdatePassword = async (password: string) => {
+  const response = await supabaseClient.auth.updateUser({
+    password: password
+  });
+
+  return response;
+};
+
+export const LogOutUser = async () => {
+  try {
+    const response = await supabaseClient.auth.signOut();
 
     return response;
   } catch (err) {
@@ -134,6 +153,20 @@ export const getUser = async (author: string): Promise<User> => {
   }
 };
 
+export const putUpdateUser = async ({
+  fullName,
+  userId
+}: {
+  fullName: string;
+  userId: string;
+}) => {
+  const response = await supabaseClient
+    .from('profiles')
+    .update({ fullName: fullName })
+    .eq('_id', userId);
+  return response.data;
+};
+
 export const getPost = async (
   postId: string
 ): Promise<getPostSimpledComment> => {
@@ -208,4 +241,34 @@ export const postLike = async (postId: string) => {
 export const deleteLike = async (id: number) => {
   const response = await supabaseClient.from('likes').delete().eq('_id', id);
   return response;
+};
+
+export const postUploadPhoto = async (
+  image: File,
+  userId: string,
+  isCover: boolean
+) => {
+  try {
+    const newFileName = uuid();
+    const { data } = await supabaseClient.storage
+      .from('avatars')
+      .upload(`${newFileName}`, image);
+    if (isCover) {
+      await supabaseClient
+        .from('profiles')
+        .update({
+          coverImage: `${supabaseUrl}/storage/v1/object/public/${data.fullPath}`
+        })
+        .eq('_id', userId);
+    } else {
+      await supabaseClient
+        .from('profiles')
+        .update({
+          image: `${supabaseUrl}/storage/v1/object/public/${data.fullPath}`
+        })
+        .eq('_id', userId);
+    }
+  } catch (err) {
+    console.log(err);
+  }
 };

@@ -1,4 +1,4 @@
-import { postUploadPhoto } from '@apis/user';
+import { postUploadPhoto } from '@apis/supabase/supabaseClient';
 import { useMutation } from '@tanstack/react-query';
 import useSessionStorage from '@hooks/useSessionStorage';
 import { User } from '@/types/User';
@@ -14,15 +14,12 @@ const useUploadPhotoMutation = ({
   handleMutate,
   handleSuccess
 }: UseUploadPhotoMutationParams) => {
-  const [{ token }] = useSessionStorage<Pick<User, '_id' | 'token'>>(
-    'userData',
-    {
-      _id: '',
-      token: ''
-    }
-  );
+  const [{ _id }] = useSessionStorage<Pick<User, '_id' | 'token'>>('userData', {
+    _id: '',
+    token: ''
+  });
   const uploadMutation = useMutation(
-    (file: File) => postUploadPhoto(file, token, isCover),
+    (file: File) => postUploadPhoto(file, _id, isCover),
     {
       onMutate: () => {
         handleMutate();

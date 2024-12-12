@@ -9,7 +9,7 @@ import { UserInput } from '@components/UserInput';
 import { USER_INPUT } from '@pages/signup/constants';
 import { isNicknameOk } from '@pages/signup/validations';
 import { Button } from '@components/Button';
-import { putUpdateUser } from '@apis/user';
+import { putUpdateUser } from '@apis/supabase/supabaseClient';
 import useSessionStorage from '@hooks/useSessionStorage';
 import { User } from '@/types';
 
@@ -59,7 +59,7 @@ const ProfileEdit = ({ refetch }: ProfileEditProps) => {
     if (success) {
       mutate({
         fullName: username,
-        token: userSessionData.token
+        userId: userSessionData._id
       });
     }
   };

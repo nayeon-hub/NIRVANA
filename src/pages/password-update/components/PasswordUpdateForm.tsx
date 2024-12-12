@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { FormProvider, useForm } from 'react-hook-form';
-import putUpdatePassword from '@apis/password';
+import { putUpdatePassword } from '@apis/supabase/supabaseClient';
 import { Alert } from '@components/Alert';
 import { Button } from '@components/Button';
 import { FormInput } from '@components/FormInput';
@@ -34,7 +34,7 @@ const PasswordUpdateForm = () => {
 
   const onSubmit = () => {
     if (isPasswordOk(password) && password === passwordConfirm) {
-      putUpdatePassword({ password, token: `Bearer ${userSessionData.token}` })
+      putUpdatePassword(password)
         .then(() => setPasswordChanged(true))
         .catch((error) => console.log(error));
     }

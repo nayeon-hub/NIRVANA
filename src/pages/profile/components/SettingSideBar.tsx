@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { useMutation } from '@tanstack/react-query';
 import { Link } from '@components/Link';
 import {
   Heading,
@@ -11,6 +12,7 @@ import {
 import useSessionStorage from '@hooks/useSessionStorage';
 import LogoutAlert from './LogoutAlert';
 import { useNavigate } from 'react-router-dom';
+import { LogOutUser } from '@apis/supabase/supabaseClient';
 
 interface SettingSideBarProps {
   closeSidebar: () => void;
@@ -34,10 +36,16 @@ const SettingSideBar = ({
     token: ''
   });
 
+  const { mutate } = useMutation(LogOutUser, {
+    onSuccess: () => {
+      closeSidebar();
+      setLogoutModal((prev) => !prev);
+      deleteUserValue();
+    }
+  });
+
   const handleLogoutClick = () => {
-    closeSidebar();
-    setLogoutModal((prev) => !prev);
-    deleteUserValue();
+    mutate();
   };
 
   return (
