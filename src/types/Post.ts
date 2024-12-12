@@ -1,19 +1,19 @@
 import { User } from './User';
 import { Channel } from './Channel';
-import { Comment } from './Comment';
+import { Comment, CommentAddedUser } from './Comment';
 import { Like } from './Like';
 
 export interface Post {
-  likes?: Like[];
-  comments?: Comment[];
   _id: number;
-  image?: string;
-  imagePublicId?: string;
   title: string;
   channel: number | Channel;
-  author: User | string;
   createdAt: string;
   updatedAt: string;
+  author: User;
+  likes?: Like[];
+  comments?: Comment[];
+  image?: string;
+  imagePublicId?: string;
   meditationTime?: number;
 }
 
@@ -21,13 +21,13 @@ export interface EditedPost extends Post {
   content: string | undefined;
 }
 
-type OmitPost = Omit<Post, 'author'>;
+type OmitAuthorPost = Omit<Post, 'author'>;
+type OmitCommentsPost = Omit<Post, 'comments'>;
 
-export interface SearchEditedPost extends OmitPost {
+export interface SearchEditedPost extends OmitAuthorPost {
   author: string;
 }
 
-export type RawTitleData = {
-  title: string;
-  meditationTime: number;
-};
+export interface getPostSimpledComment extends OmitCommentsPost {
+  comments: CommentAddedUser[];
+}

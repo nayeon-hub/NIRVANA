@@ -25,7 +25,7 @@ const SearchResultUser = ({
   const { data: userData, isSuccess } = useQuery({
     queryKey: ['search', searchKeyword, searchFilter],
     queryFn: async () => {
-      const { data } = await getSearchUsers(searchKeyword);
+      const data = await getSearchUsers(searchKeyword);
       return data;
     },
     suspense: true,

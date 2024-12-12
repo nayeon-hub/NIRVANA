@@ -1,13 +1,13 @@
 import { PostCommentsSection } from './PostComments.style';
 import { PostComment, PostCommentHeader } from './';
-import { Comment } from '@/types/Comment';
+import { CommentAddedUser } from '@/types/Comment';
 import { Like } from '@/types/Like';
 
 interface PostCommentsProps {
   postId: string;
   token: string;
   currentUserId: string;
-  comments: Comment[];
+  comments: CommentAddedUser[];
   refetch: () => void;
   myLike: Like;
   likeCounts: number;
@@ -35,7 +35,7 @@ const PostComments = ({
         likeCounts={likeCounts}
         postCommentCount={comments?.length}
       />
-      {comments?.map((comment: Comment) => (
+      {comments?.map((comment) => (
         <PostComment
           key={comment._id}
           id={comment._id}

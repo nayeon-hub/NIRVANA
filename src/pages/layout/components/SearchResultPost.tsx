@@ -28,7 +28,7 @@ const SearchResultPost = ({
   const { data: postData = [], isSuccess: isSuccessPostData } = useQuery({
     queryKey: ['search', searchKeyword, searchFilter],
     queryFn: async () => {
-      const { data } = await getSearchPosts(searchKeyword);
+      const data = getSearchPosts(searchKeyword);
       return data;
     },
     suspense: true,
