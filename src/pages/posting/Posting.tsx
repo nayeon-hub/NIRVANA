@@ -40,7 +40,7 @@ const Posting = () => {
 
   const { mutate, isLoading, isError } = useMutation({
     mutationFn: async ({ posting = '' }: MutationParams) => {
-      const formData = createPostingForm(posting);
+      const formData = createPostingForm(posting, channelId);
 
       await postCreateNewPost(_id, formData);
     },
@@ -57,10 +57,11 @@ const Posting = () => {
     }
   });
 
-  const createPostingForm = (posting: string) => {
+  const createPostingForm = (posting: string, channelId: string) => {
     const customPosting = {
       title: purifyContent(posting),
-      meditationTime: totalTime
+      meditationTime: totalTime,
+      channel: channelId
     };
     // const formKey = ['title', 'channelId', 'image'];
     // const formData = appendFormData(

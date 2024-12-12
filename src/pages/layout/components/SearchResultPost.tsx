@@ -40,10 +40,10 @@ const SearchResultPost = ({
       return {
         queryKey: ['searchPostUser', element.author],
         queryFn: () => getUser(element.author),
-        select: (response: { data: User }): Post => {
+        select: (data: User): Post => {
           return {
             ...element,
-            profiles: response.data
+            author: data
           };
         },
         enabled: isSuccessPostData && postData.length > 0

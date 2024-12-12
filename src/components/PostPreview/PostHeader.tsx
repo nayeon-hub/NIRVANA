@@ -13,7 +13,7 @@ import { Link } from '@components/Link';
 import { UserId } from '@components/UserText';
 
 interface PostHeaderProps {
-  post: Pick<EditedPost, '_id' | 'createdAt' | 'meditationTime' | 'profiles'>;
+  post: Pick<EditedPost, '_id' | 'createdAt' | 'meditationTime' | 'author'>;
   totalLikes?: number;
   totalComments?: number;
   noneProfile: boolean;
@@ -28,7 +28,7 @@ const PostHeader = ({
   showCommentStatus
 }: PostHeaderProps) => {
   const {
-    profiles: { _id: authorId, fullName, image, email },
+    author: { _id: authorId, fullName, image, email },
     createdAt,
     meditationTime,
     _id

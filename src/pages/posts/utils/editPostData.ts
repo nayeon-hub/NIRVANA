@@ -4,7 +4,7 @@ const editTimeForm = (time: string) => {
   return time.split('T')[0].split('-').join('.');
 };
 
-const editPostData = (posts: Post[]): EditedPost[] => {
+const editPostData = (posts: Post[] | unknown[]): EditedPost[] => {
   if (!posts) {
     return [];
   }

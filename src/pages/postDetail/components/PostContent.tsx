@@ -21,7 +21,7 @@ import { Confirm } from '@components/Confirm';
 import { purifyContent } from '@pages/posting/utils';
 
 interface PostContentProps {
-  profiles: User;
+  author: User;
   currentUserId: string;
   postId: number;
   createdAt: string;
@@ -30,7 +30,7 @@ interface PostContentProps {
 }
 
 const PostContent = ({
-  profiles,
+  author,
   currentUserId,
   postId,
   createdAt,
@@ -113,14 +113,14 @@ const PostContent = ({
           <PostHeader
             post={{
               _id: postId,
-              profiles,
+              author,
               createdAt,
               meditationTime
             }}
             noneProfile={false}
             showCommentStatus={false}
           />
-          {currentUserId === profiles?._id && (
+          {currentUserId === author?._id && (
             <>
               <PostContentMenuIconContainer
                 opened={menuOpened}

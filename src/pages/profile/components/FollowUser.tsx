@@ -8,7 +8,7 @@ interface FollowUserProps {
   followedThisUser: boolean;
   followUser: User;
   followerTab?: boolean;
-  followDataId: string;
+  followDataId: number;
   myProfile: boolean;
 }
 

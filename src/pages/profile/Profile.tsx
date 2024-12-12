@@ -5,7 +5,7 @@ import { useRecoilState } from 'recoil';
 
 import useSessionStorage from '@hooks/useSessionStorage';
 import { User } from '@/types/User';
-import { getUser } from '@apis/user';
+import { getUser } from '@apis/supabase/supabaseClient';
 import createTabItems from './utils/createTabItems';
 import { editModeState } from './states/editMode';
 import {

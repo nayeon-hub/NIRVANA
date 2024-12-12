@@ -14,11 +14,7 @@ import { PostPreviewSkeleton } from '@components/Skeleton';
 const PostDetail = () => {
   const { postId } = useParams<{ postId: string }>();
 
-  const {
-    isLoading,
-    data: { data },
-    refetch
-  } = useQuery({
+  const { isLoading, data, refetch } = useQuery({
     queryKey: ['postDetail', postId],
     queryFn: async () => getPost(postId),
     enabled: !!postId,
@@ -41,7 +37,7 @@ const PostDetail = () => {
       ) : (
         <PostContent
           postId={parseInt(postId)}
-          profiles={data?.profiles}
+          author={data?.author}
           currentUserId={_id}
           content={data?.title}
           meditationTime={data?.meditationTime}
@@ -49,7 +45,7 @@ const PostDetail = () => {
         />
       )}
       <PostCommentInput
-        userId={data?.profiles._id}
+        userId={data?.author._id}
         postId={postId}
         avatarSrc={image}
         userName={fullName}
@@ -58,7 +54,7 @@ const PostDetail = () => {
         }}
       />
       <PostComments
-        userId={data?.profiles._id}
+        userId={data?.author._id}
         postId={postId}
         currentUserId={_id}
         token={'Bearer ' + token}

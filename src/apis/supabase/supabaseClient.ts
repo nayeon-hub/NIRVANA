@@ -1,5 +1,6 @@
 import { createClient } from '@supabase/supabase-js';
 import { Database } from '@/types/supabase/DatabaseGenerated.types';
+import { User } from '@/types/User';
 
 const supabaseKey = import.meta.env.VITE_SUPABASE_KEY;
 const supabaseUrl = import.meta.env.VITE_SUPABASE_URL;
@@ -71,12 +72,13 @@ export const getPosts = async (channelId: string, offset: number) => {
   const response = await supabaseClient
     .from('posts')
     .select(
-      '_id, title, channel, image, meditationTime, updatedAt, createdAt, author, comments(_id, createdAt, updatedAt, post, comment, user), likes(_id, post, user, createdAt, updatedAt), profiles(_id, fullName, image, email, coverImage)'
+      '_id, title, channel, image, meditationTime, updatedAt, createdAt, author:profiles(_id, fullName, image, email, coverImage), comments(_id, createdAt, updatedAt, post, comment, user), likes(_id, post, user, createdAt, updatedAt)'
     )
     .eq('channel', parseInt(channelId))
+    .order('createdAt', { ascending: false })
     .range(offset, offset + 9);
 
-  return response;
+  return response.data;
 };
 
 export const getSearchPosts = async (query: string) => {
@@ -107,15 +109,20 @@ export const getSearchUsers = async (query: string) => {
   }
 };
 
-export const getUser = async (author: string) => {
+export const getUser = async (author: string): Promise<User> => {
   try {
     const response = await supabaseClient
       .from('profiles')
-      .select('*')
+      .select(
+        '_id, createdAt, updatedAt, fullName, image, email, coverImage, followers(_id, user, follower, createdAt, updatedAt), following:followers(_id, user, follower, createdAt, updatedAt), comments(_id), posts(_id, image, author, title, meditationTime, updatedAt, createdAt, channel, likes(_id, user, post, createdAt, updatedAt), comments(_id, user, post, createdAt, updatedAt, comment))'
+      )
       .eq('_id', author)
       .single();
 
-    return response;
+    return {
+      ...response.data,
+      comments: Object.values(response.data.comments).map((el) => el.toString())
+    };
   } catch (err) {
     console.log(err);
   }
@@ -126,12 +133,12 @@ export const getPost = async (postId: string) => {
     const response = await supabaseClient
       .from('posts')
       .select(
-        '_id, title, image, meditationTime, updatedAt, createdAt, author, comments(_id, createdAt, updatedAt, post, comment, profiles(_id, fullName, email, coverImage, image)), likes(_id, post, user, createdAt, updatedAt), profiles(_id, fullName, image, email, coverImage), channels(_id, name)'
+        '_id, title, image, meditationTime, updatedAt, createdAt, author:profiles(_id, fullName, image, email, coverImage), comments(_id, createdAt, updatedAt, post, comment, user), likes(_id, post, user, createdAt, updatedAt), channels(_id, name)'
       )
       .eq('_id', postId)
       .single();
 
-    return response;
+    return response.data;
   } catch (err) {
     console.log(err);
   }

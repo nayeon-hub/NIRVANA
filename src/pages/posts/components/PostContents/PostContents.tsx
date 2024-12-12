@@ -22,7 +22,7 @@ const PostItems = ({ channel }: PostItemsProps) => {
       ({ pageParam: offset = 0 }) => getPosts(channel.id, offset),
       {
         getNextPageParam: (lastPage, pages) => {
-          if (lastPage.data.length === 0) return false;
+          if (lastPage.length === 0) return false;
           return pages.length * 10;
         }
       }
@@ -41,12 +41,12 @@ const PostItems = ({ channel }: PostItemsProps) => {
   return (
     <PostsContainer>
       {data &&
-        (data.pages[0].data.length > 0 ? (
+        (data.pages[0].length > 0 ? (
           <>
             {data.pages.map((pageData, idx) => (
               <PostPreviewList
                 key={idx}
-                postsData={editPostData(pageData.data)}
+                postsData={editPostData(pageData)}
               />
             ))}
             <PostObserverEndPoint ref={ref} />

@@ -39,9 +39,9 @@ const PostComments = ({
         <PostComment
           key={comment._id}
           id={comment._id}
-          author={comment.profiles}
+          author={comment.user}
           text={comment.comment}
-          myComment={comment.profiles._id === currentUserId}
+          myComment={comment.user._id === currentUserId}
           refetch={refetch}
         />
       ))}

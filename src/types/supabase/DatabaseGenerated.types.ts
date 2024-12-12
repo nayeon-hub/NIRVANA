@@ -190,7 +190,7 @@ export type Database = {
         };
         Insert: {
           _id?: number;
-          author: string;
+          author?: string;
           channel: number;
           createdAt?: string;
           image?: string | null;
