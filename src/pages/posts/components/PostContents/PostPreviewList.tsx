@@ -10,9 +10,9 @@ const PostPreviewList = ({ postsData }: PostPreviewListProps) => {
   return (
     <>
       {postsData.map((post: EditedPost, index) => {
-        const { content, likes, comments } = post;
+        const { title, likes, comments } = post;
         return (
-          content && (
+          title !== '' && (
             <PostPreview
               key={index}
               post={post}

@@ -6,13 +6,13 @@ import { editPostData } from '../../utils/editPostData';
 import PostPreviewList from './PostPreviewList';
 import { NoPosts } from '../NoPosts';
 
-import { ThemeInfoType } from '@components/ThemePicker/ThemePicker';
 import { Toast } from '@components/Toast';
 import { SkeletonPosts } from '@components/Skeleton';
 import { PostsContainer, PostObserverEndPoint } from './PostContents.style';
+import { meditationChannelsInfoType } from '@pages/meditation/types';
 
 interface PostItemsProps {
-  channel: ThemeInfoType;
+  channel: meditationChannelsInfoType;
 }
 
 const PostItems = ({ channel }: PostItemsProps) => {
