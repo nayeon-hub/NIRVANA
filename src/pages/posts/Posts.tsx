@@ -1,47 +1,47 @@
 import { useState } from 'react';
 import { useLocation } from 'react-router-dom';
 
-import { meditationChannelInfo } from '@pages/meditation/models/channelInfo';
+import { meditationChannelsInfo } from '@pages/meditation/models/channelInfo';
 import { PostContents } from './components/PostContents';
-import { ThemeInfoType } from '@components/ThemePicker/ThemePicker';
 import { StyledPostsPage, ThemePickerContainer } from './Posts.style';
-import { CONCENTRATION_KEY } from '@pages/meditation/constants';
 import { Button } from '@components/Button';
+import { meditationChannelsInfoType } from '@pages/meditation/types';
 
 const Posts = () => {
   const locate = useLocation();
-  const [channel, setChannel] = useState<ThemeInfoType>(
-    locate.state?.channelInfo
-      ? locate.state.channelInfo
-      : meditationChannelInfo.get(CONCENTRATION_KEY)
-  );
-  const [picked, setPicked] = useState<ThemeInfoType>(
-    meditationChannelInfo.get(CONCENTRATION_KEY)
+  const [channelIdx, setChannelIdx] = useState<number>(
+    locate.state?.channelInfo ? locate.state.channelInfo.idx : 0
   );
 
-  const clickThemePicker = (selected: ThemeInfoType) => {
-    setChannel(selected);
+  const [picked, setPicked] = useState<meditationChannelsInfoType>(
+    meditationChannelsInfo[channelIdx]
+  );
+
+  const clickThemePicker = (selectedIdx: number) => {
+    setChannelIdx(selectedIdx);
   };
 
   return (
     <StyledPostsPage>
       <ThemePickerContainer>
-        {Array.from(meditationChannelInfo).map(([key, value]) => (
-          <Button
-            key={key}
-            width='80px'
-            height='28px'
-            bold={false}
-            dark={picked.label === value.label}
-            label={value.label}
-            handleClick={() => {
-              setPicked(value);
-              clickThemePicker && clickThemePicker(value);
-            }}
-          />
-        ))}
+        {meditationChannelsInfo.map((value, idx) => {
+          return (
+            <Button
+              key={value.id}
+              width='80px'
+              height='28px'
+              bold={false}
+              dark={picked.label === value.label}
+              label={value.label}
+              handleClick={() => {
+                setPicked(value);
+                clickThemePicker && clickThemePicker(idx);
+              }}
+            />
+          );
+        })}
       </ThemePickerContainer>
-      <PostContents channel={channel} />
+      <PostContents channel={meditationChannelsInfo[channelIdx]} />
     </StyledPostsPage>
   );
 };

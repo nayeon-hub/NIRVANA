@@ -1,9 +1,14 @@
 import styled from '@emotion/styled';
+import { Theme } from '@emotion/react';
 
-export const StyledPosting = styled.div`
+type StyledPostingProps = {
+  background: keyof Theme['color'];
+};
+
+export const StyledPosting = styled.div<StyledPostingProps>`
   width: 100%;
   height: 100%;
-  background: ${({ theme }) => theme.color.linearGradientPurple};
+  background: ${({ theme, background }) => theme.color[background]};
 `;
 
 export const ContentContainer = styled.div`

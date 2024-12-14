@@ -74,7 +74,8 @@ const Meditation = () => {
           navigate('/meditation/action', {
             state: {
               ...meditationChannelsInfo[themCurrentIdx],
-              setTime: currMin
+              setTime: currMin,
+              currIdx: themCurrentIdx
             }
           });
         }}>

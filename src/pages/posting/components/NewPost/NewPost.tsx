@@ -15,10 +15,10 @@ import {
 import { UseMutateFunction } from '@tanstack/react-query';
 
 interface MeditationInfo {
-  channelId: string;
-  validation: boolean;
-  channelLabel: string;
   totalTime: number;
+  channelId: string;
+  channelLabel: string;
+  channelColor: string;
 }
 
 interface MutationParams {

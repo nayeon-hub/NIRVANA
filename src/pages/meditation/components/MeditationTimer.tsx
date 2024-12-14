@@ -42,13 +42,17 @@ const MeditationTimer = ({
       const {
         label: channelLabel,
         id: channelId,
-        setTime: totalTime
+        color: channelColor,
+        setTime: totalTime,
+        currIdx: channelIdx
       } = location.state;
 
       navigate('/posting', {
         state: {
           channelLabel,
+          channelColor,
           channelId,
+          channelIdx,
           totalTime,
           validation: true
         }

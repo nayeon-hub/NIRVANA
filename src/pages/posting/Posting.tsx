@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useMutation } from '@tanstack/react-query';
 import { useLocation, useNavigate } from 'react-router-dom';
+import { Theme } from '@emotion/react';
 
 import { postCreateNewPost } from '@apis/supabase/supabaseClient';
 import { Toast } from '@components/Toast';
@@ -22,21 +23,27 @@ interface ReceiveState {
   totalTime: number;
   channelId: string;
   channelLabel: string;
-  validation: boolean;
+  channelColor: keyof Theme['color'];
+  channelIdx: number;
 }
 
 const Posting = () => {
   const navigate = useNavigate();
-  const location = useLocation();
+  const locate = useLocation();
   const { _id } = JSON.parse(sessionStorage.getItem('userData'));
-  const [meditationInfo, setMeditationInfo] = useState<ReceiveState>({
-    totalTime: 0,
-    channelId: '',
-    channelLabel: '',
-    validation: false
-  });
+  const [meditationInfo] = useState<ReceiveState>(
+    locate.state
+      ? locate.state
+      : {
+          totalTime: 0,
+          channelId: '',
+          channelLabel: '',
+          channelColor: 'linearGradientPurple',
+          channelIdx: 0
+        }
+  );
 
-  const { totalTime, channelLabel, channelId } = meditationInfo;
+  const { totalTime, channelLabel, channelId, channelIdx } = meditationInfo;
 
   const { mutate, isLoading, isError } = useMutation({
     mutationFn: async ({ posting = '' }: MutationParams) => {
@@ -50,7 +57,8 @@ const Posting = () => {
         state: {
           channelInfo: {
             id: channelId,
-            label: channelLabel
+            label: channelLabel,
+            idx: channelIdx
           }
         }
       });
@@ -78,17 +86,14 @@ const Posting = () => {
       // image: null
     };
   };
-
   useEffect(() => {
-    if (location.state === null) {
+    if (locate.state === null) {
       navigate('/404');
     }
-    console.log(location);
-    setMeditationInfo(location.state);
-  }, [location, navigate]);
+  }, [locate, navigate]);
 
   return (
-    <StyledPosting>
+    <StyledPosting background={meditationInfo.channelColor}>
       {isError && (
         <Toast
           type={'ERROR'}

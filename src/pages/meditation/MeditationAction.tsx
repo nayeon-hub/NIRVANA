@@ -1,5 +1,5 @@
 import { useLocation, useNavigate } from 'react-router-dom';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { MeditationPage } from './Meditation.style';
 import MeditationCircle from './components/MeditationCircle';
 import { Icon } from '@components/Icon';
