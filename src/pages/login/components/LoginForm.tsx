@@ -54,6 +54,7 @@ const LoginForm = () => {
         user,
         session: { access_token }
       } = response.data;
+
       setUserSessionData({
         _id: user.id,
         token: access_token,

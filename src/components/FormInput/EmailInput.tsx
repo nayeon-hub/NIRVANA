@@ -45,8 +45,16 @@ const EmailInput = ({
   const {
     register,
     trigger,
-    formState: { errors }
+    setError,
+    formState: { errors },
+    watch
   } = useFormContext<SignUpFormData>();
+
+  const [email, emailCheck, duplicatedEmail] = watch([
+    'email',
+    'emailCheck',
+    'duplicatedEmail'
+  ]);
 
   let message = null;
 
@@ -81,7 +89,21 @@ const EmailInput = ({
               message: errorMessage
             },
             onBlur: () => {
-              trigger(USER_INPUT.EMAIL.NAME);
+              if (!email || errors.email) {
+                trigger(USER_INPUT.EMAIL.NAME);
+              } else if (!emailCheck) {
+                setError('emailCheck', {
+                  type: 'isChecked',
+                  message: '이메일 중복을 확인해주세요'
+                });
+                trigger('emailCheck');
+              } else if (!duplicatedEmail) {
+                setError('duplicatedEmail', {
+                  type: 'isDuplicated',
+                  message: '중복된 이메일입니다.'
+                });
+                trigger('duplicatedEmail');
+              }
             }
           })}
         />

@@ -40,7 +40,7 @@ const EmailForm = () => {
       <EmailConfirmButton
         type='button'
         onClick={() => {
-          if (errors[USER_INPUT.EMAIL.NAME]) {
+          if (!email || errors[USER_INPUT.EMAIL.NAME]) {
             trigger(USER_INPUT.EMAIL.NAME);
           } else {
             setValue('emailCheck', true);
