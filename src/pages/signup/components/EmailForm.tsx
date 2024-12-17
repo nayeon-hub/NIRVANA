@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import { useMutation } from '@tanstack/react-query';
 import { useFormContext } from 'react-hook-form';
 import { getEmailCheck } from '@apis/supabase/supabaseClient';
@@ -17,6 +18,7 @@ const EmailForm = () => {
     formState: { errors }
   } = useFormContext();
   const [email] = watch(['email']);
+  const [emailValue, setEmailValue] = useState<Set<string>>(new Set());
 
   const { mutate, isLoading } = useMutation({
     mutationFn: getEmailCheck,
@@ -29,6 +31,9 @@ const EmailForm = () => {
         });
         setValue('duplicatedEmail', true);
       } else {
+        const newSet = new Set([...emailValue, email]);
+        setEmailValue(newSet);
+
         setValue('duplicatedEmail', false);
         clearErrors('duplicatedEmail');
       }
@@ -57,6 +62,7 @@ const EmailForm = () => {
         errorMessage={USER_INPUT.EMAIL.ERROR_MESSAGE}
         successMessage={USER_INPUT.EMAIL.SUCCESS_MESSAGE}
         width={'68%'}
+        emailValue={emailValue}
       />
     </FormInputContainer>
   );

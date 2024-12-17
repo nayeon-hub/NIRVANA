@@ -32,6 +32,7 @@ interface EmailInputProps {
   show: boolean;
   width: string;
   registerOptions: object;
+  emailValue: Set<string>;
 }
 
 const EmailInput = ({
@@ -40,21 +41,19 @@ const EmailInput = ({
   title,
   placeholder,
   errorMessage,
-  width = '100%'
+  width = '100%',
+  emailValue
 }: Partial<EmailInputProps>) => {
   const {
     register,
     trigger,
     setError,
     formState: { errors },
-    watch
+    watch,
+    clearErrors
   } = useFormContext<SignUpFormData>();
 
-  const [email, emailCheck, duplicatedEmail] = watch([
-    'email',
-    'emailCheck',
-    'duplicatedEmail'
-  ]);
+  const [email] = watch(['email']);
 
   let message = null;
 
@@ -88,21 +87,17 @@ const EmailInput = ({
               value: /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/i,
               message: errorMessage
             },
+
             onBlur: () => {
-              if (!email || errors.email) {
-                trigger(USER_INPUT.EMAIL.NAME);
-              } else if (!emailCheck) {
+              trigger(USER_INPUT.EMAIL.NAME);
+
+              if (emailValue.has(email)) {
+                clearErrors('emailCheck');
+              } else {
                 setError('emailCheck', {
                   type: 'isChecked',
                   message: '이메일 중복을 확인해주세요'
                 });
-                trigger('emailCheck');
-              } else if (!duplicatedEmail) {
-                setError('duplicatedEmail', {
-                  type: 'isDuplicated',
-                  message: '중복된 이메일입니다.'
-                });
-                trigger('duplicatedEmail');
               }
             }
           })}
