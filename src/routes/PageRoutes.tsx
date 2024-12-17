@@ -56,46 +56,44 @@ const PageRoutes = () => {
             }
           />
         </Route>
-        <Route element={<NoneLayout />}>
+        <Route element={<PublicRoute />}>
           <Route
-            path='/posting'
-            element={<Posting />}
+            path='/'
+            element={<LandingPage />}
           />
-          <Route path='/meditation'>
-            <Route
-              path=''
-              element={<Meditation />}
-            />
-            <Route
-              path='action'
-              element={<MeditationAction />}
-            />
-          </Route>
+          <Route
+            path='/signup'
+            element={<SignUp />}
+          />
+          <Route
+            path='/login'
+            element={<LogIn />}
+          />
         </Route>
-      </Route>
-      <Route element={<PublicRoute />}>
+        <Route element={<Layout headerStatus={'home'} />}>
+          <Route
+            path='/posts'
+            element={
+              <Suspense fallback={<SkeletonPosts />}>
+                <Posts />
+              </Suspense>
+            }
+          />
+        </Route>
         <Route
-          path='/'
-          element={<LandingPage />}
+          path='/posting'
+          element={<Posting />}
         />
-        <Route
-          path='/signup'
-          element={<SignUp />}
-        />
-        <Route
-          path='/login'
-          element={<LogIn />}
-        />
-      </Route>
-      <Route element={<Layout headerStatus={'home'} />}>
-        <Route
-          path='/posts'
-          element={
-            <Suspense fallback={<SkeletonPosts />}>
-              <Posts />
-            </Suspense>
-          }
-        />
+        <Route path='/meditation'>
+          <Route
+            path=''
+            element={<Meditation />}
+          />
+          <Route
+            path='action'
+            element={<MeditationAction />}
+          />
+        </Route>
       </Route>
       <Route
         path='/404'
