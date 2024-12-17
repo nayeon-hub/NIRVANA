@@ -13,7 +13,13 @@ const PathNav = ({ pathStatus }: pathNavProps) => {
 
   return (
     <PathNavContainer>
-      {pathStatus === 'back' ? (
+      {pathStatus === 'home' ? (
+        <Link
+          pageLink='/posts'
+          setActiveStyle={false}>
+          <Logo />
+        </Link>
+      ) : (
         <Button
           width='20px'
           height='20px'
@@ -26,12 +32,6 @@ const PathNav = ({ pathStatus }: pathNavProps) => {
             size={20}
           />
         </Button>
-      ) : (
-        <Link
-          pageLink='/posts'
-          setActiveStyle={false}>
-          <Logo />
-        </Link>
       )}
     </PathNavContainer>
   );

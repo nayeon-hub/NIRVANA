@@ -3,7 +3,7 @@ import { Footer, Header } from '@pages/layout/components';
 import { LayoutContainer } from './Layout.style';
 
 interface LayoutProps {
-  headerStatus: 'back' | 'home';
+  headerStatus?: 'back' | 'home';
 }
 
 const Layout = ({ headerStatus }: LayoutProps) => {

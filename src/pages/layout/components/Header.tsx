@@ -3,9 +3,8 @@ import { HeaderNavSection, HeaderSearchSection } from './Header.style';
 import { PathNav, EtcNav, Search } from '@pages/layout/components';
 import { openSearch } from '../states/openSearch';
 
-
 interface HeaderProps {
-  pathStatus: 'back' | 'home';
+  pathStatus?: 'back' | 'home';
 }
 
 const Header = ({ pathStatus }: HeaderProps) => {
@@ -32,6 +31,7 @@ const Header = ({ pathStatus }: HeaderProps) => {
         <HeaderNavSection>
           <PathNav pathStatus={pathStatus} />
           <EtcNav
+            pathStatus={pathStatus}
             handleOpenSearchBox={handleOpenSearchBox}
             showSearchBox={showSearchBox}
           />

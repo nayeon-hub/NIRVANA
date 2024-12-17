@@ -4,6 +4,7 @@ import PublicRoute from './PublicRoute';
 
 import LandingPage from '@pages/landing';
 import Layout from '@pages/layout';
+import NoneLayout from '@pages/layout/NoneLayout';
 import Profile from '@pages/profile';
 import SignUp from '@pages/signup';
 import LogIn from '@pages/login';
@@ -28,6 +29,25 @@ const PageRoutes = () => {
       <Route element={<PrivateRoute />}>
         <Route element={<Layout headerStatus={'back'} />}>
           <Route
+            path='/notice'
+            element={<Notice />}
+          />
+          <Route
+            path='/posts/:postId'
+            element={
+              <Suspense fallback={<PostDetailSkeleton />}>
+                <PostDetail />
+              </Suspense>
+            }></Route>
+        </Route>
+        <Route element={<Layout />}>
+          <Route path='/setting'>
+            <Route
+              path='password-update'
+              element={<PasswordUpdate />}
+            />
+          </Route>
+          <Route
             path='/profile/:userId'
             element={
               <Suspense fallback={<ProfileSkeleton />}>
@@ -35,28 +55,22 @@ const PageRoutes = () => {
               </Suspense>
             }
           />
-          <Route
-            path='/notice'
-            element={<Notice />}
-          />
         </Route>
-        <Route element={<Layout headerStatus={'home'} />}>
+        <Route element={<NoneLayout />}>
           <Route
             path='/posting'
             element={<Posting />}
           />
-          <Route
-            path='/setting/password-update'
-            element={<PasswordUpdate />}
-          />
-          <Route
-            path='/meditation'
-            element={<Meditation />}
-          />
-          <Route
-            path='/meditation/action'
-            element={<MeditationAction />}
-          />
+          <Route path='/meditation'>
+            <Route
+              path=''
+              element={<Meditation />}
+            />
+            <Route
+              path='action'
+              element={<MeditationAction />}
+            />
+          </Route>
         </Route>
       </Route>
       <Route element={<PublicRoute />}>
@@ -79,14 +93,6 @@ const PageRoutes = () => {
           element={
             <Suspense fallback={<SkeletonPosts />}>
               <Posts />
-            </Suspense>
-          }
-        />
-        <Route
-          path='/posts/:postId'
-          element={
-            <Suspense fallback={<PostDetailSkeleton />}>
-              <PostDetail />
             </Suspense>
           }
         />

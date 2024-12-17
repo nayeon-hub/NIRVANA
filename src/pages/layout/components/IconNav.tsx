@@ -11,9 +11,14 @@ import { EtcNavContainer } from './IconNav.style';
 interface EtcNavProps {
   handleOpenSearchBox: () => void;
   showSearchBox: boolean;
+  pathStatus?: 'back' | 'home';
 }
 
-const EtcNav = ({ handleOpenSearchBox, showSearchBox }: EtcNavProps) => {
+const EtcNav = ({
+  handleOpenSearchBox,
+  showSearchBox,
+  pathStatus
+}: EtcNavProps) => {
   const [loginConfirm, setLoginConfirm] = useState(false);
   const [{ _id, token }] = useSessionStorage<Pick<User, '_id' | 'token'>>(
     'userData',
@@ -47,11 +52,23 @@ const EtcNav = ({ handleOpenSearchBox, showSearchBox }: EtcNavProps) => {
         />
       )}
       <EtcNavContainer>
-        <SearchButton
-          handleClickButton={handleOpenSearchBox}
-          searchStatus={showSearchBox}
-        />
-        <AlertButton handleClickAlert={handleClickAlert} />
+        {pathStatus ? (
+          <>
+            {pathStatus === 'home' ? (
+              <>
+                <SearchButton
+                  handleClickButton={handleOpenSearchBox}
+                  searchStatus={showSearchBox}
+                />
+                <AlertButton handleClickAlert={handleClickAlert} />
+              </>
+            ) : (
+              <AlertButton handleClickAlert={handleClickAlert} />
+            )}
+          </>
+        ) : (
+          <></>
+        )}
       </EtcNavContainer>
     </>
   );
