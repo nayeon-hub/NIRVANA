@@ -4,7 +4,6 @@ import PublicRoute from './PublicRoute';
 
 import LandingPage from '@pages/landing';
 import Layout from '@pages/layout';
-import NoneLayout from '@pages/layout/NoneLayout';
 import Profile from '@pages/profile';
 import SignUp from '@pages/signup';
 import LogIn from '@pages/login';
