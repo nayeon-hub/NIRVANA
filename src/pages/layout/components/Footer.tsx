@@ -34,10 +34,10 @@ const Footer = () => {
       setShowSearchBox(false);
     }
 
-    if ((_id && token) || path === '/posts') {
-      navigate(path);
-    } else {
+    if (!(_id && token) && path === `/profile/${_id}`) {
       setLoginConfirm((prev) => !prev);
+    } else {
+      navigate(path);
     }
   };
 

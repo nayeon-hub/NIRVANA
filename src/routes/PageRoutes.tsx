@@ -1,6 +1,6 @@
 import { Navigate, Route, Routes } from 'react-router-dom';
-import PrivateRoute from './PrivateRoute';
-import PublicRoute from './PublicRoute';
+import LoginPrivateRoute from './LoginPrivateRoute';
+import NotLoginPrivateRoute from './NotLoginPrivateRoute';
 
 import LandingPage from '@pages/landing';
 import Layout from '@pages/layout';
@@ -25,7 +25,11 @@ import MeditationAction from '@pages/meditation/MeditationAction';
 const PageRoutes = () => {
   return (
     <Routes>
-      <Route element={<PrivateRoute />}>
+      <Route element={<LoginPrivateRoute />}>
+        <Route
+          path='/posting'
+          element={<Posting />}
+        />
         <Route element={<Layout headerStatus={'back'} />}>
           <Route
             path='/notice'
@@ -37,7 +41,8 @@ const PageRoutes = () => {
               <Suspense fallback={<PostDetailSkeleton />}>
                 <PostDetail />
               </Suspense>
-            }></Route>
+            }
+          />
         </Route>
         <Route element={<Layout />}>
           <Route path='/setting'>
@@ -54,33 +59,9 @@ const PageRoutes = () => {
               </Suspense>
             }
           />
-          <Route element={<Layout headerStatus={'home'} />}>
-            <Route
-              path='/posts'
-              element={
-                <Suspense fallback={<SkeletonPosts />}>
-                  <Posts />
-                </Suspense>
-              }
-            />
-          </Route>
-          <Route
-            path='/posting'
-            element={<Posting />}
-          />
-          <Route path='/meditation'>
-            <Route
-              path=''
-              element={<Meditation />}
-            />
-            <Route
-              path='action'
-              element={<MeditationAction />}
-            />
-          </Route>
         </Route>
       </Route>
-      <Route element={<PublicRoute />}>
+      <Route element={<NotLoginPrivateRoute />}>
         <Route
           path='/'
           element={<LandingPage />}
@@ -92,6 +73,26 @@ const PageRoutes = () => {
         <Route
           path='/login'
           element={<LogIn />}
+        />
+      </Route>
+      <Route element={<Layout headerStatus={'home'} />}>
+        <Route
+          path='/posts'
+          element={
+            <Suspense fallback={<SkeletonPosts />}>
+              <Posts />
+            </Suspense>
+          }
+        />
+      </Route>
+      <Route path='/meditation'>
+        <Route
+          path=''
+          element={<Meditation />}
+        />
+        <Route
+          path='action'
+          element={<MeditationAction />}
         />
       </Route>
       <Route
