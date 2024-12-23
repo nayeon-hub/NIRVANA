@@ -1,5 +1,9 @@
 import { useRecoilState } from 'recoil';
-import { HeaderNavSection, HeaderSearchSection } from './Header.style';
+import {
+  HeaderLayout,
+  HeaderNavSection,
+  HeaderSearchSection
+} from './Header.style';
 import { PathNav, EtcNav, Search } from '@pages/layout/components';
 import { openSearch } from '../states/openSearch';
 
@@ -19,7 +23,7 @@ const Header = ({ pathStatus }: HeaderProps) => {
   };
 
   return (
-    <>
+    <HeaderLayout>
       {showSearchBox ? (
         <HeaderSearchSection>
           <Search
@@ -37,7 +41,7 @@ const Header = ({ pathStatus }: HeaderProps) => {
           />
         </HeaderNavSection>
       )}
-    </>
+    </HeaderLayout>
   );
 };
 

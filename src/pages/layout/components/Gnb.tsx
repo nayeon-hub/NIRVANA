@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
-import { StyledFooter } from './Footer.style';
+import { GnbLayout, GnbSection, GnbMenu } from './Gnb.style';
 
 import type { User } from '@/types/User';
 
@@ -11,7 +11,7 @@ import { Button } from '@components/Button';
 import { useRecoilState } from 'recoil';
 import { openSearch } from '../states/openSearch';
 
-const Footer = () => {
+const Gnb = () => {
   const [loginConfirm, setLoginConfirm] = useState(false);
   const [showSearchBox, setShowSearchBox] = useRecoilState(openSearch);
   const navigate = useNavigate();
@@ -56,28 +56,32 @@ const Footer = () => {
           path={pathname}
         />
       )}
-      <StyledFooter>
-        {iconInfos.map(({ name, size, link }) => (
-          <Button
-            key={name}
-            width='35px'
-            height='35px'
-            handleClick={() => {
-              handleClickButton(link);
-            }}
-            borderRadius={0}
-            backgroundColor={'transparent'}>
-            <Icon
-              name={name}
-              size={size}
-              fill={link === pathname}
-              color={link === pathname ? 'purpleNormal' : 'black'}
-            />
-          </Button>
-        ))}
-      </StyledFooter>
+      <GnbLayout>
+        <GnbSection>
+          <GnbMenu>
+            {iconInfos.map(({ name, size, link }) => (
+              <Button
+                key={name}
+                width='35px'
+                height='35px'
+                handleClick={() => {
+                  handleClickButton(link);
+                }}
+                borderRadius={0}
+                backgroundColor={'transparent'}>
+                <Icon
+                  name={name}
+                  size={size}
+                  fill={link === pathname}
+                  color={link === pathname ? 'purpleNormal' : 'black'}
+                />
+              </Button>
+            ))}
+          </GnbMenu>
+        </GnbSection>
+      </GnbLayout>
     </>
   );
 };
 
-export default Footer;
+export default Gnb;

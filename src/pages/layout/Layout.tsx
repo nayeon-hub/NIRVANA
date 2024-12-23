@@ -1,19 +1,23 @@
 import { Outlet } from 'react-router';
-import { Footer, Header } from '@pages/layout/components';
-import { LayoutContainer } from './Layout.style';
+import { Gnb, Header } from '@pages/layout/components';
+import { LayoutContainer, CommonLayoutContainer } from './Layout.style';
 
 interface LayoutProps {
   headerStatus?: 'back' | 'home';
+  header?: boolean;
+  nav?: boolean;
 }
 
-const Layout = ({ headerStatus }: LayoutProps) => {
+const Layout = ({ headerStatus, header, nav }: LayoutProps) => {
   return (
     <>
-      <Header pathStatus={headerStatus} />
-      <LayoutContainer>
-        <Outlet />
-      </LayoutContainer>
-      <Footer />
+      <CommonLayoutContainer>
+        {header ? <Header pathStatus={headerStatus} /> : <></>}
+        <LayoutContainer>
+          <Outlet />
+        </LayoutContainer>
+      </CommonLayoutContainer>
+      {nav ? <Gnb /> : <></>}
     </>
   );
 };

@@ -4,15 +4,12 @@ export const SignUpFormContainer = styled.form`
   ${({ theme }) => theme.style.flexCenter};
   flex-direction: column;
   box-sizing: border-box;
-  flex-grow: 2;
   background-color: ${({ theme }) => theme.color.white};
-  width: 80%;
   min-width: 300px;
   max-width: 450px;
   max-height: 600px;
   padding: 25px 20px;
   border-radius: 10px;
-  margin-bottom: 50px;
   box-shadow: 2px 2px 10px ${({ theme }) => theme.color.black250};
 `;
 

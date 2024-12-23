@@ -14,7 +14,7 @@ export const MeditationPage = styled.div<MeditationPageProps>`
 `;
 
 export const SlideMain = styled.div`
-  margin-bottom: 34px;
+  /* margin-bottom: 34px; */
 `;
 
 export const SlideButtonContainer = styled.div``;

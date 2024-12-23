@@ -10,7 +10,7 @@ import PathNav from './PathNav';
 import EtcNav from './IconNav';
 import AlertButton from './AlertButton';
 import Header from './Header';
-import Footer from './Footer';
+import Gnb from './Gnb';
 
 export {
   Search,
@@ -25,5 +25,5 @@ export {
   EtcNav,
   AlertButton,
   Header,
-  Footer
+  Gnb
 };

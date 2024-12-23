@@ -7,19 +7,20 @@ type MeditationPageProps = {
 
 export const MeditationPage = styled.div<MeditationPageProps>`
   ${({ theme, flex }) => theme.style[flex]};
+  justify-content: space-evenly;
   flex-direction: column;
-  height: 100%;
+  height: 100vh;
   width: 100%;
   background: ${({ theme, color }) => theme.color[color]};
   position: relative;
-  padding: 60px 20px 0;
+  padding: 5px 20px;
 `;
 
 export const MeditationMainHeader = styled.div`
   position: relative;
   width: 100%;
   color: ${({ theme }) => theme.color.white};
-  margin-bottom: 53px;
+  /* margin-bottom: 53px; */
   ${({ theme }) => theme.style.flexCenter};
 
   & > div {
@@ -34,7 +35,7 @@ export const MeditationActionHeader = styled.div`
   color: ${({ theme }) => theme.color.white};
   font-size: 30px;
   ${({ theme }) => theme.style.flexCenter};
-  margin-bottom: 14px;
+  /* margin-bottom: 14px; */
 
   & div {
     position: absolute;

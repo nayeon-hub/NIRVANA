@@ -27,10 +27,26 @@ const PageRoutes = () => {
     <Routes>
       <Route element={<LoginPrivateRoute />}>
         <Route
-          path='/posting'
-          element={<Posting />}
-        />
-        <Route element={<Layout headerStatus={'back'} />}>
+          element={
+            <Layout
+              headerStatus={'back'}
+              header
+              nav
+            />
+          }>
+          <Route
+            path='/posting'
+            element={<Posting />}
+          />
+        </Route>
+        <Route
+          element={
+            <Layout
+              headerStatus={'back'}
+              header
+              nav
+            />
+          }>
           <Route
             path='/notice'
             element={<Notice />}
@@ -44,7 +60,14 @@ const PageRoutes = () => {
             }
           />
         </Route>
-        <Route element={<Layout />}>
+        <Route
+          element={
+            <Layout
+              header
+              nav
+              headerStatus={'back'}
+            />
+          }>
           <Route path='/setting'>
             <Route
               path='password-update'
@@ -62,20 +85,29 @@ const PageRoutes = () => {
         </Route>
       </Route>
       <Route element={<NotLoginPrivateRoute />}>
-        <Route
-          path='/'
-          element={<LandingPage />}
-        />
-        <Route
-          path='/signup'
-          element={<SignUp />}
-        />
-        <Route
-          path='/login'
-          element={<LogIn />}
-        />
+        <Route element={<Layout />}>
+          <Route
+            path='/'
+            element={<LandingPage />}
+          />
+          <Route
+            path='/signup'
+            element={<SignUp />}
+          />
+          <Route
+            path='/login'
+            element={<LogIn />}
+          />
+        </Route>
       </Route>
-      <Route element={<Layout headerStatus={'home'} />}>
+      <Route
+        element={
+          <Layout
+            headerStatus={'home'}
+            header
+            nav
+          />
+        }>
         <Route
           path='/posts'
           element={
@@ -85,24 +117,26 @@ const PageRoutes = () => {
           }
         />
       </Route>
-      <Route path='/meditation'>
+      <Route element={<Layout />}>
+        <Route path='/meditation'>
+          <Route
+            path=''
+            element={<Meditation />}
+          />
+          <Route
+            path='action'
+            element={<MeditationAction />}
+          />
+        </Route>
         <Route
-          path=''
-          element={<Meditation />}
+          path='/404'
+          element={<NotFound />}
         />
         <Route
-          path='action'
-          element={<MeditationAction />}
+          path='/*'
+          element={<Navigate to='/404' />}
         />
       </Route>
-      <Route
-        path='/404'
-        element={<NotFound />}
-      />
-      <Route
-        path='/*'
-        element={<Navigate to='/404' />}
-      />
     </Routes>
   );
 };

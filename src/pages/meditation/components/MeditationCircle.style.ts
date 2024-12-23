@@ -12,7 +12,7 @@ export const CircleBox = styled.div<{ mode: string }>`
   position: relative;
   width: ${({ mode }) => (mode === 'notAction' ? '300px' : '400px')};
   height: ${({ mode }) => (mode === 'notAction' ? '300px' : '400px')};
-  margin-bottom: 35px;
+  /* margin-bottom: 35px; */
 `;
 
 export const CircleLine = styled.div<{ mode: string }>`

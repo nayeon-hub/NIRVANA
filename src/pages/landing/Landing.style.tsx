@@ -3,18 +3,15 @@ import logo from '../../assets/logo.svg';
 
 export const LandingMain = styled.main`
   background: ${({ theme }) => theme.color.linearGradientPurple};
-  ${({ theme }) => theme.style.flexCenter};
+  ${({ theme }) => theme.style.flexAlignCenter};
+  justify-content: space-evenly;
   flex-direction: column;
   width: 100%;
-  height: 100%;
+  height: 100vh;
 `;
 
 export const HeadingContentContainer = styled.div`
   width: 100%;
-  flex-grow: 1;
-  flex-shrink: 2;
-  max-height: 250px;
-  min-height: 150px;
   ${({ theme }) => theme.style.flexAlignCenter};
 `;
 
@@ -29,10 +26,7 @@ export const Heading = styled.h1`
 `;
 
 export const BottomContentContainer = styled.div`
-  position: absolute;
-  bottom: 20px;
   width: 100%;
-  margin-bottom: 50px;
 `;
 
 export const LinkContainer = styled.div`
