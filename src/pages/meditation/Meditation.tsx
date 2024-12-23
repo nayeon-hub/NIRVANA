@@ -10,7 +10,10 @@ import { Icon } from '@components/Icon';
 import {
   MeditationMainHeader,
   MeditationPage,
-  PageH3
+  MeditationLayout,
+  PageH3,
+  MeditationTimeSettingBox,
+  MeditationStartBtn
 } from './Meditation.style';
 import { meditationChannelsInfo } from './models/channelInfo';
 import { TIME_ARRAY } from './constants';
@@ -47,40 +50,46 @@ const Meditation = () => {
         </div>
         <PageH3>천천히 심호흡을 해보세요</PageH3>
       </MeditationMainHeader>
-      <MeditationCircle
-        time={8}
-        color={meditationChannels[themCurrentIdx].color}
-      />
-      <ThemeSlide
-        mediTheme={meditationChannels}
-        themCurrentIdx={themCurrentIdx}
-        setThemeCurrentIdx={setThemeCurrentIdx}
-      />
-      <MeditationTimeSetting
-        initialSlide={currMin}
-        setCurrMin={setCurrMin}
-        timeArr={TIME_ARRAY}
-      />
-      <Button
-        width='100%'
-        height='45px'
-        borderRadius={30}
-        fontSize={15}
-        handleClick={() => {
-          setMeditationData({
-            setTime: currMin,
-            currIdx: themCurrentIdx
-          });
-          navigate('/meditation/action', {
-            state: {
-              ...meditationChannelsInfo[themCurrentIdx],
-              setTime: currMin,
-              currIdx: themCurrentIdx
-            }
-          });
-        }}>
-        시작
-      </Button>
+      <MeditationLayout>
+        <MeditationCircle
+          time={8}
+          color={meditationChannels[themCurrentIdx].color}
+        />
+        <ThemeSlide
+          mediTheme={meditationChannels}
+          themCurrentIdx={themCurrentIdx}
+          setThemeCurrentIdx={setThemeCurrentIdx}
+        />
+        <MeditationTimeSettingBox>
+          <MeditationTimeSetting
+            initialSlide={currMin}
+            setCurrMin={setCurrMin}
+            timeArr={TIME_ARRAY}
+          />
+        </MeditationTimeSettingBox>
+        <MeditationStartBtn>
+          <Button
+            width='100%'
+            height='45px'
+            borderRadius={30}
+            fontSize={15}
+            handleClick={() => {
+              setMeditationData({
+                setTime: currMin,
+                currIdx: themCurrentIdx
+              });
+              navigate('/meditation/action', {
+                state: {
+                  ...meditationChannelsInfo[themCurrentIdx],
+                  setTime: currMin,
+                  currIdx: themCurrentIdx
+                }
+              });
+            }}>
+            시작
+          </Button>
+        </MeditationStartBtn>
+      </MeditationLayout>
     </MeditationPage>
   );
 };

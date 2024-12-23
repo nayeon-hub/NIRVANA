@@ -30,12 +30,30 @@ export const SlideButton = styled.button`
 
 export const SlideLeftButton = styled(SlideButton)`
   left: 10px;
-  top: 30%;
+  top: 20%;
+  height: 300px;
+
+  @media (min-width: 320px) and (max-width: 400px) {
+    top: 12%;
+  }
+
+  @media (min-width: 401px) and (max-width: 884px) {
+    top: 19%;
+  }
 `;
 
 export const SlideRightButton = styled(SlideButton)`
   right: 10px;
-  top: 30%;
+  top: 20%;
+  height: 300px;
+
+  @media (min-width: 320px) and (max-width: 400px) {
+    top: 12%;
+  }
+
+  @media (min-width: 401px) and (max-width: 884px) {
+    top: 19%;
+  }
 `;
 
 export const SlideItemContainer = styled.div`
@@ -44,6 +62,9 @@ export const SlideItemContainer = styled.div`
   position: relative;
   overflow: hidden;
   user-select: none;
+  @media (min-width: 320px) and (max-width: 400px) {
+    height: 90px;
+  }
 `;
 
 export const SlideItemWrapper = styled.div`
@@ -65,6 +86,12 @@ export const SlidePagination = styled.div`
   left: 50%;
   transform: translateX(-50%);
   display: flex;
+
+  @media (min-width: 320px) and (max-width: 400px) {
+    bottom: 20px;
+  }
+  @media (min-width: 401px) and (max-width: 884px) {
+  }
 `;
 export const SlideCircle = styled.div<{ active: boolean }>`
   width: 8px;
@@ -78,12 +105,30 @@ export const SlideCircle = styled.div<{ active: boolean }>`
 `;
 
 export const ThemeH2 = styled.h2`
-  font-size: 23px;
+  font-size: 25px;
   color: ${({ theme }) => theme.color.white};
-  margin-bottom: 10px;
+  margin-bottom: 12px;
+
+  @media (min-width: 320px) and (max-width: 400px) {
+    font-size: 20px;
+    margin-bottom: 10px;
+  }
+  @media (min-width: 401px) and (max-width: 884px) {
+    font-size: 23px;
+    margin-bottom: 10px;
+  }
 `;
 
 export const ThemeSpan = styled.span`
   color: ${({ theme }) => theme.color.white};
-  font-size: 15px;
+  font-size: 17px;
+
+  @media (min-width: 320px) and (max-width: 400px) {
+    font-size: 12px;
+    margin-bottom: 10px;
+  }
+  @media (min-width: 401px) and (max-width: 884px) {
+    font-size: 15px;
+    margin-bottom: 10px;
+  }
 `;

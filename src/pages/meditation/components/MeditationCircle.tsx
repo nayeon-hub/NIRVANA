@@ -1,5 +1,6 @@
 import { Theme } from '@emotion/react';
 import {
+  CircleLayout,
   CircleBox,
   CircleL,
   CircleM,
@@ -20,29 +21,31 @@ const MeditationCircle = ({
   pause?: boolean;
 }) => {
   return (
-    <CircleBox mode={mode}>
-      <CircleLine mode={mode}></CircleLine>
-      <CircleL
-        color={color}
-        time={time}
-        mode={mode}
-        pause={pause}></CircleL>
-      <CircleM
-        color={color}
-        time={time}
-        mode={mode}
-        pause={pause}></CircleM>
-      <CircleS
-        color={color}
-        time={time}
-        mode={mode}
-        pause={pause}></CircleS>
-      <CircleSS
-        color={color}
-        time={time}
-        mode={mode}
-        pause={pause}></CircleSS>
-    </CircleBox>
+    <CircleLayout mode={mode}>
+      <CircleBox mode={mode}>
+        <CircleLine mode={mode}></CircleLine>
+        <CircleL
+          color={color}
+          time={time}
+          mode={mode}
+          pause={pause}></CircleL>
+        <CircleM
+          color={color}
+          time={time}
+          mode={mode}
+          pause={pause}></CircleM>
+        <CircleS
+          color={color}
+          time={time}
+          mode={mode}
+          pause={pause}></CircleS>
+        <CircleSS
+          color={color}
+          time={time}
+          mode={mode}
+          pause={pause}></CircleSS>
+      </CircleBox>
+    </CircleLayout>
   );
 };
 

@@ -1,5 +1,4 @@
 import { RecoilRoot } from 'recoil';
-import './styles.css';
 
 import { queryClient, QueryClientProvider } from './apis/queryClient';
 import PageRoutes from './routes/PageRoutes';

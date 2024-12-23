@@ -21,6 +21,28 @@ const GlobalStyle = css`
     top: 0;
     max-width: 768px;
   }
+
+  .swiper {
+    width: 180px;
+    height: 60px;
+  }
+  .swiper-slide {
+    text-align: center;
+    line-height: 60px;
+    font-size: 12px;
+    background: #fff;
+    background: transparent;
+    color: white;
+
+    /* Center slide text vertically */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .swiper-slide-active {
+    font-size: 18px;
+  }
 `;
 
 export default GlobalStyle;

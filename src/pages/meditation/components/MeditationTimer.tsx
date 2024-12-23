@@ -4,7 +4,8 @@ import { Icon } from '@components/Icon';
 import {
   MeditationTimerContainer,
   MeditationPlayBox,
-  MeditationTimeBox
+  MeditationTimeBox,
+  MeditationStopBox
 } from './MeditationTimer.style';
 
 const MeditationTimer = ({
@@ -89,7 +90,7 @@ const MeditationTimer = ({
             />
           </div>
         )}
-        <MeditationTimeBox
+        <MeditationStopBox
           onClick={() => {
             setPause(true);
 
@@ -103,7 +104,7 @@ const MeditationTimer = ({
             size={40}
             color={'white'}
           />
-        </MeditationTimeBox>
+        </MeditationStopBox>
       </MeditationPlayBox>
       <MeditationTimeBox>
         {min}:{sec < 10 ? `0${sec}` : sec}

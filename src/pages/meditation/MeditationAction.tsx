@@ -3,7 +3,10 @@ import { useState } from 'react';
 import { MeditationPage } from './Meditation.style';
 import MeditationCircle from './components/MeditationCircle';
 import { Icon } from '@components/Icon';
-import { MeditationActionHeader } from './Meditation.style';
+import {
+  MeditationActionHeader,
+  MeditationActionLayout
+} from './Meditation.style';
 import MeditationTimer from './components/MeditationTimer';
 
 const MeditationAction = () => {
@@ -33,16 +36,18 @@ const MeditationAction = () => {
         </div>
         {channelLabel}
       </MeditationActionHeader>
-      <MeditationCircle
-        pause={pause}
-        color={channelColor}
-        mode='action'
-      />
-      <MeditationTimer
-        settingTime={setTime}
-        pause={pause}
-        setPause={setPause}
-      />
+      <MeditationActionLayout>
+        <MeditationCircle
+          pause={pause}
+          color={channelColor}
+          mode='action'
+        />
+        <MeditationTimer
+          settingTime={setTime}
+          pause={pause}
+          setPause={setPause}
+        />
+      </MeditationActionLayout>
     </MeditationPage>
   );
 };
