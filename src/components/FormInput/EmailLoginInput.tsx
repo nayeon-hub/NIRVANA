@@ -8,7 +8,6 @@ import {
   StyledTitle,
   InputBox
 } from '@/components/FormInput/FormInput.style';
-import { USER_INPUT } from '@pages/login/constants';
 
 interface LoginFormData {
   email: string;
@@ -34,11 +33,8 @@ const EmailLoginInput = ({
 }: Partial<EmailLoginInputProps>) => {
   const {
     register,
-    formState: { errors },
-    trigger,
-    watch
+    formState: { errors }
   } = useFormContext<LoginFormData>();
-  const [email] = watch(['email']);
 
   let message = null;
 

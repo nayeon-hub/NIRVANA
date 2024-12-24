@@ -21,7 +21,7 @@ export const StyledDeemBackground = styled.div<DeemBackgroundProps>`
   position: absolute;
   left: 0;
   top: 0;
-  z-index: 2;
+  z-index: 100;
   width: 100%;
   height: 100%;
   background-color: ${({ theme }) => theme.color.black600};

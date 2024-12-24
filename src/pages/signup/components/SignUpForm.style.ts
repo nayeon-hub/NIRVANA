@@ -11,6 +11,11 @@ export const SignUpFormContainer = styled.form`
   padding: 25px 20px;
   border-radius: 10px;
   box-shadow: 2px 2px 10px ${({ theme }) => theme.color.black250};
+  @media (min-width: 0px) and (max-width: 389px) {
+    height: 475px;
+    width: 300px;
+    padding: 20px 20px;
+  }
 `;
 
 export const ButtonContainer = styled.div`

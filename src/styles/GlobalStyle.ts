@@ -6,7 +6,6 @@ const GlobalStyle = css`
   }
 
   body {
-    height: 100vh;
   }
 
   #root {

@@ -25,6 +25,10 @@ export const Label = styled.label`
   font-weight: 700;
   margin-left: 10px;
   margin-bottom: 10px;
+
+  @media (min-width: 0px) and (max-width: 400px) {
+    font-size: 14px;
+  }
 `;
 
 export const Input = styled.input`

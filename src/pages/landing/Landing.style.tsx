@@ -3,11 +3,26 @@ import logo from '../../assets/logo.svg';
 
 export const LandingMain = styled.main`
   background: ${({ theme }) => theme.color.linearGradientPurple};
-  ${({ theme }) => theme.style.flexAlignCenter};
-  justify-content: space-evenly;
+  display: flex;
   flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
   width: 100%;
   height: 100vh;
+  min-height: 768px;
+  padding-top: 147px;
+  padding-bottom: 50px;
+
+  @media (min-width: 0px) and (max-width: 389px) {
+    padding-top: 120px;
+    padding-bottom: 50px;
+    min-height: 533px;
+  }
+
+  @media (min-width: 400px) and (max-width: 480px) {
+    padding-top: 180px;
+    padding-bottom: 50px;
+  }
 `;
 
 export const HeadingContentContainer = styled.div`
@@ -23,6 +38,21 @@ export const Heading = styled.h1`
   background-size: contain;
   background-position: center;
   margin: 0 auto;
+
+  @media (min-width: 0px) and (max-width: 400px) {
+    width: 225px;
+    height: 40px;
+  }
+
+  @media (min-width: 401px) and (max-width: 495px) {
+    width: 245px;
+    height: 60px;
+  }
+
+  @media (min-width: 496px) {
+    width: 295px;
+    height: 65px;
+  }
 `;
 
 export const BottomContentContainer = styled.div`

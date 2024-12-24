@@ -1,18 +1,15 @@
-import {
-  LandingMain,
-  HeadingContentContainer,
-  Heading
-} from '@pages/landing/Landing.style';
+import { HeadingContentContainer } from '@pages/landing/Landing.style';
+import { SignupMain, SignupHeading } from './signup.style';
 import SignUpForm from './components/SignUpForm';
 
 const SignUp = () => {
   return (
-    <LandingMain>
+    <SignupMain>
       <HeadingContentContainer>
-        <Heading />
+        <SignupHeading />
       </HeadingContentContainer>
       <SignUpForm />
-    </LandingMain>
+    </SignupMain>
   );
 };
 

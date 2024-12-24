@@ -11,7 +11,5 @@ export const CommonLayoutContainer = styled.div`
 `;
 
 export const LayoutContainer = styled.div`
-  height: calc(100% - 50px - 64px);
   width: 100%;
-  min-height: 667px;
 `;
