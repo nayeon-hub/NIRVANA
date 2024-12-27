@@ -12,20 +12,30 @@ export const MeditationPage = styled.div<MeditationPageProps>`
   width: 100%;
   background: ${({ theme, color }) => theme.color[color]};
   padding: 5px 20px;
-  min-height: 667px;
+  min-height: 768px;
+
+  @media (min-width: 320px) and (max-width: 400px) {
+    grid-template-rows: 55% 15% 15% 10%;
+    min-height: 640px;
+  }
+
+  @media (min-width: 401px) and (max-width: 768px) {
+    grid-template-rows: 55% 15% 15% 10%;
+    min-height: 667px;
+  }
 `;
 
 export const MeditationLayout = styled.div`
   height: 100%;
   display: grid;
-  grid-template-rows: 65% 15% 10% 10%;
+  grid-template-rows: 60% 18% 12% 10%;
 
   @media (min-width: 320px) and (max-width: 400px) {
     grid-template-rows: 55% 15% 15% 10%;
   }
 
-  @media (min-width: 401px) and (max-width: 884px) {
-    grid-template-rows: 55% 15% 15% 10%;
+  @media (min-width: 401px) and (max-width: 768px) {
+    grid-template-rows: 56% 20% 14% 10%;
   }
 `;
 
@@ -33,6 +43,10 @@ export const MeditationActionLayout = styled.div`
   height: 100%;
   display: grid;
   grid-template-rows: 70% 30%;
+
+  @media (min-width: 320px) and (max-width: 400px) {
+    grid-template-rows: 65% 30%;
+  }
 `;
 
 export const MeditationMainHeader = styled.div`
@@ -54,7 +68,7 @@ export const MeditationMainHeader = styled.div`
     }
   }
 
-  @media (min-width: 401px) and (max-width: 884px) {
+  @media (min-width: 401px) and (max-width: 768px) {
     height: 83px;
   }
 `;
@@ -77,7 +91,7 @@ export const MeditationActionHeader = styled.div`
     font-size: 23px;
   }
 
-  @media (min-width: 401px) and (max-width: 884px) {
+  @media (min-width: 401px) and (max-width: 768px) {
     height: 83px;
     font-size: 25px;
   }
@@ -92,7 +106,7 @@ export const PageH3 = styled.h3`
     font-size: 16px;
   }
 
-  @media (min-width: 401px) and (max-width: 884px) {
+  @media (min-width: 401px) and (max-width: 768px) {
     font-size: 18px;
   }
 `;
@@ -109,7 +123,7 @@ export const MeditationStartBtn = styled.div`
   margin: 0 auto;
   width: 80%;
 
-  @media (min-width: 320px) and (max-width: 884px) {
+  @media (min-width: 320px) and (max-width: 768px) {
     width: 80%;
   }
 `;

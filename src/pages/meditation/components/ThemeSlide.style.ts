@@ -37,7 +37,7 @@ export const SlideLeftButton = styled(SlideButton)`
     top: 12%;
   }
 
-  @media (min-width: 401px) and (max-width: 884px) {
+  @media (min-width: 401px) and (max-width: 768px) {
     top: 19%;
   }
 `;
@@ -51,7 +51,7 @@ export const SlideRightButton = styled(SlideButton)`
     top: 12%;
   }
 
-  @media (min-width: 401px) and (max-width: 884px) {
+  @media (min-width: 401px) and (max-width: 768px) {
     top: 19%;
   }
 `;
@@ -90,7 +90,7 @@ export const SlidePagination = styled.div`
   @media (min-width: 320px) and (max-width: 400px) {
     bottom: 20px;
   }
-  @media (min-width: 401px) and (max-width: 884px) {
+  @media (min-width: 401px) and (max-width: 768px) {
   }
 `;
 export const SlideCircle = styled.div<{ active: boolean }>`
@@ -113,7 +113,7 @@ export const ThemeH2 = styled.h2`
     font-size: 20px;
     margin-bottom: 10px;
   }
-  @media (min-width: 401px) and (max-width: 884px) {
+  @media (min-width: 401px) and (max-width: 768px) {
     font-size: 23px;
     margin-bottom: 10px;
   }
@@ -127,7 +127,7 @@ export const ThemeSpan = styled.span`
     font-size: 12px;
     margin-bottom: 10px;
   }
-  @media (min-width: 401px) and (max-width: 884px) {
+  @media (min-width: 401px) and (max-width: 768px) {
     font-size: 15px;
     margin-bottom: 10px;
   }

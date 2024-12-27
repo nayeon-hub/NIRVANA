@@ -8,6 +8,7 @@ export const MeditationTimerContainer = styled.div`
 export const MeditationPlayBox = styled.div`
   ${({ theme }) => theme.style.flexCenter};
   margin-bottom: 40px;
+  margin-top: 20px;
 
   & > div + div {
     margin-left: 44px;
@@ -27,6 +28,7 @@ export const MeditationPlayBox = styled.div`
 
   @media (min-width: 320px) and (max-width: 400px) {
     margin-bottom: 30px;
+    margin-top: 0;
   }
 `;
 

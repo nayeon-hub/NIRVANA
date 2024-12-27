@@ -12,7 +12,7 @@ export const CircleLayout = styled.div<{ mode: string }>`
   width: ${({ mode }) => (mode === 'notAction' ? '330px' : '400px')};
   height: ${({ mode }) => (mode === 'notAction' ? '330px' : '400px')};
 
-  @media (min-width: 401px) and (max-width: 884px) {
+  @media (min-width: 401px) and (max-width: 768px) {
     width: ${({ mode }) => (mode === 'notAction' ? '300px' : '330px')};
     height: ${({ mode }) => (mode === 'notAction' ? '300px' : '330px')};
   }
@@ -37,8 +37,8 @@ export const CircleBox = styled.div<{ mode: string }>`
     height: ${({ mode }) => (mode === 'notAction' ? '300px' : '330px')};
   }
 
-  @media (min-width: 401px) and (max-width: 884px) {
-    top: 19%;
+  @media (min-width: 401px) and (max-width: 768px) {
+    top: ${({ mode }) => (mode === 'notAction' ? '19%' : '15%')};
     width: ${({ mode }) => (mode === 'notAction' ? '300px' : '330px')};
     height: ${({ mode }) => (mode === 'notAction' ? '300px' : '330px')};
   }
@@ -55,7 +55,7 @@ export const CircleLine = styled.div<{ mode: string }>`
     rgba(173, 181, 189, 0.1);
   border-radius: 50%;
 
-  @media (min-width: 320px) and (max-width: 884px) {
+  @media (min-width: 320px) and (max-width: 768px) {
     width: ${({ mode }) => (mode === 'notAction' ? '200px' : '280px')};
     height: ${({ mode }) => (mode === 'notAction' ? '200px' : '280px')};
   }
@@ -110,7 +110,7 @@ export const CircleSS = styled.div<CircleProps>`
   opacity: 0.9;
   animation-play-state: ${({ pause }) => (pause ? 'paused' : 'running')};
 
-  @media (min-width: 320px) and (max-width: 884px) {
+  @media (min-width: 320px) and (max-width: 768px) {
     width: ${({ mode }) => (mode === 'notAction' ? '100px' : '130px')};
     height: ${({ mode }) => (mode === 'notAction' ? '100px' : '130px')};
   }
@@ -129,7 +129,7 @@ export const CircleS = styled.div<CircleProps>`
   opacity: 0.8;
   animation-play-state: ${({ pause }) => (pause ? 'paused' : 'running')};
 
-  @media (min-width: 320px) and (max-width: 884px) {
+  @media (min-width: 320px) and (max-width: 768px) {
     width: ${({ mode }) => (mode === 'notAction' ? '100px' : '130px')};
     height: ${({ mode }) => (mode === 'notAction' ? '100px' : '130px')};
   }
@@ -148,7 +148,7 @@ export const CircleM = styled.div<CircleProps>`
   opacity: 0.7;
   animation-play-state: ${({ pause }) => (pause ? 'paused' : 'running')};
 
-  @media (min-width: 320px) and (max-width: 884px) {
+  @media (min-width: 320px) and (max-width: 768px) {
     width: ${({ mode }) => (mode === 'notAction' ? '100px' : '130px')};
     height: ${({ mode }) => (mode === 'notAction' ? '100px' : '130px')};
   }
@@ -168,7 +168,7 @@ export const CircleL = styled.div<CircleProps>`
   opacity: 0.6;
   animation-play-state: ${({ pause }) => (pause ? 'paused' : 'running')};
 
-  @media (min-width: 320px) and (max-width: 884px) {
+  @media (min-width: 320px) and (max-width: 768px) {
     width: ${({ mode }) => (mode === 'notAction' ? '100px' : '130px')};
     height: ${({ mode }) => (mode === 'notAction' ? '100px' : '130px')};
   }

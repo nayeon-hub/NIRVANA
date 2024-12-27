@@ -22,7 +22,7 @@ export const LoginFormContainer = styled.form`
     height: 380px;
   }
 
-  @media (min-width: 496px) and (max-width: 884px) {
+  @media (min-width: 496px) and (max-width: 768px) {
     width: 372px;
     height: 380px;
   }
