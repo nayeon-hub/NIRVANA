@@ -38,6 +38,10 @@ const PostItems = ({ channel }: PostItemsProps) => {
     { threshold: 0.5 }
   );
 
+  if (isError) throw new Error();
+
+  // if (isError) throw Error;
+
   return (
     <PostsContainer>
       {data &&
@@ -55,12 +59,6 @@ const PostItems = ({ channel }: PostItemsProps) => {
           <NoPosts />
         ))}
       {isLoading && <SkeletonPosts />}
-      {isError && (
-        <Toast
-          type={'ERROR'}
-          content={'포스트를 불러오는 데 실패했습니다. 다시 시도해주세요.'}
-        />
-      )}
     </PostsContainer>
   );
 };

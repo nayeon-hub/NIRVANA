@@ -6,6 +6,7 @@ import { PostContents } from './components/PostContents';
 import { StyledPostsPage, ThemePickerContainer } from './Posts.style';
 import { Button } from '@components/Button';
 import { meditationChannelsInfoType } from '@pages/meditation/types';
+import ApiErrorBoundary from '@/ApiErrorBoundary';
 
 const Posts = () => {
   const locate = useLocation();
@@ -41,7 +42,9 @@ const Posts = () => {
           );
         })}
       </ThemePickerContainer>
-      <PostContents channel={meditationChannelsInfo[channelIdx]} />
+      <ApiErrorBoundary>
+        <PostContents channel={meditationChannelsInfo[channelIdx]} />
+      </ApiErrorBoundary>
     </StyledPostsPage>
   );
 };
