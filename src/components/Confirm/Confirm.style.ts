@@ -23,7 +23,7 @@ export const StyledDeemBackground = styled.div<DeemBackgroundProps>`
   top: 0;
   z-index: 100;
   width: 100%;
-  height: 100%;
+  height: 100vh;
   background-color: ${({ theme }) => theme.color.black600};
   display: ${({ disabled }) => (disabled ? 'none' : 'flex')};
   justify-content: center;

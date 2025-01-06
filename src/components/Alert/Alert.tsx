@@ -40,6 +40,10 @@ const Alert = ({
     setDomReady(true);
   }, []);
 
+  useEffect(() => {
+    document.querySelector('body').style.overflow = 'hidden';
+  });
+
   return (
     domReady &&
     createPortal(

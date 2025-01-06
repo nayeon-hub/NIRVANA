@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { createPortal } from 'react-dom';
 import { Link } from '../Link';
 import {
@@ -41,6 +41,10 @@ const Confirm = ({
   useEffect(() => {
     setDomReady(true);
   }, []);
+
+  useEffect(() => {
+    document.querySelector('body').style.overflow = 'hidden';
+  });
 
   return (
     domReady &&
