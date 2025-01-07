@@ -7,7 +7,7 @@ import useSessionStorage from '@hooks/useSessionStorage';
 
 import { Icon } from '@components/Icon';
 import { Button } from '@components/Button';
-import Confirm from '@components/Modal/Confirm';
+import { Confirm } from '@components/Modal';
 
 import { GnbLayout, GnbSection, GnbMenu } from './Gnb.style';
 import { openSearch } from '../states/openSearch';

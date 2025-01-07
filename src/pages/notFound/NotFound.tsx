@@ -5,18 +5,16 @@ import {
   ContentContainer,
   IconContainer,
   NavButtonContainer,
-  StyledAlertBackground
-} from '@components/Alert/Alert.style';
+  StyledModalBackground
+} from '@components/Modal/Modal.style';
 
 const NotFound = () => {
   return (
     <LandingMain>
-      <StyledAlertBackground
-        width={330}
-        height={390}>
-        <IconContainer emojiSize={80}>{'😢'}</IconContainer>
-        <ContentContainer contentFontSize={16}>
-          {'404! 잘못된 페이지 접근이에요!'}
+      <StyledModalBackground>
+        <IconContainer>😢</IconContainer>
+        <ContentContainer>
+          404! 잘못된 페이지 접근이에요!
           <NavButtonContainer>
             <Link pageLink={'/'}>
               <Button
@@ -24,12 +22,12 @@ const NotFound = () => {
                 height='50px'
                 dark={true}
                 bold={true}
-                label={'메인화면으로 이동하기'}
+                label='메인화면으로 이동하기'
               />
             </Link>
           </NavButtonContainer>
         </ContentContainer>
-      </StyledAlertBackground>
+      </StyledModalBackground>
     </LandingMain>
   );
 };

@@ -17,7 +17,7 @@ import {
 import { Toast } from '@components/Toast';
 import { putPost, deletePost } from '@apis/supabase/supabaseClient';
 import { Button } from '@components/Button';
-import Confirm from '@components/Modal/Confirm';
+import { Confirm } from '@components/Modal';
 import { purifyContent } from '@pages/posting/utils';
 
 interface PostContentProps {

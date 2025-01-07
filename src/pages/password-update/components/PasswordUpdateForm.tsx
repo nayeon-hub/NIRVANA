@@ -1,13 +1,16 @@
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { FormProvider, useForm } from 'react-hook-form';
 import { putUpdatePassword } from '@apis/supabase/supabaseClient';
-import { Alert } from '@components/Alert';
+
+import { PasswordHint } from '@pages/password-update/components';
+import { Alert } from '@components/Modal';
 import { Button } from '@components/Button';
 import { FormInput } from '@components/FormInput';
 import useSessionStorage from '@hooks/useSessionStorage';
+
 import { User } from '@/types';
 import { LABEL, PASSWORD_HINT, USER_INPUT, ALERT } from '../constants';
-import { PasswordHint } from '@pages/password-update/components';
 import {
   PasswordUpdateFormContainer,
   ButtonContainer
@@ -20,7 +23,7 @@ interface PasswordUpdateFormData {
 }
 
 const PasswordUpdateForm = () => {
-  const [passwordChanged, setPasswordChanged] = useState<boolean>(false);
+  const [isOpenAlert, setIsOpenAlert] = useState(false);
   const [userSessionData] = useSessionStorage<Pick<User, '_id' | 'token'>>(
     'userData',
     {
@@ -31,27 +34,35 @@ const PasswordUpdateForm = () => {
   const methods = useForm<PasswordUpdateFormData>();
   const { watch } = methods;
   const [password, passwordConfirm] = watch(['password', 'passwordConfirm']);
+  const navigate = useNavigate();
 
   const onSubmit = () => {
     if (isPasswordOk(password) && password === passwordConfirm) {
       putUpdatePassword(password)
-        .then(() => setPasswordChanged(true))
+        .then(() => setIsOpenAlert(true))
         .catch((error) => console.log(error));
+    }
+  };
+
+  const onClickAlert = () => {
+    setIsOpenAlert(false);
+
+    if (userSessionData.token) {
+      navigate(`/profile/${userSessionData._id}`);
+    } else {
+      navigate('/login');
     }
   };
 
   return (
     <>
-      {passwordChanged && (
-        <Alert
-          emoji={ALERT.EMOJI}
-          content={ALERT.CONTENT}
-          buttonLabel={ALERT.BUTTON_LABEL}
-          nextPageLink={
-            userSessionData.token ? `/profile/${userSessionData._id}` : '/login'
-          }
-        />
-      )}
+      <Alert
+        emoji={ALERT.EMOJI}
+        title={ALERT.CONTENT}
+        buttonLabel={ALERT.BUTTON_LABEL}
+        isOpen={isOpenAlert}
+        handleClickAlert={onClickAlert}
+      />
       <FormProvider {...methods}>
         <PasswordUpdateFormContainer onSubmit={methods.handleSubmit(onSubmit)}>
           <PasswordHint text={PASSWORD_HINT} />

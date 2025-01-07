@@ -14,7 +14,6 @@ import ProfileMain from './ProfileMain';
 import ProfileTabItem from './ProfileTabItem';
 import ProfileTabs from './ProfileTabs';
 import SettingSideBar from './SettingSideBar';
-import LogoutAlert from './LogoutAlert';
 
 export {
   FollowUsers,
@@ -32,6 +31,5 @@ export {
   ProfileMain,
   ProfileTabItem,
   ProfileTabs,
-  SettingSideBar,
-  LogoutAlert
+  SettingSideBar
 };

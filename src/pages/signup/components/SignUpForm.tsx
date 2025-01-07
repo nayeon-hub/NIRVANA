@@ -10,7 +10,7 @@ import {
   PasswordInput,
   PasswordConfirmInput
 } from '@components/FormInput';
-import { Alert } from '@components/Alert';
+import { Alert } from '@components/Modal';
 import { Button } from '@components/Button';
 
 import { SignUpFormContainer } from './SignUpForm.style';
@@ -27,8 +27,8 @@ interface SignUpFormData {
 }
 
 const SignUpForm = () => {
-  const [emailErrorCatched, setEmailErrorCatched] = useState<boolean>(false);
-  const [signupSucceed, setSignupSucceed] = useState<boolean>(false);
+  const [isErrorAlertOpen, setIsErrorAlertOpen] = useState<boolean>(false);
+  const [isSucceedAlertOpen, setIsSucceedAlertOpen] = useState<boolean>(false);
   const methods = useForm<SignUpFormData>({
     defaultValues: {
       emailCheck: false,
@@ -56,11 +56,11 @@ const SignUpForm = () => {
     mutationFn: postSignUpUser,
     cacheTime: 0,
     onSuccess: () => {
-      setSignupSucceed(true);
+      setIsSucceedAlertOpen(true);
     },
     onError: (error) => {
       console.log(error);
-      setEmailErrorCatched(true);
+      setIsErrorAlertOpen(true);
     }
   });
 
@@ -92,23 +92,30 @@ const SignUpForm = () => {
     }
   };
 
+  const onErrorAlert = () => {
+    setIsErrorAlertOpen(false);
+  };
+  const onSucceedAlert = () => {
+    setIsSucceedAlertOpen(false);
+    navigate('/login');
+  };
+
   return (
     <>
-      {emailErrorCatched && (
-        <Alert
-          emoji={MODAL.ERROR.EMOJI}
-          content={MODAL.ERROR.CONTENT}
-          buttonLabel={MODAL.ERROR.LABEL}
-        />
-      )}
-      {signupSucceed && (
-        <Alert
-          emoji={MODAL.SUCCESS.EMOJI}
-          content={MODAL.SUCCESS.CONTENT}
-          buttonLabel={MODAL.SUCCESS.LABEL}
-          nextPageLink='/login'
-        />
-      )}
+      <Alert
+        emoji={MODAL.ERROR.EMOJI}
+        title={MODAL.ERROR.CONTENT}
+        handleClickAlert={onErrorAlert}
+        isOpen={isErrorAlertOpen}
+        buttonLabel={MODAL.ERROR.LABEL}
+      />
+      <Alert
+        emoji={MODAL.SUCCESS.EMOJI}
+        title={MODAL.SUCCESS.CONTENT}
+        handleClickAlert={onSucceedAlert}
+        isOpen={isSucceedAlertOpen}
+        buttonLabel={MODAL.SUCCESS.LABEL}
+      />
       <FormProvider {...methods}>
         <SignUpFormContainer onSubmit={handleSubmit(onSubmit)}>
           <EmailForm />

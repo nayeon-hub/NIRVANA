@@ -1,107 +1,85 @@
-import { useEffect, useState } from 'react';
+import { useState, useRef, useEffect } from 'react';
+import { UseMutateFunction } from '@tanstack/react-query';
 
-import { Toast } from '@components/Toast';
-import { POSTING_DESCRIPTION, POSTING_WARNING } from '@pages/posting/constants';
 import { Button } from '@components/Button';
-import useDebounce from '@hooks/useDebounce';
-import useSessionStorage from '@hooks/useSessionStorage';
-import NewPostConfirm from './NewPostConfirm';
+import { Confirm } from '@components/Modal';
+
 import {
   ButtonContainer,
   PostContainer,
-  StyledTextArea,
-  TextAreaContainer
+  TextArea,
+  TextAreaContainer,
+  TextLengthInfo
 } from './NewPost.style';
-import { UseMutateFunction } from '@tanstack/react-query';
-
-interface MeditationInfo {
-  totalTime: number;
-  channelId: string;
-  channelLabel: string;
-  channelColor: string;
-}
+import { POSTING_DESCRIPTION, POSTING_WARNING } from '@pages/posting/constants';
 
 interface MutationParams {
   posting: string;
 }
 
 interface NewPostProps {
-  meditationInfo: MeditationInfo;
   isLoading: boolean;
   mutatePosting: UseMutateFunction<void, unknown, MutationParams, unknown>;
 }
 
-const NewPost = ({
-  meditationInfo,
-  mutatePosting,
-  isLoading
-}: NewPostProps) => {
+const NewPost = ({ mutatePosting, isLoading }: NewPostProps) => {
   const { PLACEHOLDER, WRITE } = POSTING_DESCRIPTION;
-  const { LIMIT_LENGTH, WARNING } = POSTING_WARNING;
-  const [showConfirm, setShowConfirm] = useState(false);
-  const [posting, setPosting] = useState('');
-  const [prevPosting, savePosting] = useSessionStorage('posting', {
-    posting,
-    ...meditationInfo
-  });
-  const clear = useDebounce(
-    200,
-    () => {
-      savePosting({ posting, ...meditationInfo });
-    },
-    [posting]
-  );
+  const { LIMIT_LENGTH } = POSTING_WARNING;
+  const [isConfirmOpen, setIsConfirmOpen] = useState(false);
+  const [postingValue, setPosting] = useState('');
+  const textAreaRef = useRef(null);
 
   const handlePostButton = () => {
-    setShowConfirm(true);
-  };
-  const handleCancelButton = () => {
-    setShowConfirm(false);
+    setIsConfirmOpen(true);
   };
 
-  const handleConfirmButton = () => {
-    if (posting.length > 0) {
-      mutatePosting({ posting });
-    }
+  const handleClickCancel = () => {
+    setIsConfirmOpen(false);
+  };
+
+  const handleClickConfirm = () => {
+    mutatePosting({ posting: postingValue });
   };
 
   useEffect(() => {
-    if (prevPosting.posting) {
-      setPosting(prevPosting.posting);
+    const widthValue = textAreaRef.current;
+    if (widthValue.scrollHeight > widthValue.offsetHeight) {
+      widthValue.style.setProperty('height', `${widthValue.offsetHeight + 20}`);
     }
-    return () => clear();
-  }, []);
+    console.dir(widthValue);
+  }, [postingValue]);
 
   return (
     <>
-      {posting.length >= LIMIT_LENGTH && (
-        <Toast
-          content={WARNING}
-          type='WARNING'
-        />
-      )}
-      {showConfirm && (
-        <NewPostConfirm
-          isLoading={isLoading}
-          handleConfirmButton={handleConfirmButton}
-          handleCancelButton={handleCancelButton}
-        />
-      )}
+      <Confirm
+        emoji='✏️'
+        title='포스트를 발행할까요?'
+        confirmLabel='발행'
+        isOpen={isConfirmOpen}
+        handleClickConfirm={handleClickConfirm}
+        handleClickCancel={handleClickCancel}
+      />
       <PostContainer>
         <TextAreaContainer>
-          <StyledTextArea
+          <TextArea
             onChange={(event) => {
-              setPosting(event.target.value);
+              if (LIMIT_LENGTH > postingValue.length) {
+                setPosting(event.target.value);
+              }
             }}
+            ref={textAreaRef}
             required
-            value={posting}
+            value={postingValue}
             maxLength={500}
             placeholder={PLACEHOLDER}
           />
+          <TextLengthInfo>
+            {postingValue.length}/{LIMIT_LENGTH}
+          </TextLengthInfo>
         </TextAreaContainer>
         <ButtonContainer>
           <Button
-            disabled={isLoading}
+            disabled={postingValue.length === 0 || isLoading}
             width='300px'
             height='50px'
             dark={true}

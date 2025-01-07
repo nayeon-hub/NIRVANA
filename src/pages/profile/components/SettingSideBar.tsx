@@ -1,6 +1,14 @@
 import { useState } from 'react';
 import { useMutation } from '@tanstack/react-query';
+import { useNavigate } from 'react-router-dom';
+import { LogOutUser } from '@apis/supabase/supabaseClient';
+
+import useSessionStorage from '@hooks/useSessionStorage';
 import { Link } from '@components/Link';
+import { Confirm } from '@components/Modal';
+import { Alert } from '@components/Modal';
+
+import { ALERT } from '@pages/password-update/constants';
 import {
   Heading,
   SettingLi,
@@ -9,10 +17,6 @@ import {
   SettingSideBarSection,
   SettingUl
 } from './SettingSideBar.style';
-import useSessionStorage from '@hooks/useSessionStorage';
-import LogoutAlert from './LogoutAlert';
-import { useNavigate } from 'react-router-dom';
-import { LogOutUser } from '@apis/supabase/supabaseClient';
 
 interface SettingSideBarProps {
   closeSidebar: () => void;
@@ -23,7 +27,8 @@ const SettingSideBar = ({
   closeSidebar,
   sideBarOpened
 }: SettingSideBarProps) => {
-  const [logoutModal, setLogoutModal] = useState(false);
+  const [isConfirmOpen, setIsConfirmOpen] = useState(false);
+  const [isAlertOpen, setIsAlertOpen] = useState(false);
   const handleBackgroundClick = (event: React.MouseEvent<HTMLDivElement>) => {
     event.stopPropagation();
     closeSidebar();
@@ -39,25 +44,48 @@ const SettingSideBar = ({
   const { mutate } = useMutation(LogOutUser, {
     onSuccess: () => {
       closeSidebar();
-      setLogoutModal((prev) => !prev);
+      setIsConfirmOpen(false);
+      navigate('/', { replace: true });
       deleteUserValue();
+    },
+    onError: () => {
+      setIsAlertOpen(true);
     }
   });
 
   const handleLogoutClick = () => {
+    setIsConfirmOpen(true);
+  };
+
+  const onClickCancel = () => {
+    closeSidebar();
+    setIsConfirmOpen(false);
+  };
+
+  const onClickConfirm = () => {
     mutate();
+  };
+
+  const onClickAlert = () => {
+    setIsAlertOpen(false);
   };
 
   return (
     <>
-      {logoutModal && (
-        <LogoutAlert
-          handleLogoutClick={() => {
-            setLogoutModal((prev) => !prev);
-            navigate('/', { replace: true });
-          }}
-        />
-      )}
+      <Alert
+        emoji={ALERT.EMOJI}
+        title={ALERT.CONTENT}
+        buttonLabel={ALERT.BUTTON_LABEL}
+        isOpen={isAlertOpen}
+        handleClickAlert={onClickAlert}
+      />
+      <Confirm
+        emoji='👋🏻'
+        title='로그아웃하시겠습니까?'
+        isOpen={isConfirmOpen}
+        handleClickConfirm={onClickConfirm}
+        handleClickCancel={onClickCancel}
+      />
       <SettingSideBarSection sideBarOpened={sideBarOpened}>
         <SettingSideBarBackground onClick={handleBackgroundClick} />
         <SettingRightSideBar sideBarOpened={sideBarOpened}>

@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import Confirm from '@components/Modal/Confirm';
+import { Confirm } from '@components/Modal';
 import { Button } from '@components/Button';
 import { EndButtonContainer } from './MeditationEndButton.style';
 import { MeditationStatusType } from '@pages/meditation/types';

@@ -5,7 +5,7 @@ import type { User } from '@/types';
 
 import { AlertButton, SearchButton } from '@pages/layout/components';
 import useSessionStorage from '@hooks/useSessionStorage';
-import Confirm from '@components/Modal/Confirm';
+import { Confirm } from '@components/Modal';
 import { EtcNavContainer } from './IconNav.style';
 
 interface EtcNavProps {
