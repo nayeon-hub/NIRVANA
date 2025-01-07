@@ -5,7 +5,7 @@ import type { User } from '@/types';
 
 import { AlertButton, SearchButton } from '@pages/layout/components';
 import useSessionStorage from '@hooks/useSessionStorage';
-import { LoginConfirm } from '@components/Confirm';
+import Confirm from '@components/Modal/Confirm';
 import { EtcNavContainer } from './IconNav.style';
 
 interface EtcNavProps {
@@ -19,7 +19,7 @@ const EtcNav = ({
   showSearchBox,
   pathStatus
 }: EtcNavProps) => {
-  const [loginConfirm, setLoginConfirm] = useState(false);
+  const [isConfirmOpen, setIsConfirmOpen] = useState(false);
   const [{ _id, token }] = useSessionStorage<Pick<User, '_id' | 'token'>>(
     'userData',
     {
@@ -30,27 +30,32 @@ const EtcNav = ({
   const navigate = useNavigate();
   const { pathname } = useLocation();
 
-  const handleShowLoginConfirm = () => {
-    setLoginConfirm((prev) => !prev);
+  const handleClickConfirm = () => {
+    navigate(`/login?redirect=${pathname}`);
+  };
+
+  const handleClickCancel = () => {
+    setIsConfirmOpen(false);
   };
 
   const handleClickAlert = () => {
     if (_id && token) {
       navigate('/notice');
     } else {
-      setLoginConfirm((prev) => !prev);
+      setIsConfirmOpen(true);
     }
   };
 
   return (
     <>
-      {loginConfirm && (
-        <LoginConfirm
-          handleClickCancel={handleShowLoginConfirm}
-          handleClickConfirm={handleShowLoginConfirm}
-          path={pathname}
-        />
-      )}
+      <Confirm
+        emoji='🔒'
+        title='로그인이 필요한 서비스입니다.'
+        subTitle='로그인하시겠습니까?'
+        isOpen={isConfirmOpen}
+        handleClickConfirm={handleClickConfirm}
+        handleClickCancel={handleClickCancel}
+      />
       <EtcNavContainer>
         {pathStatus ? (
           <>

@@ -17,7 +17,7 @@ import {
 import { Toast } from '@components/Toast';
 import { putPost, deletePost } from '@apis/supabase/supabaseClient';
 import { Button } from '@components/Button';
-import { Confirm } from '@components/Confirm';
+import Confirm from '@components/Modal/Confirm';
 import { purifyContent } from '@pages/posting/utils';
 
 interface PostContentProps {
@@ -39,7 +39,7 @@ const PostContent = ({
 }: PostContentProps) => {
   const [menuOpened, setMenuOpened] = useState(false);
   const [showContentErrorToast, setShowContentErrorToast] = useState(false);
-  const [deleteConfirmOpened, setDeleteConfirmOpened] = useState(false);
+  const [isConfirmOpen, setIsConfirmOpen] = useState(false);
   const [contentEditMode, setContentEditMode] = useState(false);
   const contentEditRef = useRef(null);
 
@@ -67,7 +67,7 @@ const PostContent = ({
 
   const handleDeleteMenuClick = () => {
     setMenuOpened(false);
-    setDeleteConfirmOpened(true);
+    setIsConfirmOpen(true);
   };
 
   const handleEditCancelClick = () => {
@@ -91,12 +91,12 @@ const PostContent = ({
     }
   };
 
-  const handleConfirmCancelClick = () => {
-    setDeleteConfirmOpened(false);
+  const handleClickCancel = () => {
+    setIsConfirmOpen(false);
   };
 
-  const handleDeleteConfirmClick = () => {
-    setDeleteConfirmOpened(false);
+  const handleClickConfirm = () => {
+    setIsConfirmOpen(false);
     mutateDeletePost({ postId });
   };
 
@@ -158,33 +158,12 @@ const PostContent = ({
             handleClick={handleEditConfirmClick}
           />
         </PostEditConfirmButtonContainer>
-        {deleteConfirmOpened && (
-          <Confirm
-            emoji='❗'
-            content='정말 게시글을 삭제하시겠습니까?'
-            contentFontSize={14}
-            CancelButton={
-              <Button
-                width='120px'
-                height='50px'
-                bold={true}
-                dark={false}
-                label={'취소'}
-                handleClick={handleConfirmCancelClick}
-              />
-            }
-            ConfirmButton={
-              <Button
-                width='120px'
-                height='50px'
-                bold={true}
-                dark={true}
-                label={'삭제'}
-                handleClick={handleDeleteConfirmClick}
-              />
-            }
-          />
-        )}
+        <Confirm
+          confirmLabel='발행'
+          isOpen={isConfirmOpen}
+          handleClickConfirm={handleClickConfirm}
+          handleClickCancel={handleClickCancel}
+        />
       </PostContentSection>
     </>
   );

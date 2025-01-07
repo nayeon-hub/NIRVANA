@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Confirm } from '@components/Confirm';
+import Confirm from '@components/Modal/Confirm';
 import { Button } from '@components/Button';
 import { EndButtonContainer } from './MeditationEndButton.style';
 import { MeditationStatusType } from '@pages/meditation/types';
@@ -11,15 +11,15 @@ const MeditationEndButton = ({
 }: {
   statusSetter: React.Dispatch<React.SetStateAction<MeditationStatusType>>;
 }) => {
-  const [confirmCaptured, setConfirmCaptured] = useState(false);
+  const [isConfirmOpen, setIsConfirmOpen] = useState(false);
   const setTime = useSetRecoilState(meditationTime);
   const [timerId, setTimerId] = useRecoilState(intervalId);
 
-  const handleCancelButton = () => {
-    setConfirmCaptured(false);
+  const handleClickCancel = () => {
+    setIsConfirmOpen(false);
   };
 
-  const handleConfirmButton = () => {
+  const handleClickConfirm = () => {
     meditationStatusSetter({ started: false, paused: true, ended: false });
     clearInterval(timerId);
     setTimerId(0);
@@ -33,40 +33,20 @@ const MeditationEndButton = ({
           height='49px'
           dark={true}
           bold={false}
-          label={'명상 끝내기'}
+          label='명상 끝내기'
           handleClick={() => {
-            setConfirmCaptured(true);
+            setIsConfirmOpen(true);
           }}
         />
       </EndButtonContainer>
-      {confirmCaptured && (
-        <Confirm
-          emoji={'🧘🏻'}
-          content={'정말 명상을 끝내시겠어요?'}
-          contentFontSize={18}
-          nextPageLink={'/meditation'}
-          CancelButton={
-            <Button
-              width='120px'
-              height='50px'
-              bold={true}
-              dark={false}
-              label={'취소'}
-              handleClick={handleCancelButton}
-            />
-          }
-          ConfirmButton={
-            <Button
-              width='120px'
-              height='50px'
-              bold={true}
-              dark={true}
-              label={'끝내기'}
-              handleClick={handleConfirmButton}
-            />
-          }
-        />
-      )}
+      <Confirm
+        emoji='🧘🏻'
+        title='정말 명상을 끝내시겠어요?'
+        confirmLabel='끝내기'
+        isOpen={isConfirmOpen}
+        handleClickConfirm={handleClickConfirm}
+        handleClickCancel={handleClickCancel}
+      />
     </>
   );
 };
