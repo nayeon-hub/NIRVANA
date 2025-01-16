@@ -26,14 +26,7 @@ const PageRoutes = () => {
   return (
     <Routes>
       <Route element={<LoginPrivateRoute />}>
-        <Route
-          element={
-            <Layout
-              headerStatus={'back'}
-              header
-              nav
-            />
-          }>
+        <Route element={<Layout />}>
           <Route
             path='/posting'
             element={<Posting />}
@@ -42,9 +35,9 @@ const PageRoutes = () => {
         <Route
           element={
             <Layout
-              headerStatus={'back'}
               header
               nav
+              headerStatus={'back'}
             />
           }>
           <Route
@@ -59,15 +52,6 @@ const PageRoutes = () => {
               </Suspense>
             }
           />
-        </Route>
-        <Route
-          element={
-            <Layout
-              header
-              nav
-              headerStatus={'back'}
-            />
-          }>
           <Route path='/setting'>
             <Route
               path='password-update'

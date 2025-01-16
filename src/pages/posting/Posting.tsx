@@ -10,10 +10,11 @@ import { NewPost } from './components/NewPost';
 import { SkipPosting } from './components/SkipPosting';
 import {
   ContentContainer,
-  StyledDescription,
-  StyledPosting
+  ContentHeader,
+  PostingMain,
+  ContentPara,
+  TimeStrong
 } from './Posting.style';
-import PostingHelper from './components/NewPost/PostingHelper';
 
 interface MutationParams {
   posting: string;
@@ -71,19 +72,10 @@ const Posting = () => {
       meditationTime: totalTime,
       channel: channelId
     };
-    // const formKey = ['title', 'channelId', 'image'];
-    // const formData = appendFormData(
-    //   formKey,
-    //   // JSON.stringify(customPosting),
-    //   ...customPosting,
-    //   channelId,
-    //   null
-    // );
 
     return {
       channel: channelId,
       ...customPosting
-      // image: null
     };
   };
   useEffect(() => {
@@ -93,28 +85,29 @@ const Posting = () => {
   }, [locate, navigate]);
 
   return (
-    <StyledPosting background={meditationInfo.channelColor}>
+    <PostingMain background={meditationInfo.channelColor}>
       {isError && (
         <Toast
-          type={'ERROR'}
+          type='ERROR'
           content='글을 발행할 수 없습니다. 잠시 후 다시 시도해주세요.'
         />
       )}
+      <ContentHeader>
+        <ContentPara>
+          총 <TimeStrong>{totalTime}분</TimeStrong> 동안 명상을 진행했어요!
+        </ContentPara>
+        <ContentPara>
+          <u>{channelLabel}</u>에 대해 어떤 생각을 하셨나요?
+        </ContentPara>
+      </ContentHeader>
       <ContentContainer>
-        <StyledDescription>
-          <PostingHelper
-            totalTime={totalTime}
-            channelLabel={channelLabel}
-          />
-        </StyledDescription>
         <NewPost
-          meditationInfo={meditationInfo}
           mutatePosting={mutate}
           isLoading={isLoading}
         />
         <SkipPosting mutatePosting={mutate} />
       </ContentContainer>
-    </StyledPosting>
+    </PostingMain>
   );
 };
 

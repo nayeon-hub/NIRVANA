@@ -4,7 +4,7 @@ import { UseMutateFunction } from '@tanstack/react-query';
 import { POSTING_DESCRIPTION } from '@pages/posting/constants';
 import { StyledSkipPosting } from './SkipPosting.style';
 
-import Confirm from '@components/Modal/Confirm';
+import { Confirm } from '@components/Modal';
 
 interface MutationParams {
   posting: string;
