@@ -4,6 +4,10 @@ export const InputContainer = styled.div`
   width: 100%;
   max-width: 300px;
   margin: 10px 0;
+
+  @media (min-width: 0px) and (max-width: 320px) {
+    margin: 2px 0;
+  }
 `;
 
 export const InputBox = styled.div`
@@ -26,7 +30,14 @@ export const Label = styled.label`
   margin-left: 10px;
   margin-bottom: 10px;
 
-  @media (min-width: 0px) and (max-width: 400px) {
+  @media (min-width: 0px) and (max-width: 320px) {
+    margin: 2px 0;
+    font-size: 14px;
+    margin-left: 5px;
+    margin-bottom: 5px;
+  }
+
+  @media (min-width: 320px) and (max-width: 400px) {
     font-size: 14px;
   }
 `;

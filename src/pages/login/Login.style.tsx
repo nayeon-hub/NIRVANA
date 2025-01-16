@@ -8,21 +8,24 @@ export const LoginMain = styled.main`
   justify-content: space-evenly;
   align-items: center;
   width: 100%;
-  height: 100vh;
-  min-height: 768px;
-  padding-top: 147px;
-  padding-bottom: 100px;
+  min-height: 100vh;
 
-  @media (min-width: 0px) and (max-width: 389px) {
+  @media (min-width: 0px) and (max-width: 360px) {
+    justify-content: space-evenly;
+    padding-top: 20px;
+    padding-bottom: 20px;
+  }
+
+  @media (min-width: 361px) and (max-width: 389px) {
     justify-content: space-between;
     padding-top: 110px;
     padding-bottom: 50px;
-    min-height: 533px;
   }
 
-  @media (min-width: 390px) and (max-width: 480px) {
+  @media (min-width: 390px) and (max-width: 479px) {
     justify-content: space-between;
-    padding-top: 180px;
+    padding-top: 100px;
+    padding-bottom: 50px;
   }
 `;
 
@@ -38,12 +41,13 @@ export const Heading = styled.h1`
   background-repeat: no-repeat;
   background-size: contain;
   background-position: center;
-  margin: 0 auto 100px;
+  margin: 0 auto 65px;
 
   @media (min-width: 0px) and (max-width: 400px) {
     width: 225px;
     height: 40px;
     margin: 0 auto;
+    margin-bottom: 20px;
   }
 
   @media (min-width: 401px) and (max-width: 495px) {

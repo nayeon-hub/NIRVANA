@@ -11,7 +11,15 @@ export const SignUpFormContainer = styled.form`
   padding: 25px 20px;
   border-radius: 10px;
   box-shadow: 2px 2px 10px ${({ theme }) => theme.color.black250};
-  @media (min-width: 0px) and (max-width: 389px) {
+
+  @media (min-width: 0px) and (max-width: 320px) {
+    height: 400px;
+    width: 280px;
+    padding: 10px 10px;
+    justify-content: space-between;
+  }
+
+  @media (min-width: 321px) and (max-width: 389px) {
     height: 475px;
     width: 300px;
     padding: 20px 20px;
@@ -26,6 +34,10 @@ export const ButtonContainer = styled.div`
   & > button {
     margin: 0px 5px;
   }
+
+  @media (min-width: 0px) and (max-width: 320px) {
+    margin-top: 10px;
+  }
 `;
 
 export const FormInputContainer = styled.div`
@@ -33,6 +45,10 @@ export const FormInputContainer = styled.div`
   max-width: 300px;
   margin: 10px 0;
   position: relative;
+
+  @media (min-width: 0px) and (max-width: 320px) {
+    margin: 5px 0;
+  }
 `;
 
 export const EmailConfirmButton = styled.button`
@@ -49,4 +65,8 @@ export const EmailConfirmButton = styled.button`
   font-size: 13px;
   padding: 0;
   cursor: pointer;
+
+  @media (min-width: 0px) and (max-width: 320px) {
+    top: 45%;
+  }
 `;

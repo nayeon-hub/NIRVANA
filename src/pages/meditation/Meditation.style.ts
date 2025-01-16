@@ -8,46 +8,15 @@ type MeditationPageProps = {
 export const MeditationPage = styled.div<MeditationPageProps>`
   ${({ theme, flex }) => theme.style[flex]};
   flex-direction: column;
-  height: 100vh;
   width: 100%;
   background: ${({ theme, color }) => theme.color[color]};
   padding: 5px 20px;
-  min-height: 768px;
-
-  @media (min-width: 320px) and (max-width: 400px) {
-    grid-template-rows: 55% 15% 15% 10%;
-    min-height: 640px;
-  }
-
-  @media (min-width: 401px) and (max-width: 768px) {
-    grid-template-rows: 55% 15% 15% 10%;
-    min-height: 667px;
-  }
+  min-height: 100vh;
 `;
 
-export const MeditationLayout = styled.div`
-  height: 100%;
-  display: grid;
-  grid-template-rows: 60% 18% 12% 10%;
+export const MeditationLayout = styled.div``;
 
-  @media (min-width: 320px) and (max-width: 400px) {
-    grid-template-rows: 55% 15% 15% 10%;
-  }
-
-  @media (min-width: 401px) and (max-width: 768px) {
-    grid-template-rows: 56% 20% 14% 10%;
-  }
-`;
-
-export const MeditationActionLayout = styled.div`
-  height: 100%;
-  display: grid;
-  grid-template-rows: 70% 30%;
-
-  @media (min-width: 320px) and (max-width: 400px) {
-    grid-template-rows: 65% 30%;
-  }
-`;
+export const MeditationActionLayout = styled.div``;
 
 export const MeditationMainHeader = styled.div`
   position: relative;
@@ -115,15 +84,42 @@ export const MeditationTimeSettingBox = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
+  margin-top: 10%;
+  margin-bottom: 8%;
+
+  @media (min-width: 320px) and (max-width: 400px) {
+    margin-top: 0;
+    margin-bottom: 4%;
+  }
+
+  @media (min-width: 401px) and (max-width: 768px) {
+    font-size: 18px;
+  }
 `;
 
 export const MeditationStartBtn = styled.div`
   display: flex;
   align-items: center;
   margin: 0 auto;
-  width: 80%;
+  width: 260px;
+  margin-bottom: 5%;
+  & > button {
+    height: 55px;
+  }
 
-  @media (min-width: 320px) and (max-width: 768px) {
-    width: 80%;
+  @media (min-width: 0) and (max-width: 320px) {
+    width: 225px;
+    margin-bottom: 0;
+    & > button {
+      height: 40px;
+    }
+  }
+
+  @media (min-width: 321px) and (max-width: 768px) {
+    margin-bottom: 0;
+    width: 260px;
+    & > button {
+      height: 50px;
+    }
   }
 `;

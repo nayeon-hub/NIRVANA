@@ -39,6 +39,14 @@ const GlobalStyle = css`
     align-items: center;
   }
 
+  textArea {
+    font-family: 'Pretendard Variable', sans-serif;
+  }
+
+  textArea::placeholder {
+    font-weight: 300;
+  }
+
   .swiper-slide-active {
     font-size: 18px;
   }

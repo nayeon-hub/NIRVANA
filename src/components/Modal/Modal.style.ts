@@ -21,6 +21,11 @@ export const StyledModalBackground = styled.div`
   flex-direction: column;
   padding: 20px;
   ${({ theme }) => theme.style.flexAlignCenter}
+
+  @media (min-width: 0px) and (max-width: 360px) {
+    width: 290px;
+    height: 350px;
+  }
 `;
 
 export const IconContainer = styled.div`

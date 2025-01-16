@@ -9,17 +9,33 @@ type CircleProps = {
 };
 
 export const CircleLayout = styled.div<{ mode: string }>`
-  width: ${({ mode }) => (mode === 'notAction' ? '330px' : '400px')};
-  height: ${({ mode }) => (mode === 'notAction' ? '330px' : '400px')};
+  margin-bottom: ${({ mode }) => (mode === 'notAction' ? '35%' : '75%')};
 
-  @media (min-width: 401px) and (max-width: 768px) {
-    width: ${({ mode }) => (mode === 'notAction' ? '300px' : '330px')};
-    height: ${({ mode }) => (mode === 'notAction' ? '300px' : '330px')};
+  &::after {
+    content: '';
+    display: block;
+    width: 100%;
+    height: ${({ mode }) => (mode === 'notAction' ? '330px' : '400px')};
   }
 
-  @media (min-width: 320px) and (max-width: 400px) {
-    width: ${({ mode }) => (mode === 'notAction' ? '300px' : '330px')};
-    height: ${({ mode }) => (mode === 'notAction' ? '300px' : '330px')};
+  @media (min-width: 0) and (max-width: 320px) {
+    margin-bottom: ${({ mode }) => (mode === 'notAction' ? '0%' : '30%')};
+    &::after {
+      height: 260px;
+    }
+  }
+
+  @media (min-width: 321px) and (max-width: 400px) {
+    margin-bottom: ${({ mode }) => (mode === 'notAction' ? '10%' : '25%')};
+    &::after {
+      height: ${({ mode }) => (mode === 'notAction' ? '300px' : '330px')};
+    }
+  }
+
+  @media (min-width: 401px) and (max-width: 768px) {
+    &::after {
+      height: ${({ mode }) => (mode === 'notAction' ? '300px' : '330px')};
+    }
   }
 `;
 
@@ -28,18 +44,20 @@ export const CircleBox = styled.div<{ mode: string }>`
   top: 20%;
   left: 50%;
   transform: translateX(-50%);
-  width: ${({ mode }) => (mode === 'notAction' ? '330px' : '400px')};
   height: ${({ mode }) => (mode === 'notAction' ? '330px' : '400px')};
 
-  @media (min-width: 320px) and (max-width: 400px) {
+  @media (min-width: 0) and (max-width: 320px) {
+    top: 17%;
+    height: 250px;
+  }
+
+  @media (min-width: 321px) and (max-width: 400px) {
     top: 12%;
-    width: ${({ mode }) => (mode === 'notAction' ? '300px' : '330px')};
     height: ${({ mode }) => (mode === 'notAction' ? '300px' : '330px')};
   }
 
   @media (min-width: 401px) and (max-width: 768px) {
     top: ${({ mode }) => (mode === 'notAction' ? '19%' : '15%')};
-    width: ${({ mode }) => (mode === 'notAction' ? '300px' : '330px')};
     height: ${({ mode }) => (mode === 'notAction' ? '300px' : '330px')};
   }
 `;

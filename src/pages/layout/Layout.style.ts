@@ -12,4 +12,5 @@ export const CommonLayoutContainer = styled.div`
 
 export const LayoutContainer = styled.div`
   width: 100%;
+  height: 100%;
 `;

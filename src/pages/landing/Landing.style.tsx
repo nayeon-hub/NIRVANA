@@ -8,20 +8,26 @@ export const LandingMain = styled.main`
   justify-content: space-evenly;
   align-items: center;
   width: 100%;
-  height: 100vh;
-  min-height: 768px;
-  padding-top: 147px;
-  padding-bottom: 100px;
+  padding-top: 55px;
+  padding-bottom: 35px;
+  min-height: 100vh;
 
-  @media (min-width: 0px) and (max-width: 389px) {
-    padding-top: 120px;
-    padding-bottom: 100px;
-    min-height: 533px;
+  @media (min-width: 0px) and (max-width: 320px) {
+    padding-top: 82px;
+    padding-bottom: 34px;
+    min-height: 568px;
     justify-content: space-between;
   }
 
-  @media (min-width: 400px) and (max-width: 480px) {
+  @media (min-width: 321px) and (max-width: 400px) {
+    padding-top: 110px;
+    padding-bottom: 80px;
+    justify-content: space-around;
+  }
+
+  @media (min-width: 401px) and (max-width: 479px) {
     padding-top: 180px;
+    justify-content: space-around;
   }
 `;
 
@@ -39,7 +45,11 @@ export const Heading = styled.h1`
   background-position: center;
   margin: 0 auto 240px;
 
-  @media (min-width: 0px) and (max-width: 400px) {
+  @media (min-width: 0px) and (max-width: 320px) {
+    margin: 0 auto 40px;
+  }
+
+  @media (min-width: 321px) and (max-width: 400px) {
     width: 225px;
     height: 40px;
   }
@@ -65,6 +75,22 @@ export const LinkContainer = styled.div`
 
   > a {
     margin: 5px 0px;
+  }
+
+  @media (min-width: 0px) and (max-width: 320px) {
+    & button {
+      width: 260px;
+      height: 45px;
+      font-size: 14px;
+    }
+  }
+
+  @media (min-width: 321px) and (max-width: 400px) {
+    & button {
+      width: 260px;
+      height: 45px;
+      font-size: 14px;
+    }
   }
 `;
 

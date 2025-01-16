@@ -24,7 +24,13 @@ const Modal = ({
   domReady
 }: Partial<ModalProps>) => {
   useEffect(() => {
-    document.querySelector('body').style.overflow = 'hidden';
+    if (domReady) {
+      document.querySelector('body').style.overflow = 'hidden';
+    }
+
+    return () => {
+      document.querySelector('body').style.overflow = '';
+    };
   });
 
   return (
